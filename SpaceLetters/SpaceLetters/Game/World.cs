@@ -13,7 +13,7 @@ namespace SpaceLetters
     {
         List<Entity> entities = new List<Entity>();
 
-        Sprite backgroundSprite = new Sprite(new Texture("worldBg.png"),new IntRect(0,0,(int)Game.WINDOWSIZE.X, (int)Game.WINDOWSIZE.Y));
+        Sprite backgroundSprite;
 
         public World()
         {
@@ -25,7 +25,7 @@ namespace SpaceLetters
         public void loadContent()
         {
 
-
+           backgroundSprite  = new Sprite(new Texture("Content/InGame/worldBg.png"),new IntRect(0,0,(int)Game.WINDOWSIZE.X, (int)Game.WINDOWSIZE.Y));
         }
 
         public void update(GameTime gameTime)
