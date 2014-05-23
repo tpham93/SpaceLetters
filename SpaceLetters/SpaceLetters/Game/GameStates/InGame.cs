@@ -17,7 +17,10 @@ namespace SpaceLetters
 
         public override EGameStates update(GameTime gameTime)
         {
+            world.update(gameTime);
+
             return EGameStates.InGame;
+            
         }
 
         public override void draw(GameTime gameTime, SFML.Graphics.RenderWindow renderWindow)

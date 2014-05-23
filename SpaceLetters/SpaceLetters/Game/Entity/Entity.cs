@@ -51,10 +51,14 @@ namespace SpaceLetters
             this.team = team;
             this.name = name;
             this.sprite = sprite;
+
+            initialize();
             
         }
 
         public abstract EntityType getEntityType();
+        public abstract void initialize();
+
         public abstract void loadContent();
         public abstract void update(GameTime gameTime);
         public abstract void draw(GameTime gameTime, RenderWindow renderWindow);

@@ -45,5 +45,10 @@ namespace SpaceLetters
         {
             return EntityType.Projectile;
         }
+
+        public override void initialize()
+        {
+           // throw new NotImplementedException();
+        }
     }
 }
