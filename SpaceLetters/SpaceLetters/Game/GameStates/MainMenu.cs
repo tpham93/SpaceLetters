@@ -40,11 +40,21 @@ namespace SpaceLetters
 
         public override EGameStates update(GameTime gameTime)
         {
-            Vec2f mousepos = new Vec2f(42, 42); // TODO entfernen
-
-            if (button_x <= mousepos.X && mousepos.X <= button_x + button_width)
+            Vec2f mousepos = Game.mouseInput.getMousePos();
+            if (Game.mouseInput.leftClicked() && button_x <= mousepos.X && mousepos.X <= button_x + button_width)
             {
-                
+                if (button_y_distance <= mousepos.Y && mousepos.Y <= button_y_distance + button_height)
+                {
+                    //start
+                }
+                else if (button_y_distance * 2 + button_height <= mousepos.Y && mousepos.Y <= button_y_distance * 2 + button_height * 2)
+                {
+                    //credits
+                }
+                else if (button_y_distance * 3 + button_height * 2 <= mousepos.Y && mousepos.Y <= button_y_distance * 3 + button_height * 3)
+                {
+                    //exit
+                }
             }
 
             
