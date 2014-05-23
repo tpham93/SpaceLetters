@@ -12,16 +12,19 @@ namespace SpaceLetters
     class Game : AbstractGame
     {
 
-        public Game() : base (800,480, "Epic Game", Styles.Default)
+        public static Vec2f WINDOWSIZE = new Vec2f(800, 480);
+
+        public Game(): base((int)WINDOWSIZE.X, (int)WINDOWSIZE.Y, "Epic Game", Styles.Default)
         {
 
 
         }
 
 
+
         public override void update(GameTime gameTime)
         {
-            window.Clear(Color.Blue);
+            window.Clear(new Color(100, 149, 237));
 
             //throw new NotImplementedException();
         }
