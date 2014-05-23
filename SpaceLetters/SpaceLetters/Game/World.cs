@@ -18,25 +18,31 @@ namespace SpaceLetters
         public World()
         {
 
-
+            entities.Add(new Player(new Vec2f(0, 0), 0, 9001, 10, new Vec2f(0, 0), Team.Good, "Player - Horst", new Sprite(new Texture("Content/InGame/player.png"))));
 
         }
 
         public void loadContent()
         {
 
+            foreach (Entity ent in entities)
+                ent.loadContent();
+
            backgroundSprite  = new Sprite(new Texture("Content/InGame/worldBg.png"),new IntRect(0,0,(int)Game.WINDOWSIZE.X, (int)Game.WINDOWSIZE.Y));
         }
 
         public void update(GameTime gameTime)
         {
-
+            foreach (Entity ent in entities)
+                ent.update(gameTime);
 
         }
 
         public void draw(GameTime gameTime, SFML.Graphics.RenderWindow window)
         {
             window.Draw(backgroundSprite);
+            foreach (Entity ent in entities)
+                ent.draw(gameTime, window);
         }
     }
 }
