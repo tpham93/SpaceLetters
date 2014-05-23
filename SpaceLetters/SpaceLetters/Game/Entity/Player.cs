@@ -9,6 +9,7 @@ namespace SpaceLetters
 {
     class Player : Entity
     {
+        Vec2f mouseTarget;
 
         public Player(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name, Sprite sprite)
             :base(position, rotation, hp, radius, velocity, team, name,sprite)
@@ -18,6 +19,7 @@ namespace SpaceLetters
         public override void loadContent()
         {
             sprite.Origin = new Vec2f(25, 25);
+            mouseTarget = new Vec2f(0, 0);
         }
             
         public override void update(GameTime gameTime)
@@ -33,6 +35,13 @@ namespace SpaceLetters
             if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.S))
                 position.Y++;
 
+            if(Game.mouseInput.leftClicked())
+            {
+                mouseTarget = Game.mouseInput.getMousePos();
+
+            }
+
+            Console.WriteLine(mouseTarget);
         }
 
         public override void draw(GameTime gameTime, SFML.Graphics.RenderWindow renderWindow)
