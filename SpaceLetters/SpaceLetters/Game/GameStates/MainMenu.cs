@@ -25,7 +25,10 @@ namespace SpaceLetters
             toCredits = new Vec2f(300, 200);
             toExit = new Vec2f(300, 300);
 
-
+            !texture_ingame.loadFromFile("Content\main_menu\main_menu_ingame.png");
+            if (!texture_ingame.loadFromFile("Content\main_menu\main_menu_ingame.png") || !texture_exit.loadFromFile("Content\main_menu\main_menu_exit.png") || !texture_credits.loadFromFile("Content\main_menu\main_menu_credits.png"))
+            {
+            }
         }
 
         public override EGameStates update(GameTime gameTime)
