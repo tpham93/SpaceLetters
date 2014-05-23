@@ -28,10 +28,10 @@ namespace SpaceLetters
         protected String name;
         protected Sprite sprite;
 
-        public Entity (Vec2f position, float rot, float radius, float velocity, Team team, String name, Sprite sprite)
+        public Entity (Vec2f position, float rotation, float radius, float velocity, Team team, String name, Sprite sprite)
         {
             this.position = position;
-            this.rotation = rot;
+            this.rotation = rotation;
             this.radius = radius;
             this.velocity = velocity;
             this.team = team;
