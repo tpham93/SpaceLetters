@@ -35,19 +35,23 @@ namespace SpaceLetters
                             {
                                 backedUpGameStateObject = null;
                                 currentGameStateObject = new MainMenu();
+                                currentGameStateObject.loadContent();
                             }
                             break;
                         case EGameStates.InGame:
                             backedUpGameStateObject = null;
                             //currentGameStateObject = new InGame();
+                            currentGameStateObject.loadContent();
                             break;
                         case EGameStates.Pause:
                             backedUpGameStateObject = currentGameStateObject;
                             //currentGameStateObject = new Pause();
+                            currentGameStateObject.loadContent();
                             break;
                         case EGameStates.Credits:
                             backedUpGameStateObject = null;
                             //currentGameStateObject = new Credits();
+                            currentGameStateObject.loadContent();
                             break;
                         case EGameStates.Exit:
 
