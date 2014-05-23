@@ -25,7 +25,6 @@ namespace SpaceLetters
 
         public override void loadContent()
         {
-            sprite = new Sprite(new Texture("Content/main_menu/main_menu_ingame.png"));
             SFML.Window.Vector2u middle = sprite.Texture.Size / 2;
             sprite.Origin = new SFML.Window.Vector2f(middle.X, middle.Y);
         }

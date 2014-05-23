@@ -43,7 +43,7 @@ namespace SpaceLetters
                             break;
                         case EGameStates.InGame:
                             backedUpGameStateObject = null;
-                            //currentGameStateObject = new InGame();
+                            currentGameStateObject = new InGame();
                             currentGameStateObject.initialize();
                             currentGameStateObject.loadContent();
                             break;
@@ -72,8 +72,8 @@ namespace SpaceLetters
 
         public Game(): base((int)WINDOWSIZE.X, (int)WINDOWSIZE.Y, "Epic Game", Styles.Default)
         {
-            currentGameState = EGameStates.InGame;
-            currentGameStateObject = new InGame();
+            currentGameState = EGameStates.MainMenu;
+            currentGameStateObject = new MainMenu();
             backedUpGameStateObject = null;
 
             currentGameStateObject.initialize();
