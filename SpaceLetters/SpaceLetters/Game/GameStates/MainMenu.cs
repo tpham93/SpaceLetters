@@ -22,11 +22,11 @@ namespace SpaceLetters
 
         public override void loadContent()
         {
-            button_x = (int) (Game.WINDOWSIZE.X/2-button_width/2.0);
+            button_x = (int) ((Game.WINDOWSIZE.X-button_width)/2);
             button_y_distance = (int)((Game.WINDOWSIZE.Y - 150) / 4);
             
             toIngame = new Vec2f(button_x,button_y_distance);
-            toCredits = new Vec2f(button_x, button_height + 2* button_y_distance);
+            toCredits = new Vec2f(button_x, button_height + 2 * button_y_distance);
             toExit = new Vec2f(button_x, 2 * button_height + 3 * button_y_distance);
 
             sprite_ingame = new Sprite(new Texture("Content/main_menu/main_menu_ingame.png"));
@@ -36,24 +36,30 @@ namespace SpaceLetters
             sprite_exit.Position = toExit;
             sprite_credits.Position = toCredits;
 
+
+            Console.WriteLine("Positionen: " + Game.WINDOWSIZE.X + "+" + button_x + " : " + button_height + "+" + button_y_distance);
         }
 
         public override EGameStates update(GameTime gameTime)
         {
             Vec2f mousepos = Game.mouseInput.getMousePos();
+            //Console.WriteLine(mousepos.X + "    " + mousepos.Y);
             if (Game.mouseInput.leftClicked() && button_x <= mousepos.X && mousepos.X <= button_x + button_width)
             {
                 if (button_y_distance <= mousepos.Y && mousepos.Y <= button_y_distance + button_height)
                 {
                     //start
+                    Console.WriteLine("start");
                 }
                 else if (button_y_distance * 2 + button_height <= mousepos.Y && mousepos.Y <= button_y_distance * 2 + button_height * 2)
                 {
                     //credits
+                    Console.WriteLine("credits");
                 }
                 else if (button_y_distance * 3 + button_height * 2 <= mousepos.Y && mousepos.Y <= button_y_distance * 3 + button_height * 3)
                 {
                     //exit
+                    Console.WriteLine("exit");
                 }
             }
 
