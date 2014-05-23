@@ -70,7 +70,7 @@ namespace SpaceLetters
         public Game(): base((int)WINDOWSIZE.X, (int)WINDOWSIZE.Y, "Epic Game", Styles.Default)
         {
             currentGameState = EGameStates.MainMenu;
-            currentGameStateObject = new MainMenu();
+            currentGameStateObject = new InGame();
             backedUpGameStateObject = null;
 
         }
