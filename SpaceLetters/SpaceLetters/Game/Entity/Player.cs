@@ -56,5 +56,10 @@ namespace SpaceLetters
         {
            // throw new NotImplementedException();
         }
+
+        public override EntityType getEntityType()
+        {
+            return EntityType.Player;
+        }
     }
 }
