@@ -30,9 +30,5 @@ namespace SpaceLetters
             world = new World();
         }
 
-        public override void initialize()
-        {
-            //throw new NotImplementedException();
-        }
     }
 }
