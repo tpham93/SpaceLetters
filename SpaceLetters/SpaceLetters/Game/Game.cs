@@ -83,7 +83,7 @@ namespace SpaceLetters
             // add keys
 
             keyboardInput = new KeyboardInput(usedButtons);
-            mouseInput = new MouseInput();
+            mouseInput = new MouseInput(window);
         }
 
 

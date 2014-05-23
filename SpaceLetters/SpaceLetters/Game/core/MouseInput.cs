@@ -13,16 +13,19 @@ class MouseInput
     Vector2i oldMousePos;
     Vector2i currentMousePos;
 
-    public MouseInput()
+    Window relativeWindow;
+
+    public MouseInput(Window relativeWindow = null)
     {
         oldMouse = new bool[(int)Mouse.Button.ButtonCount];
         currentMouse = new bool[(int)Mouse.Button.ButtonCount];
+        this.relativeWindow = relativeWindow;
     }
 
     public void update()
     {
         oldMousePos = currentMousePos;
-        currentMousePos = Mouse.GetPosition();
+        currentMousePos = Mouse.GetPosition(relativeWindow);
 
         for (int i = 0; i < oldMouse.Length; i++)
             oldMouse[i] = currentMouse[i];
