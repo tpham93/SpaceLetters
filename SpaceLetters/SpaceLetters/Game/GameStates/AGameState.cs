@@ -10,7 +10,7 @@ namespace SpaceLetters
 {
     public abstract class AGameState
     {
-        public abstract EGameStates getGameStateType();
+        public abstract void initialize();
         public abstract void loadContent();
         public abstract EGameStates update(GameTime gameTime);
         public abstract void draw(GameTime gameTime, RenderWindow renderWindow);
