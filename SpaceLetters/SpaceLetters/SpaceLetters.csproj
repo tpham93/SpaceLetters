@@ -63,6 +63,7 @@
     <Compile Include="Game\Game.cs" />
     <Compile Include="Game\GameStates\AGameState.cs" />
     <Compile Include="Game\GameStates\EGameStates.cs" />
+    <Compile Include="Game\GameStates\InGame.cs" />
     <Compile Include="Game\GameStates\MainMenu.cs" />
     <Compile Include="Game\World.cs" />
     <Compile Include="Program.cs" />

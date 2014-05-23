@@ -7,13 +7,13 @@ using SFML.Graphics;
 using SFML.Window;
 
 
-namespace SpaceLetters.Game
+namespace SpaceLetters
 {
     class World
     {
         List<Entity> entities = new List<Entity>();
-        
-        Sprite backgroundSprite = new Sprite(new Texture("")):
+
+        Sprite backgroundSprite = new Sprite(new Texture("worldBg.png"),new IntRect(0,0,(int)Game.WINDOWSIZE.X, (int)Game.WINDOWSIZE.Y));
 
         public World()
         {
@@ -36,7 +36,7 @@ namespace SpaceLetters.Game
 
         public void draw(GameTime gameTime, SFML.Graphics.RenderWindow window)
         {
-
+            window.Draw(backgroundSprite);
         }
     }
 }
