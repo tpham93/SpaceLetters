@@ -8,6 +8,12 @@ namespace SpaceLetters
 {
     class Enemy : Entity
     {
+        public Enemy(Vec2f position, float rotation, float radius, float hp, Vec2f velocity, Team team, String name, Sprite sprite)
+        {
+
+            initialize();
+        }
+
         public override void loadContent()
         {
             //throw new NotImplementedException();
