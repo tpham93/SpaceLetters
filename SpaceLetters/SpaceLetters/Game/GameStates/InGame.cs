@@ -12,7 +12,7 @@ namespace SpaceLetters
 
         public override void loadContent()
         {
-            
+            world.loadContent();   
         }
 
         public override EGameStates update(GameTime gameTime)
@@ -22,7 +22,12 @@ namespace SpaceLetters
 
         public override void draw(GameTime gameTime, SFML.Graphics.RenderWindow renderWindow)
         {
+            world.draw(gameTime, renderWindow);
+        }
 
+        public override void initialize()
+        {
+            world = new World();
         }
     }
 }

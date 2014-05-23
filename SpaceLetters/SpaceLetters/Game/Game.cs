@@ -65,14 +65,16 @@ namespace SpaceLetters
             }
         }
 
-        public static Vec2f WINDOWSIZE = new Vec2f(800, 480);
+        public static Vec2f WINDOWSIZE = new Vec2f(1024, 640);
 
         public Game(): base((int)WINDOWSIZE.X, (int)WINDOWSIZE.Y, "Epic Game", Styles.Default)
         {
-            currentGameState = EGameStates.MainMenu;
+            currentGameState = EGameStates.InGame;
             currentGameStateObject = new InGame();
             backedUpGameStateObject = null;
 
+            currentGameStateObject.initialize();
+            currentGameStateObject.loadContent();
         }
 
 
