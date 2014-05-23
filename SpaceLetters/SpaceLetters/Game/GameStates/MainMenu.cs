@@ -13,9 +13,10 @@ namespace SpaceLetters
         private Vec2f toIngame, toCredits, toExit;
         private const float button_width = 200, button_height = 50;
         private Texture texture_ingame, texture_credits, texture_exit;
-        public override EGameStates getGameStateType()
+
+        public override void initialize()
         {
-            return EGameStates.MainMenu;
+            // TODO
         }
 
         public override void loadContent()
