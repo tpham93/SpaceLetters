@@ -41,6 +41,11 @@ namespace SpaceLetters
             sprite.Draw(renderWindow, RenderStates.Default);
         }
 
+        public override EntityType getEntityType()
+        {
+            return EntityType.Projectile;
+        }
+
         public override void initialize()
         {
            // throw new NotImplementedException();
