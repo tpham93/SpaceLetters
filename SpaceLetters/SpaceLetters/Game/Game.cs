@@ -11,6 +11,9 @@ namespace SpaceLetters
 {
     class Game : AbstractGame
     {
+        public static KeyboardInput keyboardInput = null;
+        public static MouseInput mouseInput = null;
+
         private AGameState currentGameStateObject;
         private AGameState backedUpGameStateObject;
         private EGameStates currentGameState;
@@ -73,6 +76,12 @@ namespace SpaceLetters
             currentGameStateObject = new InGame();
             backedUpGameStateObject = null;
 
+            // keyboard & mouse
+            List<Keyboard.Key> usedButtons = new List<Keyboard.Key>();
+            // add keys
+
+            keyboardInput = new KeyboardInput(usedButtons);
+            mouseInput = new MouseInput();
         }
 
 
