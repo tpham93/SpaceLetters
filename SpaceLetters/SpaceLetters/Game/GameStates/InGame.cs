@@ -29,10 +29,5 @@ namespace SpaceLetters
         {
             world = new World();
         }
-
-        public override void initialize()
-        {
-
-        }
     }
 }
