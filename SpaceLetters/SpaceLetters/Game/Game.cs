@@ -72,8 +72,8 @@ namespace SpaceLetters
 
         public Game(): base((int)WINDOWSIZE.X, (int)WINDOWSIZE.Y, "Epic Game", Styles.Default)
         {
-            currentGameState = EGameStates.InGame;
-            currentGameStateObject = new InGame();
+            currentGameState = EGameStates.MainMenu;
+            currentGameStateObject = new MainMenu();
             backedUpGameStateObject = null;
 
             currentGameStateObject.initialize();
