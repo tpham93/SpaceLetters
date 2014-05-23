@@ -25,7 +25,9 @@ namespace SpaceLetters
 
         public override void loadContent()
         {
-
+            sprite = new Sprite(new Texture("Content/main_menu/main_menu_ingame.png"));
+            SFML.Window.Vector2u middle = sprite.Texture.Size / 2;
+            sprite.Origin = new SFML.Window.Vector2f(middle.X, middle.Y);
         }
 
         public override void update(GameTime gameTime)
@@ -35,7 +37,9 @@ namespace SpaceLetters
 
         public override void draw(GameTime gameTime, RenderWindow renderWindow)
         {
-
+            sprite.Position = Game.mouseInput.getMousePos();
+            sprite.Rotation = rotation;
+            sprite.Draw(renderWindow, RenderStates.Default);
         }
 
         public override void initialize()
