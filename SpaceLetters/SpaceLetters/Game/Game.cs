@@ -90,7 +90,12 @@ namespace SpaceLetters
 
         public override void update(GameTime gameTime)
         {
-            currentGameStateObject.update(gameTime);
+            // updating mouse and keyboard
+            mouseInput.update();
+            keyboardInput.update();
+
+            // updating gamestate
+            CurrentGameState = currentGameStateObject.update(gameTime);
             //throw new NotImplementedException();
         }
 
