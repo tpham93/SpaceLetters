@@ -1,3 +1,6 @@
 /SpaceLetters/*.suo
 /SpaceLetters/SpaceLetters/bin
 /SpaceLetters/SpaceLetters/obj
+/SpaceLetters/lib/sfmlnet-audio-2.dll
+/SpaceLetters/lib/sfmlnet-graphics-2.dll
+/SpaceLetters/lib/sfmlnet-window-2.dll
