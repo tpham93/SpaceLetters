@@ -34,22 +34,30 @@ namespace SpaceLetters
                             {
                                 backedUpGameStateObject = null;
                                 currentGameStateObject = new MainMenu();
+                                currentGameStateObject.initialize();
+                                currentGameStateObject.loadContent();
                             }
                             break;
                         case EGameStates.InGame:
                             backedUpGameStateObject = null;
                             //currentGameStateObject = new InGame();
+                            currentGameStateObject.initialize();
+                            currentGameStateObject.loadContent();
                             break;
                         case EGameStates.Pause:
                             backedUpGameStateObject = currentGameStateObject;
                             //currentGameStateObject = new Pause();
+                            currentGameStateObject.initialize();
+                            currentGameStateObject.loadContent();
                             break;
                         case EGameStates.Credits:
                             backedUpGameStateObject = null;
                             //currentGameStateObject = new Credits();
+                            currentGameStateObject.initialize();
+                            currentGameStateObject.loadContent();
                             break;
                         case EGameStates.Exit:
-
+                            window.Close();
                             break;
                     }
                     currentGameState = value;
