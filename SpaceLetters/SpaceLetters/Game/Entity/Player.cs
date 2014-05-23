@@ -11,10 +11,17 @@ namespace SpaceLetters
     {
         Vec2f mouseTarget;
 
+        public Vec2f Position
+        {
+            get { return position; }
+        }
+
+        List<Weapon> weapon = new List<Weapon>();
+
         public Player(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name, Sprite sprite)
             :base(position, rotation, hp, radius, velocity, team, name,sprite)
         {
-
+            weapon.Add(new Cannon(new Vec2f(position.X - radius - 10, position.Y), 0, 10, new Sprite(new Texture("Content/InGame/cannon.png"))));
         }
         public override void loadContent()
         {
@@ -22,6 +29,8 @@ namespace SpaceLetters
             mouseTarget = new Vec2f(0, 0);
         }
             
+
+
         public override void update(GameTime gameTime)
         {
             rotation = (float) gameTime.ElapsedTime.TotalMilliseconds/10;
