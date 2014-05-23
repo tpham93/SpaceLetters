@@ -37,5 +37,10 @@ namespace SpaceLetters
         {
 
         }
+
+        public override void initialize()
+        {
+           // throw new NotImplementedException();
+        }
     }
 }

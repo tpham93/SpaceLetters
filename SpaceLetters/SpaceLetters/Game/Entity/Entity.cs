@@ -39,8 +39,12 @@ namespace SpaceLetters
             this.team = team;
             this.name = name;
             this.sprite = sprite;
+
+            initialize();
             
         }
+
+        public abstract void initialize();
 
         public abstract void loadContent();
 
