@@ -44,6 +44,7 @@ namespace SpaceLetters
         {
             Vec2f mousepos = Game.mouseInput.getMousePos();
             //Console.WriteLine(mousepos.X + "    " + mousepos.Y);
+
             if (Game.mouseInput.leftClicked() && button_x <= mousepos.X && mousepos.X <= button_x + button_width)
             {
                 if (button_y_distance <= mousepos.Y && mousepos.Y <= button_y_distance + button_height)
@@ -70,7 +71,6 @@ namespace SpaceLetters
 
         public override void draw(GameTime gameTime, SFML.Graphics.RenderWindow renderWindow)
         {
-            //Console.WriteLine((int)toCredits.X +"   "+(int)toCredits.Y);
             renderWindow.Draw(sprite_ingame);
             renderWindow.Draw(sprite_credits);
             renderWindow.Draw(sprite_exit);
