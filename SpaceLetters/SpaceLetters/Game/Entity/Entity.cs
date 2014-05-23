@@ -8,6 +8,18 @@ using SFML.Window;
 
 namespace SpaceLetters
 {
+    public enum EntityType
+    {
+        Player,
+        Enemy,
+        Weapon,
+        Drone,
+        Letter,
+        Projectile,
+
+        Num
+    }
+
     public enum Team
     {
         Good,
@@ -42,10 +54,9 @@ namespace SpaceLetters
             
         }
 
+        public abstract EntityType getEntityType();
         public abstract void loadContent();
-
         public abstract void update(GameTime gameTime);
-
         public abstract void draw(GameTime gameTime, RenderWindow renderWindow);
 
 

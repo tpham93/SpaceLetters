@@ -40,5 +40,10 @@ namespace SpaceLetters
             sprite.Rotation = rotation;
             sprite.Draw(renderWindow, RenderStates.Default);
         }
+
+        public override EntityType getEntityType()
+        {
+            return EntityType.Projectile;
+        }
     }
 }
