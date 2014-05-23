@@ -11,8 +11,9 @@ namespace SpaceLetters
     class MainMenu : AGameState
     {
         private Vec2f toIngame, toCredits, toExit;
-        private const float button_width = 200, button_height = 50;
+        private const int button_width = 200, button_height = 50;
         private Texture texture_ingame, texture_credits, texture_exit;
+        private Sprite sprite_ingame, sprite_exit, sprite_credits;
 
         public override void initialize()
         {
@@ -26,10 +27,10 @@ namespace SpaceLetters
             toCredits = new Vec2f(300, 200);
             toExit = new Vec2f(300, 300);
 
-            !texture_ingame.loadFromFile("Content\main_menu\main_menu_ingame.png");
-            if (!texture_ingame.loadFromFile("Content\main_menu\main_menu_ingame.png") || !texture_exit.loadFromFile("Content\main_menu\main_menu_exit.png") || !texture_credits.loadFromFile("Content\main_menu\main_menu_credits.png"))
-            {
-            }
+            sprite_ingame = new Sprite(new Texture("Content/main_menu/main_menu_ingame.png"),new IntRect((int)toIngame.X,(int)toIngame.Y,button_width, button_height));
+            sprite_exit = new Sprite(new Texture("Content/main_menu/main_menu_exit.png"),new IntRect((int)toIngame.X,(int)toIngame.Y,button_width, button_height));
+            sprite_credits = new Sprite(new Texture("Content/main_menu/main_menu_credits.png"),new IntRect((int)toIngame.X,(int)toIngame.Y,button_width, button_height));
+
         }
 
         public override EGameStates update(GameTime gameTime)
@@ -43,8 +44,9 @@ namespace SpaceLetters
         public override void draw(GameTime gameTime, SFML.Graphics.RenderWindow renderWindow)
         {
             Console.WriteLine("blah");
-
-
+            renderWindow.Draw(sprite_ingame);
+            renderWindow.Draw(sprite_credits);
+            renderWindow.Draw(sprite_exit);
 
         }
     }
