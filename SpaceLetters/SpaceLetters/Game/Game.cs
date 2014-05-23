@@ -13,13 +13,9 @@ namespace SpaceLetters
     {
         private AGameState currentGameStateObject;
         private AGameState backedUpGameStateObject;
-
         private EGameStates currentGameState;
 
         private EGameStates CurrentGameState
-        public static Vec2f WINDOWSIZE = new Vec2f(800, 480);
-
-        public Game(): base((int)WINDOWSIZE.X, (int)WINDOWSIZE.Y, "Epic Game", Styles.Default)
         {
             get { return currentGameState; }
             set
@@ -61,8 +57,9 @@ namespace SpaceLetters
             }
         }
 
-        public Game()
-            : base(800, 480, "Epic Game", Styles.Default)
+        public static Vec2f WINDOWSIZE = new Vec2f(800, 480);
+
+        public Game(): base((int)WINDOWSIZE.X, (int)WINDOWSIZE.Y, "Epic Game", Styles.Default)
         {
             currentGameState = EGameStates.MainMenu;
             currentGameStateObject = new MainMenu();
