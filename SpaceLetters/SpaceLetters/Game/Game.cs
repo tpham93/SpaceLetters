@@ -43,7 +43,7 @@ namespace SpaceLetters
                             break;
                         case EGameStates.InGame:
                             backedUpGameStateObject = null;
-                            //currentGameStateObject = new InGame();
+                            currentGameStateObject = new InGame();
                             currentGameStateObject.initialize();
                             currentGameStateObject.loadContent();
                             break;

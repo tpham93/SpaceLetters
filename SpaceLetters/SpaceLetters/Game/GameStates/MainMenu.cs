@@ -51,16 +51,19 @@ namespace SpaceLetters
                 {
                     //start
                     Console.WriteLine("start");
+                    return EGameStates.InGame;
                 }
                 else if (button_y_distance * 2 + button_height <= mousepos.Y && mousepos.Y <= button_y_distance * 2 + button_height * 2)
                 {
                     //credits
                     Console.WriteLine("credits");
+                    return EGameStates.Credits;
                 }
                 else if (button_y_distance * 3 + button_height * 2 <= mousepos.Y && mousepos.Y <= button_y_distance * 3 + button_height * 3)
                 {
                     //exit
                     Console.WriteLine("exit");
+                    return EGameStates.Exit;
                 }
             }
 
