@@ -25,5 +25,15 @@ namespace SpaceLetters
         {
             
         }
+
+        public override EntityType getEntityType()
+        {
+            return EntityType.Enemy;
+        }
+
+        public override void initialize()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
