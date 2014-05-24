@@ -44,7 +44,7 @@ namespace SpaceLetters
         public Player(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name)
             : base(position, rotation, hp, float.PositiveInfinity, radius, velocity, team, name, new Sprite(texture))
         {
-            const uint DEFAULT_WEAPON_NUMBER = 3;
+            const uint DEFAULT_WEAPON_NUMBER = 5;
             for (int i = 0; i < DEFAULT_WEAPON_NUMBER; ++i)
             {
                 Weapon newWeapon = new Cannon(position, 0, 10, cannonBaseCoolDown, cannonBaseDamage);
@@ -92,7 +92,7 @@ namespace SpaceLetters
                 movement.Y++;
 
             acceleration = acceleration * 0.6f + movement;
-            velocity = acceleration * 1 + velocity * 0.95f;
+            velocity = acceleration + velocity * 0.95f;
 
             position += 4 * velocity * (float)gameTime.ElapsedTime.TotalSeconds;//100 * movement * (float)gameTime.ElapsedTime.TotalSeconds + 1/2* acceleration * (float)gameTime.ElapsedTime.TotalSeconds * (float)gameTime.ElapsedTime.TotalSeconds;
 
