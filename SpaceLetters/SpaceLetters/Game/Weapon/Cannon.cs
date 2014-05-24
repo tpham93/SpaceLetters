@@ -45,18 +45,25 @@ namespace SpaceLetters
             renderWindow.Draw(Sprite);
         }
 
-        public override Entity fire(Vec2f target, Entity entity)
+        public override Entity fire(Vec2f target, Entity entity, bool left, Vec2f playerPos, Weapon weapon)
         {
             if (runCoolDownTime > coolDown * CoolDownFactor)
             {
-                //throw new NotImplementedException();
-                sound.Play();
                 Vec2f velocity = (target - position) * 3;
+                sound.Play();
+
+                if (left)
+                    velocity = (target - position) * 3;
+                else
+                    velocity = (weapon.Position - playerPos) * 3;
 
                 velocity.normalize();
                 velocity *= 300;
                 runCoolDownTime = 0;
-                return new Projectiles(position, 0, 1, 10, velocity, Team.Good, "Projectiles", projectileDamage * ProjectileDamageFactor, null, 10000f);
+
+                Projectiles p = new Projectiles(position, 0, 1, 10, velocity, Team.Good, "Projectiles", 9001, null, 10000f);
+                p.loadContent();
+                return p;
                 
             }
             return null;

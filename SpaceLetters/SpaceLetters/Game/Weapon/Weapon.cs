@@ -64,7 +64,7 @@ namespace SpaceLetters
         
 
 
-        public abstract Entity fire( Vec2f target, Entity entity);
+        public abstract Entity fire( Vec2f target, Entity entity, bool left, Vec2f playerPos, Weapon weapon);
 
 
 

@@ -12,6 +12,7 @@ namespace SpaceLetters
     class World
     {
         List<Entity> entities = new List<Entity>();
+        List<PSpawner> particleSpawner;
 
         private Random rand;
         private Player player;
@@ -31,7 +32,7 @@ namespace SpaceLetters
         {
 
             rand = new Random();
-
+            particleSpawner = new List<PSpawner>();
             spawnTimeSmaragd = 3000;
 
         }
@@ -105,6 +106,7 @@ namespace SpaceLetters
                                     if ((smaragd == null) || (sam.Drone == null && (player.Position - sam.Position).length() < (player.Position - smaragd.Position).length()))
                                     {
                                         smaragd = sam;
+                                        ent.canExplode = false;
                                     }
                                 }
                             }
@@ -121,6 +123,8 @@ namespace SpaceLetters
 
                 if (entities.ElementAt(i).ToDelete)
                 {
+                    if(entities[i].canExplode)
+                        particleSpawner.Add(new PSpawner(entities[i].Position, 500));
                     entities[i].onDeath();
                     entities.RemoveAt(i);
                 }
@@ -142,6 +146,13 @@ namespace SpaceLetters
             if (spawnedEntity != null)
             {
                 entities.Add(spawnedEntity);
+            }
+
+            for (int i = particleSpawner.Count-1; i >0; --i)
+            {
+                particleSpawner.ElementAt(i).update(gameTime);
+                if (particleSpawner.ElementAt(i).isSpawnerFinish())
+                    particleSpawner.RemoveAt(i);
             }
 
             Keyboard.Key[] upgradeKeys = { Keyboard.Key.Num1, Keyboard.Key.Num2, Keyboard.Key.Num3, Keyboard.Key.Num4, Keyboard.Key.Num5 };
@@ -197,6 +208,8 @@ namespace SpaceLetters
             window.Draw(backgroundSprite);
             foreach (Entity ent in entities)
                 ent.draw(gameTime, window);
+            foreach (PSpawner spawner in particleSpawner)
+                spawner.draw(gameTime, window);
         }
 
 

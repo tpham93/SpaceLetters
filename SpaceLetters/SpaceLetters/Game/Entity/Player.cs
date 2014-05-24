@@ -93,18 +93,24 @@ namespace SpaceLetters
             if (Game.mouseInput.leftPressed())
             {
                 mouseTarget = Game.mouseInput.getMousePos();
-                fireWeapon();
+                fireWeapon(true);
+
+            }
+            else if (Game.mouseInput.rightPressed())
+            {
+                mouseTarget = Game.mouseInput.getMousePos();
+                fireWeapon(true);
 
             }
             lifebar.update(gameTime);
         }
 
-        private void fireWeapon()
+        private void fireWeapon(bool left)
         {
 
             foreach (Weapon weapon in weapons)
             {
-                Entity entity = weapon.fire(mouseTarget, null);
+                Entity entity = weapon.fire(mouseTarget, null,left,position,weapon);
 
                 if (entity != null)
                     toSpawnEnemies.Add(entity);
@@ -136,7 +142,7 @@ namespace SpaceLetters
                 weapons.ElementAt(weaponID).draw(gameTime, renderWindow);
             }
 
-            lifebar.draw(gameTime,renderWindow);
+            lifebar.draw(gameTime, renderWindow);
         }
 
         public override void initialize()
@@ -205,7 +211,7 @@ namespace SpaceLetters
                         }
                         break;
                     case UpgradeType.AddDrone:
-                        Entity newDrone = new Drone(position, 0, 10, new Vec2f(0, 0), this);
+                        Entity newDrone = new Drone(new Vec2f(0, 0), 0, 10, new Vec2f(0, 0), this);
                         newDrone.loadContent();
                         entityList.Add(newDrone);
                         break;
