@@ -17,12 +17,12 @@ namespace SpaceLetters
         private Smaragd target;
         private TimeSpan cooldown, threshold;
         private Player player;
-        public bool noTarget;
+        public bool noTarget, loaded;
 
         public Drone(Vec2f position, float rotation, float hp, Vec2f velocity, Player player)
             : base(position, rotation, 8, hp, 2, velocity, Team.Good, "Drone", new Sprite(texture))
         {
-
+            this.player = player;
             noTarget = true;
             maxspeed = 10 * (float)rand.NextDouble();
             target = null;
@@ -58,9 +58,14 @@ namespace SpaceLetters
             }
             else
             {
-                moveTowardsEntity(target);
+                moveTowardsEntity(player);
             }
             position += velocity;
+            if (loaded && collide(player))
+            {
+                loaded = false;
+                Console.WriteLine("Fracht abgeliefert");
+            }
         }
 
         public override void draw(GameTime gameTime, RenderWindow renderWindow)
@@ -81,12 +86,15 @@ namespace SpaceLetters
 
         private void moveTowardsEntity(Entity ent)
         {
-            Vec2f path = ent.Position - Position;
+
+
+            Vec2f path = ent.Position - position;
             if (maxspeed < path.length() && maxspeed > 0)
             {
                 path = (maxspeed / path.length()) * path;
             }
             velocity = path;
+
         }
         public override void onDeath()
         {

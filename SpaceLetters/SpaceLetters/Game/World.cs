@@ -41,6 +41,8 @@ namespace SpaceLetters
             spawner = new Spawner(0.01f, player);
             entities.Add(player);
             entities.Add(new Breeder(new Vec2f(100, 100), 0, new Vec2f(0, 0),"Breeder", player));
+            entities.Add(new Drone(new Vec2f(0, 0), 0, 10, new Vec2f(0, 0), player));
+            
 
 
             foreach (Entity ent in entities)
@@ -95,6 +97,7 @@ namespace SpaceLetters
                                 if (ent.getEntityType() == EntityType.Smaragd)
                                 {
                                     smaragd = (Smaragd)ent;
+                                    
                                 }
                             }
 
