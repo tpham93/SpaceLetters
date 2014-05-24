@@ -39,7 +39,7 @@ namespace SpaceLetters
         public Player(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name)
             : base(position, rotation, hp, float.PositiveInfinity, radius, velocity, team, name, new Sprite(texture))
         {
-            const uint DEFAULT_WEAPON_NUMBER = 4;
+            const uint DEFAULT_WEAPON_NUMBER = 3;
             for (int i = 0; i < DEFAULT_WEAPON_NUMBER; ++i)
             {
                 weapons.Add(new Cannon(position, 0, 10, cannonBaseCoolDown, cannonBaseDamage));
@@ -97,7 +97,7 @@ namespace SpaceLetters
             else if (Game.mouseInput.rightPressed())
             {
                 mouseTarget = Game.mouseInput.getMousePos();
-                fireWeapon(true);
+                fireWeapon(false);
 
             }
             lifebar.update(gameTime);

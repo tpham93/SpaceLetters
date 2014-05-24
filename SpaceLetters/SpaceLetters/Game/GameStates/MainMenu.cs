@@ -15,10 +15,12 @@ namespace SpaceLetters
         private int button_x, button_y_distance;
         private Sprite sprite_ingame, sprite_exit, sprite_credits, backgroundSprite, sprite_rocket;
 
+        private Player player;
+
 
         public override void initialize()
         {
-            // TODO
+            player = new Player(new Vec2f((float)Game.WINDOWSIZE.X * 0.75f, (float)Game.WINDOWSIZE.Y / 2 - 50), 0, 10, 50, new Vec2f(0, 0), Team.Num, "PLayer");
         }
 
         public override void loadContent()
@@ -39,6 +41,7 @@ namespace SpaceLetters
             sprite_exit.Position = toExit;
             sprite_credits.Position = toCredits;
 
+            player.loadContent();
             
 
             Console.WriteLine("Positionen: " + Game.WINDOWSIZE.X + "+" + button_x + " : " + button_height + "+" + button_y_distance);
@@ -78,6 +81,8 @@ namespace SpaceLetters
 
         public override void draw(GameTime gameTime, SFML.Graphics.RenderWindow renderWindow)
         {
+
+            player.draw(gameTime, renderWindow);
 
             renderWindow.Draw(backgroundSprite);
 
