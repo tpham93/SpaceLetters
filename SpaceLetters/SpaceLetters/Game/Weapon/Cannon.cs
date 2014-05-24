@@ -39,7 +39,7 @@ namespace SpaceLetters
         public override Entity fire(Vec2f position, Vec2f target, Entity entity)
         {
             //throw new NotImplementedException();
-            return new Projectiles(position, 0, 9001, 10, new Vec2f(0, 0), Team.Good, "Projectiles", new Sprite(new Texture("Content/InGame/projectiles.png")), 9001, null);
+            return new Projectiles(position, 0, 9001, 10, new Vec2f(0, 0), Team.Good, "Projectiles", 9001, null);
         }
     }
 }

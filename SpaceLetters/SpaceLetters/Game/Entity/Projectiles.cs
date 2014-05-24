@@ -19,7 +19,7 @@ namespace SpaceLetters
         {
             get { return damage; }
         }
-        public Projectiles(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name, float damage, Entity entity, float damage)
+        public Projectiles(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name, float damage, Entity entity)
             :base(position, rotation, hp, radius, velocity, team, name,new Sprite(texture))
         {
             this.damage = damage;
