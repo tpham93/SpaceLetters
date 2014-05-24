@@ -32,14 +32,19 @@ namespace SpaceLetters
             streamReader.Close();
             players = new List<string>();
             scores = new List<string>();
-            int last = 0;
-            int i=0;
-            while(i < tmp.Length)
+            int start = 0;
+            int end = 0;
+            while(start < tmp.Length-1)
             {
-                i = tmp.IndexOf(",", i);
-                players.Add(tmp.Substring(i, tmp.IndexOf(",", i) - i));
-                last = i;
-                scores.Add(tmp.Substring(i + 1, i = (tmp.IndexOf('\n', i + 1) - i - 1)));
+                Console.WriteLine(start + ":" + end);
+                end = tmp.IndexOf(",", start);
+                players.Add(tmp.Substring(start, end-start));
+                start = end+1;
+                end = tmp.IndexOf("\r\n", start);
+                Console.WriteLine(start + ":" + end);
+                scores.Add(tmp.Substring(start, end-start ));
+                start =end+2;
+
             }
         }
 
@@ -48,8 +53,8 @@ namespace SpaceLetters
             
 
 
-            if (Game.keyboardInput.isClicked(SFML.Window.Keyboard.Key.Escape))
-                return EGameStates.MainMenu;
+            //if (Game.keyboardInput.isClicked(SFML.Window.Keyboard.Key.Escape))
+              //  return EGameStates.MainMenu;
 
             return EGameStates.Score;
         }
@@ -57,20 +62,22 @@ namespace SpaceLetters
         public override void draw(GameTime gameTime, SFML.Graphics.RenderWindow renderWindow)
         {
             renderWindow.Draw(backgroundSprite);
-
-            for(int i=0; i< players.Count; i++){
+            
+            
+            for (int i = 0; i < players.Count; i++)
+            {
                 text.Position = new Vec2f(text.Position.X, text.Position.Y + 30);
                 text.DisplayedString = players.ElementAt(i);
                 renderWindow.Draw(text);
             }
-            text.Position = new Vec2f(text.Position.X+200, 100);
+            text.Position = new Vec2f(500, 100);
             for (int i = 0; i < scores.Count; i++)
             {
                 text.Position = new Vec2f(text.Position.X, text.Position.Y + 30);
                 text.DisplayedString = scores.ElementAt(i);
                 renderWindow.Draw(text);
             }
-            
+            text.Position = new Vec2f(300, 100);
         }
     }
 }
