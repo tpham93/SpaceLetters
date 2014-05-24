@@ -24,7 +24,7 @@ namespace SpaceLetters
         {
             this.player = player;
             noTarget = true;
-            maxspeed = 66 * (float)rand.NextDouble();
+            maxspeed = 3;
             target = null;
             cooldown = TimeSpan.FromSeconds(0);
             threshold = TimeSpan.FromSeconds(3);
