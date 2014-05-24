@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.Window;
+using SFML.Audio;
 
 
 namespace SpaceLetters
@@ -26,6 +27,9 @@ namespace SpaceLetters
         Sprite[] upgradeButtons;
         Sprite buttonBar;
 
+
+        private static Music sound = new Music("Content/Sounds/exp.wav");
+
         public bool playerDead
         {
             get { return player.ToDelete; }
@@ -37,7 +41,8 @@ namespace SpaceLetters
             rand = new Random();
             particleSpawner = new List<PSpawner>();
             spawnTimeSmaragd = 3000;
-
+            sound.Loop = false;
+            sound.Volume = 15f;
         }
 
         public void loadContent()
@@ -139,7 +144,10 @@ namespace SpaceLetters
                 if (entities.ElementAt(i).ToDelete)
                 {
                     if (entities[i].canExplode)
+                    {
                         particleSpawner.Add(new PSpawner(entities[i].Position, 500));
+                        sound.Play();
+                    }
                     entities[i].onDeath();
                     entities.RemoveAt(i);
                 }
