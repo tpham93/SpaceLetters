@@ -78,6 +78,7 @@ namespace SpaceLetters
         public abstract void draw(GameTime gameTime, RenderWindow renderWindow);
 
 
+
         public bool collide(Entity other)
         {
             if(Math.Pow(other.position.X - position.X,2) + Math.Pow(other.position.Y -position.Y,2) < Math.Pow(radius+ other.radius,2))
