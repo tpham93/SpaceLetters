@@ -50,7 +50,7 @@ namespace SpaceLetters
             player.loadContent();
             
 
-            Console.WriteLine("Positionen: " + Game.WINDOWSIZE.X + "+" + button_x + " : " + button_height + "+" + button_y_distance);
+            //Console.WriteLine("Positionen: " + Game.WINDOWSIZE.X + "+" + button_x + " : " + button_height + "+" + button_y_distance);
         }
 
         public override EGameStates update(GameTime gameTime)

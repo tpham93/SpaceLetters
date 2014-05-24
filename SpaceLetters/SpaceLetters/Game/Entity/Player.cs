@@ -19,6 +19,7 @@ namespace SpaceLetters
     class Player : Entity
     {
         private static Texture texture = new Texture("Content/InGame/player.png");
+        
 
         Vec2f mouseTarget;
 
@@ -29,7 +30,7 @@ namespace SpaceLetters
         private Vec2f acceleration;
         private Lifebar lifebar;
 
-        int points;
+        int points,score;
         int upgradeCosts;
 
         const float cannonBaseDamage = 1;
