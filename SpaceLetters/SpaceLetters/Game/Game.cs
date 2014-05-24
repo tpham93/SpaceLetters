@@ -18,6 +18,8 @@ namespace SpaceLetters
         private AGameState backedUpGameStateObject;
         private EGameStates currentGameState;
 
+        public static Font smaraFont;
+
         private EGameStates CurrentGameState
         {
             get { return currentGameState; }
@@ -84,6 +86,8 @@ namespace SpaceLetters
 
             keyboardInput = new KeyboardInput(usedButtons);
             mouseInput = new MouseInput(window);
+
+            smaraFont= new Font("Content/Fonts/Days.otf");
         }
 
 

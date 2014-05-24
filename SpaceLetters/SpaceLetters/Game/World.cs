@@ -16,12 +16,17 @@ namespace SpaceLetters
         private Random rand;
         private Player player;
 
+        private float spawnTimeSmaragd;
+        private float runSpawnTimeSmaragd;
+
         Sprite backgroundSprite;
 
         public World()
         {
             entities.Add(new Player(new Vec2f(0, 0), 0, 9001, 50, new Vec2f(0, 0), Team.Good, "Player - Horst"));
             rand = new Random();
+
+            spawnTimeSmaragd = 3000;
 
         }
 
@@ -113,6 +118,51 @@ namespace SpaceLetters
             entities.AddRange(tmp);
 
             entities.AddRange(player.spawnNewEnemy());
+
+            runSpawnTimeSmaragd += (float)gameTime.ElapsedTime.TotalMilliseconds;
+
+            if(runSpawnTimeSmaragd> spawnTimeSmaragd)
+            {
+                runSpawnTimeSmaragd = 0;
+                spawnSmaragd();
+
+            }
+        }
+
+        private void spawnSmaragd()
+        {
+            String name = ((char)('A'+rand.Next(26))).ToString();
+            Vec2f velocity;
+            switch(rand.Next(4))
+            {
+                case 0: 
+                    velocity = new Vec2f((float)rand.Next((int)30,255), (float)rand.Next((int)Game.WINDOWSIZE.Y));
+                    velocity.normalize();
+                    velocity *= 60;
+                    entities.Add(new Smaragd(new Vec2f(-30, (float)rand.NextDouble() * Game.WINDOWSIZE.Y), 0, 2, 20, velocity, Team.Neutral, name ));
+                    break;
+                case 1: 
+                    velocity = new Vec2f((float)rand.Next((int)-255,-30), (float)rand.Next((int)Game.WINDOWSIZE.Y));
+                    velocity.normalize();
+                    velocity *= 60;
+                    entities.Add(new Smaragd(new Vec2f(Game.WINDOWSIZE.X + 30, (float)rand.NextDouble() * Game.WINDOWSIZE.Y), 0, 2, 20, velocity, Team.Neutral, name));
+                    break;
+                case 2:
+                    velocity = new Vec2f((float)(float)rand.Next((int)Game.WINDOWSIZE.Y), (float)rand.Next((int)30,255));
+                    velocity.normalize();
+                    velocity *= 60;
+                    entities.Add(new Smaragd(new Vec2f((float)rand.NextDouble() * Game.WINDOWSIZE.X, -30), 0, 2, 20, velocity, Team.Neutral, name));
+                    break;
+                case 3: 
+                    velocity = new Vec2f((float)(float)rand.Next((int)Game.WINDOWSIZE.Y), (float)rand.Next((int)-255,-30));
+                    velocity.normalize();
+                    velocity *= 60;
+                    entities.Add(new Smaragd(new Vec2f((float)rand.NextDouble() * Game.WINDOWSIZE.X, Game.WINDOWSIZE.Y + 30), 0, 2, 20, velocity, Team.Neutral, name));
+                    break;
+
+
+            }
+           
         }
 
         public void draw(GameTime gameTime, SFML.Graphics.RenderWindow window)
