@@ -11,6 +11,10 @@ namespace SpaceLetters
     {
         Vec2f mouseTarget;
 
+        List<Vec2f> weaponsPosition;
+
+        float animatedCanonsPos = 0;
+
         public Vec2f Position
         {
             get { return position; }
@@ -21,11 +25,20 @@ namespace SpaceLetters
         public Player(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name, Sprite sprite)
             :base(position, rotation, hp, radius, velocity, team, name,sprite)
         {
-            weapons.Add(new Cannon(new Vec2f(position.X - radius - 10, position.Y), 0, 10, new Sprite(new Texture("Content/InGame/cannon.png"))));
+            weapons.Add(new Cannon(new Vec2f(position.X , position.Y), 0, 10, new Sprite(new Texture("Content/InGame/cannon.png"))));
+            weapons.Add(new Cannon(new Vec2f(position.X , position.Y), 0, 10, new Sprite(new Texture("Content/InGame/cannon.png"))));
+            weapons.Add(new Cannon(new Vec2f(position.X, position.Y), 0, 10, new Sprite(new Texture("Content/InGame/cannon.png"))));
+            weapons.Add(new Cannon(new Vec2f(position.X, position.Y), 0, 10, new Sprite(new Texture("Content/InGame/cannon.png"))));
+            weapons.Add(new Cannon(new Vec2f(position.X, position.Y), 0, 10, new Sprite(new Texture("Content/InGame/cannon.png"))));
+            weapons.Add(new Cannon(new Vec2f(position.X, position.Y), 0, 10, new Sprite(new Texture("Content/InGame/cannon.png"))));
+
+        
         }
         public override void loadContent()
         {
-            sprite.Origin = new Vec2f(25, 25);
+
+            sprite.Origin = new Vec2f(sprite.Texture.Size.X / 2, sprite.Texture.Size.Y/2);
+         
             mouseTarget = new Vec2f(0, 0);
         }
             
@@ -58,13 +71,21 @@ namespace SpaceLetters
 
             sprite.Rotation = rotation;
             sprite.Position = position;
-            foreach(Weapon weapon in weapons)
+            renderWindow.Draw(sprite);
+
+            Console.WriteLine(radius);
+
+
+            //set weapon Position
+            weaponsPosition = getWeaponPosition(weapons.Count, radius*6, position);
+            for (int weaponID = 0; weaponID < weapons.Count; weaponID++)
             {
-                weapon.position = new Vec2f(position.X - radius - 10, position.Y);
+                weapons.ElementAt(weaponID).position = weaponsPosition.ElementAt(weaponID)-(weapons.ElementAt(weaponID).TextureSize/2);
+                weapons.ElementAt(weaponID).draw(gameTime, renderWindow);
 
             }
 
-            renderWindow.Draw(sprite);
+
         }
 
         public override void initialize()
@@ -75,6 +96,20 @@ namespace SpaceLetters
         public override EntityType getEntityType()
         {
             return EntityType.Player;
+        }
+
+        private List<Vec2f> getWeaponPosition(int numWeapons, float radius, Vec2f pos)
+        {
+
+            float place = (float)(2 * Math.PI / numWeapons);
+
+            List<Vec2f> result = new List<Vec2f>();
+            for (int i = 0; i < numWeapons; i++)
+            {
+                result.Add(new Vec2f(pos.X-(float)(radius * Math.Sin( i * place ))+animatedCanonsPos, pos.Y -(float)(radius * Math.Cos( i * place))));
+            }
+
+            return result;
         }
     }
 }

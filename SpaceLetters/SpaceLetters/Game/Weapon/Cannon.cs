@@ -31,7 +31,8 @@ namespace SpaceLetters
 
         public override void draw(GameTime gameTime, SFML.Graphics.RenderWindow renderWindow)
         {
-            //throw new NotImplementedException();
+            sprite.Position = position;
+            renderWindow.Draw(sprite);
         }
 
         public override bool fire(Vec2f target)
