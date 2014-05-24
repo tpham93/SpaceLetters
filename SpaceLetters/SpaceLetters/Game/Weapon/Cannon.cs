@@ -36,10 +36,14 @@ namespace SpaceLetters
             renderWindow.Draw(Sprite);
         }
 
-        public override Entity fire(Vec2f position, Vec2f target, Entity entity)
+        public override Entity fire(Vec2f target, Entity entity)
         {
             //throw new NotImplementedException();
-            return new Projectiles(position, 0, 9001, 10, new Vec2f(0, 0), Team.Good, "Projectiles", new Sprite(new Texture("Content/InGame/projectiles.png")), 9001, null);
+            Vec2f velocity = (target - position)*3;
+
+            velocity.normalize();
+            velocity *= 90;
+            return new Projectiles(position, 0, 9001, 10, velocity, Team.Good, "Projectiles", new Sprite(new Texture("Content/InGame/projectiles.png")), 9001, null, 10000f);
         }
     }
 }

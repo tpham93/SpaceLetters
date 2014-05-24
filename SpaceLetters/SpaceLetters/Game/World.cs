@@ -44,8 +44,14 @@ namespace SpaceLetters
 
         public void update(GameTime gameTime)
         {
-            foreach (Entity ent in entities)
-                ent.update(gameTime);
+            for (int i = entities.Count-1; i>=0; --i)
+            {
+                entities.ElementAt(i).update(gameTime);
+
+                if (entities.ElementAt(i).ToDelete)
+                    entities.RemoveAt(i);
+
+            }
 
             if(player.spawnNewEnemy() != null)
             {

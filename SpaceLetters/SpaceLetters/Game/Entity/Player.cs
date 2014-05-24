@@ -54,7 +54,7 @@ namespace SpaceLetters
             weaponRotation += (0.05f)*(float)gameTime.ElapsedTime.TotalSeconds * 360.0f;
 
             toSpawnEnemies = new List<Entity>();
-            fireWeapon();
+            
 
             if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.D))
                 position.X++;
@@ -68,6 +68,7 @@ namespace SpaceLetters
             if(Game.mouseInput.leftClicked())
             {
                 mouseTarget = Game.mouseInput.getMousePos();
+                fireWeapon();
 
             }
         }
@@ -76,7 +77,7 @@ namespace SpaceLetters
         {
 
             foreach (Weapon weapon in weapons)
-                toSpawnEnemies.Add(weapon.fire(position, mouseTarget,null));
+                toSpawnEnemies.Add(weapon.fire( mouseTarget,null));
 
         }
 

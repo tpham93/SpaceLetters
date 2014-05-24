@@ -40,6 +40,12 @@ namespace SpaceLetters
         protected Team team;
         protected String name;
         protected Sprite sprite;
+        protected bool toDelete;
+
+        public bool ToDelete
+        {
+            get { return toDelete || hp<=0; }
+        }
 
         public Entity(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name, Sprite sprite)
         {
@@ -51,6 +57,8 @@ namespace SpaceLetters
             this.team = team;
             this.name = name;
             this.sprite = sprite;
+
+            toDelete = false;
 
             initialize();
             
