@@ -38,7 +38,6 @@ namespace SpaceLetters
             foreach (Entity ent in entities)
                 ent.loadContent();
 
-
         }
 
         public void update(GameTime gameTime)

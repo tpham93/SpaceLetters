@@ -11,7 +11,7 @@ namespace SpaceLetters
     class Breeder : Enemy
     {
         // change texture
-        private static Texture texture = new Texture("Content/InGame/player.png");
+        private static Texture texture = new Texture("Content/InGame/breeder.png");
 
         private int cooldown, threshold;
         private Vec2f vec2f1;
@@ -21,7 +21,7 @@ namespace SpaceLetters
         private EntityType entityType;
         private string p3;
         public Breeder(Vec2f position, float rotation,  float hp, Vec2f velocity, Team team, String name)
-            : base(position, rotation, 7, hp, velocity, team, name, new Sprite(new Texture("Content/InGame/player.png")))
+            : base(position, rotation, 7, hp, velocity, team, name, new Sprite(texture))
         {
 
 
