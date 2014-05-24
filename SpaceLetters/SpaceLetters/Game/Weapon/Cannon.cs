@@ -10,7 +10,7 @@ namespace SpaceLetters
 {
     class Cannon : Weapon
     {
-        private static Music sound = new Music("Content/Sounds/Laser_Shoot35.wav");
+        private static Music sound = new Music("Content/Sounds/Laser_Shoot2.wav");
 		private static Texture texture = new Texture("Content/InGame/cannon.png");
 
         public Cannon(Vec2f position, float rotation, float radius, float coolDown, float projectTileDamage)
@@ -61,7 +61,7 @@ namespace SpaceLetters
                 velocity *= 300;
                 runCoolDownTime = 0;
 
-                Projectiles p = new Projectiles(position, 0, 1, 10, velocity, Team.Good, "Projectiles", 9001, null, 10000f);
+                Projectiles p = new Projectiles(position, 0, 1, 10, velocity, Team.Good, "Projectiles", projectileDamage*projectileDamageFactor, null, 10000f);
                 p.loadContent();
                 return p;
                 

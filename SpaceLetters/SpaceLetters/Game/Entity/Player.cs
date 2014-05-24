@@ -32,7 +32,7 @@ namespace SpaceLetters
         int points;
         int upgradeCosts;
 
-        const float cannonBaseDamage = 10;
+        const float cannonBaseDamage = 1;
         const float cannonBaseCoolDown = 1000;
         List<Weapon> weapons = new List<Weapon>();
 
