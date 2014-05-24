@@ -36,6 +36,8 @@ namespace SpaceLetters
         const float cannonBaseDamage = 1;
         const float cannonBaseCoolDown = 1000;
         List<Weapon> weapons = new List<Weapon>();
+        float projectileDamageFactor = 1.0f;
+        float coolDownFactor = 1.0f;
 
         public Player(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name)
             : base(position, rotation, hp, float.PositiveInfinity, radius, velocity, team, name, new Sprite(texture))
@@ -43,7 +45,10 @@ namespace SpaceLetters
             const uint DEFAULT_WEAPON_NUMBER = 3;
             for (int i = 0; i < DEFAULT_WEAPON_NUMBER; ++i)
             {
-                weapons.Add(new Cannon(position, 0, 10, cannonBaseCoolDown, cannonBaseDamage));
+                Weapon newWeapon = new Cannon(position, 0, 10, cannonBaseCoolDown, cannonBaseDamage);
+                newWeapon.ProjectileDamageFactor = projectileDamageFactor;
+                newWeapon.CoolDownFactor = coolDownFactor;
+                weapons.Add(newWeapon);
             }
             foreach (Weapon w in weapons)
             {
@@ -191,18 +196,22 @@ namespace SpaceLetters
                     case UpgradeType.AddCannon:
                         Weapon newWeapon = new Cannon(position, 0, 10, cannonBaseCoolDown, cannonBaseDamage);
                         newWeapon.loadContent();
+                        newWeapon.ProjectileDamageFactor = projectileDamageFactor;
+                        newWeapon.CoolDownFactor = coolDownFactor;
                         weapons.Add(newWeapon);
                         break;
                     case UpgradeType.IncreaseDamage:
+                        projectileDamageFactor *= 1.5f;
                         foreach (Weapon w in weapons)
                         {
-                            w.ProjectileDamageFactor *= 1.5f;
+                            w.ProjectileDamageFactor = projectileDamageFactor;
                         }
                         break;
                     case UpgradeType.DecreaseCooldown:
+                        coolDownFactor *= 0.8f;
                         foreach (Weapon w in weapons)
                         {
-                            w.CoolDownFactor *= 0.8f;
+                            w.CoolDownFactor = coolDownFactor;
                         }
                         break;
                     case UpgradeType.AddDrone:

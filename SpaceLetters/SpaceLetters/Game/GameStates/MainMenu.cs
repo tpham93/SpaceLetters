@@ -10,10 +10,11 @@ namespace SpaceLetters
 {
     class MainMenu : AGameState
     {
-        private Vec2f toIngame, toCredits, toExit;
+        private Vec2f toIngame, toCredits, toExit, toHighscore;
         private const int button_width = 200, button_height = 50;
         private int button_x, button_y_distance;
-        private Sprite sprite_ingame, sprite_exit, sprite_credits, backgroundSprite, sprite_rocket;
+        private Sprite sprite_ingame, sprite_ingame_over, sprite_exit, sprite_exit_over, sprite_highscore, sprite_highscore_over, sprite_credits, sprite_credits_over, backgroundSprite, sprite_rocket;
+        private bool inGameButton, creditsButton, exitButton, highscore;
 
         private List<Entity> entities = new List<Entity>();
 
@@ -34,18 +35,25 @@ namespace SpaceLetters
             backgroundSprite = new Sprite(new Texture("Content/InGame/worldBg.png"), new IntRect(0, 0, (int)Game.WINDOWSIZE.X, (int)Game.WINDOWSIZE.Y));
 
             button_x = (int)((Game.WINDOWSIZE.X - button_width) / 2 - Game.WINDOWSIZE.X/3);
-            button_y_distance = (int)((Game.WINDOWSIZE.Y - 150) / 4);
+            button_y_distance = (int)((Game.WINDOWSIZE.Y - 200) / 5);
             
             toIngame = new Vec2f(button_x,button_y_distance);
             toCredits = new Vec2f(button_x, button_height + 2 * button_y_distance);
-            toExit = new Vec2f(button_x, 2 * button_height + 3 * button_y_distance);
+            toHighscore = new Vec2f(button_x, 2 * button_height + 3 * button_y_distance);
+            toExit = new Vec2f(button_x, 3 * button_height + 4 * button_y_distance);
 
             sprite_ingame = new Sprite(new Texture("Content/main_menu/main_menu_ingame.png"));
+            sprite_ingame_over = new Sprite(new Texture("Content/main_menu/main_menu_ingame_over.png"));
             sprite_exit = new Sprite(new Texture("Content/main_menu/main_menu_exit.png"));
+            sprite_exit_over = new Sprite(new Texture("Content/main_menu/main_menu_exit_over.png"));
             sprite_credits = new Sprite(new Texture("Content/main_menu/main_menu_credits.png"));
-            sprite_ingame.Position = toIngame;
-            sprite_exit.Position = toExit;
-            sprite_credits.Position = toCredits;
+            sprite_credits_over = new Sprite(new Texture("Content/main_menu/main_menu_credits_over.png"));
+            sprite_highscore = new Sprite(new Texture("Content/main_menu/main_menu_highscore.png"));
+            sprite_highscore_over = new Sprite(new Texture("Content/main_menu/main_menu_highscore_over.png"));
+            sprite_ingame.Position = sprite_ingame_over.Position = toIngame;
+            sprite_exit.Position = sprite_exit_over.Position= toExit;
+            sprite_credits.Position = sprite_credits_over.Position= toCredits;
+            sprite_highscore.Position = sprite_highscore_over.Position = toHighscore;
 
             player.loadContent();
             
@@ -58,24 +66,35 @@ namespace SpaceLetters
             Vec2f mousepos = Game.mouseInput.getMousePos();
             //Console.WriteLine(mousepos.X + "    " + mousepos.Y);
 
-            if (Game.mouseInput.leftClicked() && button_x <= mousepos.X && mousepos.X <= button_x + button_width)
+            inGameButton = false;
+            creditsButton = false;
+            exitButton = false;
+            highscore = false;
+
+            if (button_x <= mousepos.X && mousepos.X <= button_x + button_width)
             {
                 if (button_y_distance <= mousepos.Y && mousepos.Y <= button_y_distance + button_height)
                 {
-                    //start
-                    Console.WriteLine("start");
-                    return EGameStates.InGame;
+                    inGameButton = true;
+                    if (Game.mouseInput.leftClicked())
+                         return EGameStates.InGame;
                 }
                 else if (button_y_distance * 2 + button_height <= mousepos.Y && mousepos.Y <= button_y_distance * 2 + button_height * 2)
                 {
-                    //credits
-                    Console.WriteLine("credits");
+                    creditsButton = true;
+                    if (Game.mouseInput.leftClicked())
                     return EGameStates.Credits;
                 }
                 else if (button_y_distance * 3 + button_height * 2 <= mousepos.Y && mousepos.Y <= button_y_distance * 3 + button_height * 3)
                 {
-                    //exit
-                    Console.WriteLine("exit");
+                    highscore = true;
+                    if (Game.mouseInput.leftClicked())
+                        return EGameStates.Credits;
+                }
+                else if (button_y_distance * 4 + button_height * 3 <= mousepos.Y && mousepos.Y <= button_y_distance * 4 + button_height * 4)
+                {
+                    exitButton = true;
+                    if (Game.mouseInput.leftClicked())
                     return EGameStates.Exit;
                 }
             }
@@ -113,9 +132,22 @@ namespace SpaceLetters
             renderWindow.Draw(backgroundSprite);
 
             player.draw(gameTime, renderWindow);
-            renderWindow.Draw(sprite_ingame);
-            renderWindow.Draw(sprite_credits);
-            renderWindow.Draw(sprite_exit);
+            if(inGameButton)
+                renderWindow.Draw(sprite_ingame_over);
+            else
+                renderWindow.Draw(sprite_ingame);
+            if(creditsButton)
+                renderWindow.Draw(sprite_credits_over);
+            else
+                renderWindow.Draw(sprite_credits);
+            if(exitButton)
+                renderWindow.Draw(sprite_exit_over);
+            else
+                renderWindow.Draw(sprite_exit);
+            if (highscore)
+                renderWindow.Draw(sprite_highscore);
+            else
+                renderWindow.Draw(sprite_highscore_over);
 
             foreach(Entity entity in entities)
             {

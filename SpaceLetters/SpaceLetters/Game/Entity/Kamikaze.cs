@@ -19,6 +19,12 @@ namespace SpaceLetters
         {
             this.target = target;
         }
+
+        public override void loadContent()
+        {
+            base.loadContent();
+        }
+
         public override void update(GameTime gameTime)
         {
             moveTowardsEntity(target, maxSpeed);

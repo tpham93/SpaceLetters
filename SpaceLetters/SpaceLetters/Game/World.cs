@@ -23,6 +23,9 @@ namespace SpaceLetters
 
         Sprite backgroundSprite;
 
+        Sprite[] upgradeButtons;
+        Sprite buttonBar;
+
         public bool playerDead
         {
             get { return player.ToDelete; }
@@ -39,12 +42,24 @@ namespace SpaceLetters
 
         public void loadContent()
         {
-
-
+            upgradeButtons = new Sprite[5];
+            upgradeButtons[0] = new Sprite(new Texture("Content/InGame/Buttons/cannon.png"));
+            upgradeButtons[1] = new Sprite(new Texture("Content/InGame/Buttons/atk.png"));
+            upgradeButtons[2] = new Sprite(new Texture("Content/InGame/Buttons/cooldown.png"));
+            upgradeButtons[3] = new Sprite(new Texture("Content/InGame/Buttons/health.png"));
+            upgradeButtons[4] = new Sprite(new Texture("Content/InGame/Buttons/drone.png"));
+            buttonBar = new Sprite(new Texture("Content/InGame/Buttons/buttonBar.png"));
+            buttonBar.Position = new Vec2f(0.0f, Game.WINDOWSIZE.Y - buttonBar.Texture.Size.Y);
+            float buttonSize = upgradeButtons[0].Texture.Size.X;
+            Vec2f buttonOffset = new Vec2f(10, -10);
+            for (int i = 0; i < 5; ++i )
+            {
+                upgradeButtons[i].Position = new Vec2f(i * buttonSize, Game.WINDOWSIZE.Y - buttonSize) + buttonOffset;
+            }
 
             backgroundSprite = new Sprite(new Texture("Content/InGame/worldBg.png"), new IntRect(0, 0, (int)Game.WINDOWSIZE.X, (int)Game.WINDOWSIZE.Y));
             Texture playerTexture = new Texture("Content/InGame/player.png");
-            player = new Player(new Vec2f(Game.WINDOWSIZE.X/2, Game.WINDOWSIZE.Y/2), 0, 100, Math.Max(playerTexture.Size.X, playerTexture.Size.X) / 2, new Vec2f(0, 0), Team.Good, "Player - Horst");
+            player = new Player(new Vec2f(Game.WINDOWSIZE.X / 2, Game.WINDOWSIZE.Y / 2), 0, 100, Math.Max(playerTexture.Size.X, playerTexture.Size.X) / 2, new Vec2f(0, 0), Team.Good, "Player - Horst");
             spawner = new Spawner(0.01f, player);
             entities.Add(player);
             entities.Add(new Drone(new Vec2f(0, 0), 0, 10, new Vec2f(0, 0), player));
@@ -123,7 +138,7 @@ namespace SpaceLetters
 
                 if (entities.ElementAt(i).ToDelete)
                 {
-                    if(entities[i].canExplode)
+                    if (entities[i].canExplode)
                         particleSpawner.Add(new PSpawner(entities[i].Position, 500));
                     entities[i].onDeath();
                     entities.RemoveAt(i);
@@ -148,7 +163,7 @@ namespace SpaceLetters
                 entities.Add(spawnedEntity);
             }
 
-            for (int i = particleSpawner.Count-1; i >0; --i)
+            for (int i = particleSpawner.Count - 1; i > 0; --i)
             {
                 particleSpawner.ElementAt(i).update(gameTime);
                 if (particleSpawner.ElementAt(i).isSpawnerFinish())
@@ -206,10 +221,14 @@ namespace SpaceLetters
         public void draw(GameTime gameTime, SFML.Graphics.RenderWindow window)
         {
             window.Draw(backgroundSprite);
+
             foreach (Entity ent in entities)
                 ent.draw(gameTime, window);
             foreach (PSpawner spawner in particleSpawner)
                 spawner.draw(gameTime, window);
+            window.Draw(buttonBar);
+            foreach (Sprite s in upgradeButtons)
+                window.Draw(s);
         }
 
 
