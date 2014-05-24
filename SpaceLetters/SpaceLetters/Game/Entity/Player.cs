@@ -153,7 +153,7 @@ namespace SpaceLetters
         public void addLetter(String s)
         {
             char letter = s[0];
-            int index = letter - 'a' ;
+            int index = letter - 'A' ;
             ++letters[index];
 
             for (int i = 0; i < 26 ; ++i)
