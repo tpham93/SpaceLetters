@@ -36,12 +36,12 @@ namespace SpaceLetters
             int end = 0;
             while(start < tmp.Length-1)
             {
-                Console.WriteLine(start + ":" + end);
+                
                 end = tmp.IndexOf(",", start);
                 players.Add(tmp.Substring(start, end-start));
                 start = end+1;
                 end = tmp.IndexOf("\r\n", start);
-                Console.WriteLine(start + ":" + end);
+                
                 scores.Add(tmp.Substring(start, end-start ));
                 start =end+2;
 
