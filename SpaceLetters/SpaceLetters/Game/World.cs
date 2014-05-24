@@ -26,7 +26,7 @@ namespace SpaceLetters
             
             rand = new Random();
 
-            spawnTimeSmaragd = 1000;
+            spawnTimeSmaragd = 3000;
 
         }
 
