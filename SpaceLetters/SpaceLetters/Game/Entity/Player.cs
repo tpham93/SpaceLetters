@@ -34,7 +34,7 @@ namespace SpaceLetters
             Texture cannonTexture = new Texture("Content/InGame/cannon.png");
             for (int i = 0; i < DEFAULT_WEAPON_NÙMBER; ++i)
             {
-                weapons.Add(new Cannon(new Vec2f(position.X, position.Y), 0, 10, new Sprite(cannonTexture)));
+                weapons.Add(new Cannon(new Vec2f(position.X, position.Y), 0, 10, new Sprite(cannonTexture),1000));
             }
             foreach(Weapon w in weapons)
             {
@@ -57,6 +57,12 @@ namespace SpaceLetters
             toSpawnEnemies = new List<Entity>();
             
 
+            foreach(Weapon weapon in weapons)
+            {
+                weapon.update(gameTime);
+
+            }
+
             Vec2f movement = new Vec2f();
 
             if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.D))
@@ -70,7 +76,7 @@ namespace SpaceLetters
 
             position += 100 * movement * (float)gameTime.ElapsedTime.TotalSeconds ;
 
-            if(Game.mouseInput.leftClicked())
+            if(Game.mouseInput.leftPressed())
             {
                 mouseTarget = Game.mouseInput.getMousePos();
                 fireWeapon();
@@ -82,7 +88,13 @@ namespace SpaceLetters
         {
 
             foreach (Weapon weapon in weapons)
-                toSpawnEnemies.Add(weapon.fire( mouseTarget,null));
+            {
+                Entity entity = weapon.fire( mouseTarget,null);
+
+                if(entity!=null)
+                toSpawnEnemies.Add(entity);
+
+            }
 
         }
 

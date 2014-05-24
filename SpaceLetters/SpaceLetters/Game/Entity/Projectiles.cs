@@ -16,6 +16,7 @@ namespace SpaceLetters
         private Entity entity;
 
         private float lifeTime;
+        private float startLifeTime;
 
         public float Damage
         {
@@ -28,6 +29,7 @@ namespace SpaceLetters
             this.damage = damage;
             this.entity = entity;
             this.lifeTime = lifeTime;
+            this.startLifeTime = lifeTime;
         }
 
         public override void loadContent()
@@ -50,6 +52,8 @@ namespace SpaceLetters
         {
             sprite.Position = position;
             sprite.Rotation = rotation;
+            sprite.Scale = new Vec2f((float)Math.Sqrt(lifeTime / startLifeTime),(float)Math.Sqrt(lifeTime / startLifeTime));
+            sprite.Color = new Color(sprite.Color.R, sprite.Color.G, sprite.Color.B, (byte)((Math.Sqrt(lifeTime/startLifeTime))*255));
             sprite.Draw(renderWindow, RenderStates.Default);
         }
 

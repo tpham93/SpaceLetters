@@ -9,7 +9,7 @@ namespace SpaceLetters
 {
     class Cannon : Weapon
     {
-         public Cannon(Vec2f position, float rotation, float radius, Sprite sprite)  : base (position,rotation, radius, sprite)
+         public Cannon(Vec2f position, float rotation, float radius, Sprite sprite, float coolDown)  : base (position,rotation, radius, sprite, coolDown)
         {
 
         }
@@ -27,6 +27,10 @@ namespace SpaceLetters
 
         public override void update(GameTime gameTime)
         {
+            if(runCoolDownTime<=coolDown)
+            runCoolDownTime += (float)gameTime.ElapsedTime.TotalMilliseconds;
+
+           
             //throw new NotImplementedException();
         }
 
@@ -38,12 +42,18 @@ namespace SpaceLetters
 
         public override Entity fire(Vec2f target, Entity entity)
         {
-            //throw new NotImplementedException();
-            Vec2f velocity = (target - position)*3;
+            if (runCoolDownTime > coolDown)
+            {
+                //throw new NotImplementedException();
+                Vec2f velocity = (target - position) * 3;
 
-            velocity.normalize();
-            velocity *= 90;
-            return new Projectiles(position, 0, 9001, 10, velocity, Team.Good, "Projectiles", 9001, null, 10000f);
+                velocity.normalize();
+                velocity *= 90;
+                runCoolDownTime = 0;
+                return new Projectiles(position, 0, 9001, 10, velocity, Team.Good, "Projectiles", 9001, null, 10000f);
+                
+            }
+            return null;
         }
     }
 }
