@@ -83,6 +83,11 @@ namespace SpaceLetters
             // keyboard & mouse
             List<Keyboard.Key> usedButtons = new List<Keyboard.Key>();
             // add keys
+            usedButtons.Add(Keyboard.Key.Num1);
+            usedButtons.Add(Keyboard.Key.Num2);
+            usedButtons.Add(Keyboard.Key.Num3);
+            usedButtons.Add(Keyboard.Key.Num4);
+            usedButtons.Add(Keyboard.Key.Num5);
 
             keyboardInput = new KeyboardInput(usedButtons);
             mouseInput = new MouseInput(window);

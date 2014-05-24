@@ -9,7 +9,10 @@ namespace SpaceLetters
 {
     class Cannon : Weapon
     {
-         public Cannon(Vec2f position, float rotation, float radius, Sprite sprite, float coolDown)  : base (position,rotation, radius, sprite, coolDown)
+        private static Texture texture = new Texture("Content/InGame/cannon.png");
+
+        public Cannon(Vec2f position, float rotation, float radius, float coolDown, float projectTileDamage)
+            : base(position, rotation, radius, new Sprite(texture), coolDown, projectTileDamage)
         {
 
         }
@@ -28,7 +31,7 @@ namespace SpaceLetters
         public override void update(GameTime gameTime)
         {
             if(runCoolDownTime<=coolDown)
-            runCoolDownTime += (float)gameTime.ElapsedTime.TotalMilliseconds;
+                runCoolDownTime += (float)gameTime.ElapsedTime.TotalMilliseconds;
 
            
             //throw new NotImplementedException();
@@ -36,13 +39,13 @@ namespace SpaceLetters
 
         public override void draw(GameTime gameTime, SFML.Graphics.RenderWindow renderWindow)
         {
-            Sprite.Position = Position;
+            Sprite.Position = position;
             renderWindow.Draw(Sprite);
         }
 
         public override Entity fire(Vec2f target, Entity entity)
         {
-            if (runCoolDownTime > coolDown)
+            if (runCoolDownTime > coolDown * CoolDownFactor)
             {
                 //throw new NotImplementedException();
                 Vec2f velocity = (target - position) * 3;
@@ -50,7 +53,7 @@ namespace SpaceLetters
                 velocity.normalize();
                 velocity *= 300;
                 runCoolDownTime = 0;
-                return new Projectiles(position, 0, 1, 10, velocity, Team.Good, "Projectiles", 9001, null, 10000f);
+                return new Projectiles(position, 0, 1, 10, velocity, Team.Good, "Projectiles", projectileDamage * ProjectileDamageFactor, null, 10000f);
                 
             }
             return null;
