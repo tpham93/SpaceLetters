@@ -94,7 +94,7 @@ namespace SpaceLetters
                             Smaragd smaragd = null;
                             foreach (Entity ent in entities)
                             {
-                                if (ent.getEntityType() == EntityType.Smaragd)
+                                if (ent.getEntityType() == EntityType.Letter)
                                 {
                                     smaragd = (Smaragd)ent;
                                     
