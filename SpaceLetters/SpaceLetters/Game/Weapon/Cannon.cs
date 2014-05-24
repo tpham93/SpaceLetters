@@ -51,7 +51,6 @@ namespace SpaceLetters
             {
                 Vec2f velocity = (target - position) * 3;
                 sound.Play();
-                Vec2f velocity;
 
                 if (left)
                     velocity = (target - position) * 3;
