@@ -10,6 +10,13 @@ namespace SpaceLetters
     class Smaragd : Entity
     {
         private static Texture texture = new Texture("Content/InGame/LetterCase/smara.png");
+        private Drone drone;
+
+        public Drone Drone
+        {
+            get { return drone; }
+            set { drone = value; }
+        }
 
         private Text nameText;
 
@@ -55,5 +62,6 @@ namespace SpaceLetters
         {
            
         }
+
     }
 }

@@ -84,6 +84,23 @@ namespace SpaceLetters
                         }
 
                         break;
+                    case EntityType.Drone:
+                        Drone drone = (Drone)entities.ElementAt(i);
+                        if (drone.noTarget)
+                        {
+                            Smaragd smaragd = null;
+                            foreach (Entity ent in entities)
+                            {
+                                if (ent.getEntityType() == EntityType.Smaragd)
+                                {
+                                    smaragd = (Smaragd)ent;
+                                }
+                            }
+
+                            drone.setTarget(smaragd);
+                        }
+
+                        break;
 
                     default:
                         break;

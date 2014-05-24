@@ -12,13 +12,20 @@ namespace SpaceLetters
     {
         // change texture
         private static Texture texture = new Texture("Content/InGame/breeder.png");
+        private static Random rand = new Random();
         private float maxspeed;
-        private static Random rand;
+        private Smaragd target;
+        private TimeSpan cooldown, threshold;
+        private Player player;
+        public bool noTarget;
 
-        public Drone(Vec2f position, float rotation, float hp, Vec2f velocity)
-            :base(position, rotation,  8,  hp, 2,  velocity,  Team.Good,  "Drone",  new Sprite(texture))
+        public Drone(Vec2f position, float rotation, float hp, Vec2f velocity, Player player)
+            : base(position, rotation, 8, hp, 2, velocity, Team.Good, "Drone", new Sprite(texture))
         {
 
+            noTarget = true;
+            maxspeed = 10 * (float)rand.NextDouble();
+            target = null;
             initialize();
 
         }
@@ -30,7 +37,7 @@ namespace SpaceLetters
 
         public override void initialize()
         {
-            
+
         }
 
         public override void loadContent()
@@ -40,7 +47,20 @@ namespace SpaceLetters
 
         public override void update(GameTime gameTime)
         {
-           // throw new NotImplementedException();
+            cooldown += gameTime.ElapsedTime;
+
+            if (target == null)
+            {
+                moveTowardsEntity(player);
+
+                noTarget = (cooldown >= threshold);
+
+            }
+            else
+            {
+                moveTowardsEntity(target);
+            }
+            position += velocity;
         }
 
         public override void draw(GameTime gameTime, RenderWindow renderWindow)
@@ -48,8 +68,32 @@ namespace SpaceLetters
             sprite.Position = position;
             renderWindow.Draw(sprite);
         }
-        private Smaragd searchtarget(){
-            return null;
+        public void setTarget(Smaragd smaragt)
+        {
+            target = smaragt;
+            noTarget = target == null;
+            if (!noTarget)
+            {
+                target.Drone = this;
+            }
+
+        }
+
+        private void moveTowardsEntity(Entity ent)
+        {
+            Vec2f path = ent.Position - Position;
+            if (maxspeed < path.length() && maxspeed > 0)
+            {
+                path = (maxspeed / path.length()) * path;
+            }
+            velocity = path;
+        }
+        public override void onDeath()
+        {
+            if (target != null)
+            {
+                target.Drone = null;
+            }
         }
     }
 }
