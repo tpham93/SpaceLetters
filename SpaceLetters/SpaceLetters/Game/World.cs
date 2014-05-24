@@ -46,7 +46,6 @@ namespace SpaceLetters
             player = new Player(new Vec2f(0, 0), 0, 100, Math.Max(playerTexture.Size.X, playerTexture.Size.X) / 2, new Vec2f(0, 0), Team.Good, "Player - Horst");
             spawner = new Spawner(0.01f, player);
             entities.Add(player);
-            entities.Add(new Breeder(new Vec2f(100, 100), 0, new Vec2f(0, 0),"Breeder", player));
             entities.Add(new Drone(new Vec2f(0, 0), 0, 10, new Vec2f(0, 0), player));
             entities.Add(new Drone(new Vec2f(0, 0), 0, 10, new Vec2f(0, 0), player));
 

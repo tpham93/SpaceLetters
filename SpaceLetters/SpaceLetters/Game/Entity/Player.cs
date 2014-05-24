@@ -19,6 +19,7 @@ namespace SpaceLetters
         List<Entity> toSpawnEnemies;
 
         float animatedCanonsPos = 0;
+        private Vec2f acceleration;
 
         int[] letters;
 
@@ -40,6 +41,7 @@ namespace SpaceLetters
             {
                 w.loadContent();
             }
+            acceleration = new Vec2f(0, 0);
         }
         public override void loadContent()
         {
