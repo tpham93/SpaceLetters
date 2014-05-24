@@ -24,7 +24,7 @@ namespace SpaceLetters
         {
             this.player = player;
             noTarget = true;
-            maxspeed = 100 * (float)rand.NextDouble();
+            maxspeed = 66 * (float)rand.NextDouble();
             target = null;
             cooldown = TimeSpan.FromSeconds(0);
             threshold = TimeSpan.FromSeconds(3);
@@ -92,10 +92,9 @@ namespace SpaceLetters
         {
             target = smaragt;
             noTarget = target == null;
-            if (!noTarget)
+            if (!noTarget )
             {
                 target.Drone = this;
-                Console.WriteLine("smaragt gesehehn");
             }
         }
 

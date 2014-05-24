@@ -23,7 +23,7 @@ namespace SpaceLetters
 
         public World()
         {
-            entities.Add(new Player(new Vec2f(0, 0), 0, 9001, 50, new Vec2f(0, 0), Team.Good, "Player - Horst"));
+            
             rand = new Random();
 
             spawnTimeSmaragd = 3000;
