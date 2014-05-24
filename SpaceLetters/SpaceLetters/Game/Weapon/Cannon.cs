@@ -21,6 +21,7 @@ namespace SpaceLetters
 
         public override void loadContent()
         {
+            sprite.Origin = new Vec2f(sprite.Texture.Size.X / 2, sprite.Texture.Size.Y / 2);
             //throw new NotImplementedException();
         }
 
@@ -31,8 +32,8 @@ namespace SpaceLetters
 
         public override void draw(GameTime gameTime, SFML.Graphics.RenderWindow renderWindow)
         {
-            sprite.Position = position;
-            renderWindow.Draw(sprite);
+            Sprite.Position = Position;
+            renderWindow.Draw(Sprite);
         }
 
         public override bool fire(Vec2f target)

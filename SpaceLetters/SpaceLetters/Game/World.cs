@@ -17,8 +17,8 @@ namespace SpaceLetters
 
         public World()
         {
-
-            entities.Add(new Player(new Vec2f(0, 0), 0, 9001, 10, new Vec2f(0, 0), Team.Good, "Player - Horst", new Sprite(new Texture("Content/InGame/player.png"))));
+            Texture playerTexture = new Texture("Content/InGame/player.png");
+            entities.Add(new Player(new Vec2f(0, 0), 0, 9001, Math.Max(playerTexture.Size.X,playerTexture.Size.X)/2, new Vec2f(0, 0), Team.Good, "Player - Horst", new Sprite(playerTexture)));
 
         }
 

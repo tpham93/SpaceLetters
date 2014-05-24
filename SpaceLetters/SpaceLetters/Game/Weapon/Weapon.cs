@@ -11,15 +11,24 @@ namespace SpaceLetters
     {
         private float coolDown;
 
-        public Vec2f position;
+        protected Vec2f position;
         protected float rotation;
         protected float radius;
         protected Sprite sprite;
 
+        public Vec2f Position
+        {
+            get { return position; }
+            set { position = value; }
+        }
         public Vec2f TextureSize
         {
             get { return new Vec2f(sprite.Texture.Size.X, sprite.Texture.Size.Y); }
  
+        }
+        public Sprite Sprite
+        {
+            get { return sprite; }
         }
 
         protected float runCoolDownTime;
