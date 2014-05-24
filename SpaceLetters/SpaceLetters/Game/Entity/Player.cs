@@ -9,6 +9,8 @@ namespace SpaceLetters
 {
     class Player : Entity
     {
+        private static Texture texture = new Texture("Content/InGame/player.png");
+
         Vec2f mouseTarget;
 
         List<Vec2f> weaponsPosition;
@@ -22,8 +24,8 @@ namespace SpaceLetters
 
         List<Weapon> weapons = new List<Weapon>();
 
-        public Player(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name, Sprite sprite)
-            :base(position, rotation, hp, radius, velocity, team, name,sprite)
+        public Player(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name)
+            :base(position, rotation, hp, radius, velocity, team, name,new Sprite(texture))
         {
             const uint DEFAULT_WEAPON_NÙMBER = 3;
             Texture cannonTexture = new Texture("Content/InGame/cannon.png");

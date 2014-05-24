@@ -10,6 +10,9 @@ namespace SpaceLetters
 {
     class Breeder : Enemy
     {
+        // change texture
+        private static Texture texture = new Texture("Content/InGame/player.png");
+
         private int cooldown, threshold;
         public Breeder(Vec2f position, float rotation, float radius, float hp, Vec2f velocity, Team team, String name, Sprite sprite)
             :base(position, rotation,  7,  hp,  velocity,  team,  name,  sprite)
