@@ -24,6 +24,7 @@ namespace SpaceLetters
 
         public World()
         {
+            
             rand = new Random();
 
             spawnTimeSmaragd = 3000;
