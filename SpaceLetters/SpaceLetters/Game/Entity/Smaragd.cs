@@ -25,12 +25,12 @@ namespace SpaceLetters
         public Smaragd(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name)
             :base(position, rotation, hp, 0, radius, velocity, team, name,new Sprite(texture))
         {
-            sprite.Origin = new Vec2f(sprite.Texture.Size.X / 2, sprite.Texture.Size.Y / 2);
+            sprite.Origin = new Vec2f(sprite.Texture.Size.X, sprite.Texture.Size.Y)/2;
             nameText = new Text(name, Game.smaraFont);
-            uint size = nameText.CharacterSize;
-            nameText.Origin = new Vec2f(size/2, 8);
+            FloatRect size = nameText.GetLocalBounds();
+            nameText.Origin = new Vec2f(size.Width - size.Left-3, size.Height - size.Top+15)/2;
             nameText.Color = new Color(0, 0, 0, (byte)165);
-            //nameText.Scale = new Vec2f(0.7f, 0.7f);
+            nameText.Scale = new Vec2f(0.5f, 0.5f);
 
             //fontMove = new Vec2f(5+nameText., 0);
             
