@@ -31,7 +31,8 @@ namespace SpaceLetters
         public Entity spawn(GameTime gameTime)
         {
             //if(rand.NextDouble()*0.91f *spawnVelocity *  Math.Max(1,gameTime.TotalTime.Minutes) > 1)
-            if(rand.NextDouble() < 0.003f)
+            //if(rand.NextDouble() < 0.003f)
+            if (rand.NextDouble() < 0.0025f + gameTime.TotalTime.Minutes/1000)
             {
                 Console.WriteLine("Spawn  :"+gameTime.TotalTime.Minutes);
 

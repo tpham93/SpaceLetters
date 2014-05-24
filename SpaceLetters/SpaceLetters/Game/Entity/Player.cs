@@ -33,7 +33,7 @@ namespace SpaceLetters
         int points,score;
         int upgradeCosts = 10;
 
-        const float cannonBaseDamage = 1;
+        const float cannonBaseDamage = 3;
         const float cannonBaseCoolDown = 1000;
         List<Weapon> weapons = new List<Weapon>();
         float projectileDamageFactor = 1.0f;
