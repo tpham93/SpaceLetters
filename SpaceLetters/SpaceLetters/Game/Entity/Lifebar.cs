@@ -23,7 +23,7 @@ namespace SpaceLetters
         }
         private void initialize()
         {
-            offset = new Vec2f(-50, -90);
+            offset = new Vec2f(-60, -90);
         }
 
         public void update(GameTime gameTime)
