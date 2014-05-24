@@ -56,8 +56,8 @@ namespace SpaceLetters
             buttonBar = new Sprite(new Texture("Content/InGame/Buttons/buttonBar.png"));
             buttonBar.Position = new Vec2f(0.0f, Game.WINDOWSIZE.Y - buttonBar.Texture.Size.Y);
             float buttonSize = upgradeButtons[0].Texture.Size.X;
-            Vec2f buttonOffset = new Vec2f(10, -10);
-            for (int i = 0; i < 5; ++i )
+            Vec2f buttonOffset = new Vec2f(10, -17);
+            for (int i = 0; i < 5; ++i)
             {
                 upgradeButtons[i].Position = new Vec2f(i * buttonSize, Game.WINDOWSIZE.Y - buttonSize) + buttonOffset;
             }
@@ -67,8 +67,8 @@ namespace SpaceLetters
             player = new Player(new Vec2f(Game.WINDOWSIZE.X / 2, Game.WINDOWSIZE.Y / 2), 0, 100, Math.Max(playerTexture.Size.X, playerTexture.Size.X) / 2, new Vec2f(0, 0), Team.Good, "Player - Horst");
             spawner = new Spawner(1.1f, player);
             entities.Add(player);
-            entities.Add(new Drone(new Vec2f(0, 0), 0, 10, new Vec2f(0, 0), player));
-            entities.Add(new Drone(new Vec2f(0, 0), 0, 10, new Vec2f(0, 0), player));
+            entities.Add(new Drone(player.Position, 0, 10, new Vec2f(0, 0), player));
+            entities.Add(new Drone(player.Position, 0, 10, new Vec2f(0, 0), player));
 
 
             foreach (Entity ent in entities)
@@ -82,7 +82,11 @@ namespace SpaceLetters
             for (int i = entities.Count - 1; i >= 0; --i)
             {
                 entities.ElementAt(i).update(gameTime);
-
+                Projectiles p = entities[i].shoot();
+                if (p != null)
+                {
+                    tmp.Add(p);
+                }
                 for (int j = i + 1; j < entities.Count; ++j)
                 {
                     Team teamI = entities[i].Team;
@@ -235,8 +239,15 @@ namespace SpaceLetters
             foreach (PSpawner spawner in particleSpawner)
                 spawner.draw(gameTime, window);
             window.Draw(buttonBar);
-            foreach (Sprite s in upgradeButtons)
-                window.Draw(s);
+            for(int i = 0; i<upgradeButtons.Length;++i)
+            {
+                window.Draw(upgradeButtons[i]);
+                Text t = new Text(""+i,Game.smaraFont);
+                t.Color = Color.White;
+                t.Position = new Vec2f(upgradeButtons[i].Position) + new Vec2f(21.0f, 45.0f);
+                t.Scale = new Vec2f(0.5f, 0.5f);
+                window.Draw(t);
+            }
         }
 
 
