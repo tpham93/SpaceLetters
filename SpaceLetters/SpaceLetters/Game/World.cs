@@ -59,7 +59,7 @@ namespace SpaceLetters
                         if (bre.ReadyToSpawn)
                         {
                             float alpha = (float) rand.NextDouble() * 360;
-                            Breeder bre2 = new Breeder(bre.Position + (new Vec2f((float) (5 * Math.Cos(alpha)),(float) (5 *Math.Sin(alpha)))), 0, 1,new Vec2f(0,0),  SpaceLetters.Team.Evil, "");
+                            Breeder bre2 = new Breeder(bre.Position + (new Vec2f((float) (40 * Math.Cos(alpha)),(float) (40 *Math.Sin(alpha)))), 0, 1,new Vec2f(0,0),  SpaceLetters.Team.Evil, "");
                             tmp.Add(bre2);
 
                             bre.ReadyToSpawn = false;

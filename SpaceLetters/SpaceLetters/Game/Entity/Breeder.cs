@@ -10,8 +10,9 @@ namespace SpaceLetters
 {
     class Breeder : Enemy
     {
-        private int cooldown, threshold;
+        private TimeSpan cooldown, threshold;
         private bool readyToSpawn;
+        private Random rand;
 
         public bool ReadyToSpawn
         {
@@ -24,8 +25,9 @@ namespace SpaceLetters
         {
 
 
-            cooldown = 0;
-            threshold = 300;
+            cooldown = TimeSpan.FromSeconds(0);
+            threshold = TimeSpan.FromSeconds(12);
+            rand = new Random();
         }
 
         public override EntityType getEntityType()
@@ -36,12 +38,12 @@ namespace SpaceLetters
 
         public override void update(GameTime gameTime)
         {
-            cooldown++;
+            cooldown += gameTime.ElapsedTime;
             if (cooldown >= threshold)
             {
                 readyToSpawn = true;
-                cooldown = 0;
-                threshold = threshold*2;
+                cooldown = TimeSpan.FromSeconds(rand.NextDouble()*threshold.TotalSeconds / 2);
+                threshold = threshold.Add(threshold);
                 hp = hp * 2;
             }
 
