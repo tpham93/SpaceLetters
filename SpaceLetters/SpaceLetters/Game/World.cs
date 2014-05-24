@@ -85,7 +85,10 @@ namespace SpaceLetters
                 }
 
                 if (entities.ElementAt(i).ToDelete)
+                {
+                    entities[i].onDeath();
                     entities.RemoveAt(i);
+                }
             }
             entities.AddRange(tmp);
 

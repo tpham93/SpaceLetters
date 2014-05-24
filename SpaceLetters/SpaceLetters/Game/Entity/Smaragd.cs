@@ -13,7 +13,7 @@ namespace SpaceLetters
 
 
         public Smaragd(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name)
-            :base(position, rotation, hp, radius, velocity, team, name,new Sprite(texture))
+            :base(position, rotation, hp, 0, radius, velocity, team, name,new Sprite(texture))
         {
 
         }

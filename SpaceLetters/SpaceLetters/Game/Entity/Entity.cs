@@ -91,7 +91,10 @@ namespace SpaceLetters
         public abstract void loadContent();
         public abstract void update(GameTime gameTime);
         public abstract void draw(GameTime gameTime, RenderWindow renderWindow);
+        public virtual void onDeath()
+        {
 
+        }
 
         public bool collide(Entity other)
         {
