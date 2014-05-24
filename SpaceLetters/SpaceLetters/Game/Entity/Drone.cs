@@ -24,10 +24,10 @@ namespace SpaceLetters
         {
             this.player = player;
             noTarget = true;
-            maxspeed = 10;// *(float)rand.NextDouble();
+            maxspeed = 7;// *(float)rand.NextDouble();
             target = null;
             cooldown = TimeSpan.FromSeconds(0);
-            threshold = TimeSpan.FromSeconds(3);
+            threshold = TimeSpan.FromSeconds(0.5);
 
             initialize();
 
