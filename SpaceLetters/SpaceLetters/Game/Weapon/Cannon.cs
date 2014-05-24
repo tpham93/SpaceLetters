@@ -4,14 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SFML.Audio;
 
 namespace SpaceLetters
 {
     class Cannon : Weapon
     {
+        private static Music sound = new Music("Content/Sounds/Laser_Shoot35.wav");
+
          public Cannon(Vec2f position, float rotation, float radius, Sprite sprite, float coolDown)  : base (position,rotation, radius, sprite, coolDown)
         {
-
+            sound.Loop = false;
         }
 
         public override void initialize()
@@ -45,11 +48,15 @@ namespace SpaceLetters
             if (runCoolDownTime > coolDown)
             {
                 //throw new NotImplementedException();
+                sound.Play();
                 Vec2f velocity = (target - position) * 3;
 
                 velocity.normalize();
                 velocity *= 300;
                 runCoolDownTime = 0;
+
+                
+
                 return new Projectiles(position, 0, 1, 10, velocity, Team.Good, "Projectiles", 9001, null, 10000f);
                 
             }

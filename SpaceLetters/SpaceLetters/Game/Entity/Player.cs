@@ -20,6 +20,7 @@ namespace SpaceLetters
 
         float animatedCanonsPos = 0;
         private Vec2f acceleration;
+        private Lifebar lifebar;
 
         int[] letters;
 
@@ -35,7 +36,7 @@ namespace SpaceLetters
             Texture cannonTexture = new Texture("Content/InGame/cannon.png");
             for (int i = 0; i < DEFAULT_WEAPON_NÙMBER; ++i)
             {
-                weapons.Add(new Cannon(new Vec2f(position.X, position.Y), 0, 10, new Sprite(cannonTexture),1000));
+                weapons.Add(new Cannon(new Vec2f(position.X, position.Y), 0, 10, new Sprite(cannonTexture),300));
             }
             foreach(Weapon w in weapons)
             {
@@ -48,6 +49,8 @@ namespace SpaceLetters
             sprite.Origin = new Vec2f(sprite.Texture.Size.X / 2, sprite.Texture.Size.Y/2);
          
             mouseTarget = new Vec2f(0, 0);
+
+            lifebar = new Lifebar(this);
         }
         public override void update(GameTime gameTime)
         {
@@ -85,6 +88,7 @@ namespace SpaceLetters
                 fireWeapon();
 
             }
+            lifebar.update(gameTime);
         }
 
         private void fireWeapon()
@@ -125,7 +129,7 @@ namespace SpaceLetters
                 weapons.ElementAt(weaponID).draw(gameTime, renderWindow);
             }
 
-
+            lifebar.draw(gameTime,renderWindow);
         }
 
         public override void initialize()
