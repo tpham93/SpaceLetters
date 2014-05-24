@@ -108,7 +108,7 @@ namespace SpaceLetters
             renderWindow.Draw(sprite);
 
             //set weapon Positionsd
-            const uint weaponRadiusOffset = 30;
+            const uint weaponRadiusOffset = 15;
             weaponsPosition = getWeaponPosition(weapons.Count, radius + weaponRadiusOffset, Position, -weaponRotation);
             for (int weaponID = 0; weaponID < weapons.Count; weaponID++)
             {
