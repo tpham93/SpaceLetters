@@ -9,6 +9,8 @@ namespace SpaceLetters
 {
     class Player : Entity
     {
+        private static Texture texture = new Texture("Content/InGame/player.png");
+
         Vec2f mouseTarget;
 
         List<Vec2f> weaponsPosition;
@@ -25,8 +27,8 @@ namespace SpaceLetters
 
         List<Weapon> weapons = new List<Weapon>();
 
-        public Player(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name, Sprite sprite)
-            :base(position, rotation, hp, radius, velocity, team, name,sprite)
+        public Player(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name)
+            :base(position, rotation, hp, radius, velocity, team, name,new Sprite(texture))
         {
             const uint DEFAULT_WEAPON_NÙMBER = 3;
             Texture cannonTexture = new Texture("Content/InGame/cannon.png");
@@ -34,7 +36,6 @@ namespace SpaceLetters
             {
                 weapons.Add(new Cannon(new Vec2f(position.X, position.Y), 0, 10, new Sprite(cannonTexture)));
             }
-
             foreach(Weapon w in weapons)
             {
                 w.loadContent();
@@ -56,14 +57,18 @@ namespace SpaceLetters
             toSpawnEnemies = new List<Entity>();
             
 
+            Vec2f movement = new Vec2f();
+
             if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.D))
-                position.X++;
+                movement.X++;
             if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.A))
-                position.X--;
+                movement.X--;
             if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.W))
-                position.Y--;
+                movement.Y--;
             if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.S))
-                position.Y++;
+                movement.Y++;
+
+            position += 100 * movement * (float)gameTime.ElapsedTime.TotalSeconds ;
 
             if(Game.mouseInput.leftClicked())
             {

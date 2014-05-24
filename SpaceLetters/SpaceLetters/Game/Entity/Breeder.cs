@@ -10,6 +10,9 @@ namespace SpaceLetters
 {
     class Breeder : Enemy
     {
+        // change texture
+        private static Texture texture = new Texture("Content/InGame/player.png");
+
         private int cooldown, threshold;
         private Vec2f vec2f1;
         private int p1;

@@ -43,7 +43,7 @@ namespace SpaceLetters
 
             velocity.normalize();
             velocity *= 90;
-            return new Projectiles(position, 0, 9001, 10, velocity, Team.Good, "Projectiles", new Sprite(new Texture("Content/InGame/projectiles.png")), 9001, null, 10000f);
+            return new Projectiles(position, 0, 9001, 10, velocity, Team.Good, "Projectiles", 9001, null, 10000f);
         }
     }
 }

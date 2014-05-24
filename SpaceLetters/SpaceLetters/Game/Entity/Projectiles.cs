@@ -10,6 +10,7 @@ namespace SpaceLetters
 {
     class Projectiles : Entity
     {
+        private static Texture texture = new Texture("Content/InGame/projectiles.png");
         private float damage;
 
         private Entity entity;
@@ -21,7 +22,7 @@ namespace SpaceLetters
             get { return damage; }
         }
 
-        public Projectiles(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name, Sprite sprite, float damage, Entity entity, float lifeTime)
+        public Projectiles(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name, float damage, Entity entity, float lifeTime)
             :base(position, rotation, hp, radius, velocity, team, name,sprite)
         {
             this.damage = damage;
