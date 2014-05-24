@@ -11,14 +11,22 @@ namespace SpaceLetters
     class Breeder : Enemy
     {
         private int cooldown, threshold;
-        public Breeder(Vec2f position, float rotation, float radius, float hp, Vec2f velocity, Team team, String name, Sprite sprite)
-            :base(position, rotation,  7,  hp,  velocity,  team,  name,  sprite)
+        private Vec2f vec2f1;
+        private int p1;
+        private int p2;
+        private Vec2f vec2f2;
+        private EntityType entityType;
+        private string p3;
+        public Breeder(Vec2f position, float rotation,  float hp, Vec2f velocity, Team team, String name)
+            : base(position, rotation, 7, hp, velocity, team, name, new Sprite(new Texture("Content/InGame/player.png")))
         {
 
 
             cooldown = 0;
             threshold = 9;
         }
+
+        
 
         public override void update(GameTime gameTime)
         {

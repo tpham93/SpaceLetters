@@ -13,6 +13,7 @@ namespace SpaceLetters
 
         List<Vec2f> weaponsPosition;
 
+        float weaponRotation = 0;
         List<Entity> toSpawnEnemies;
 
         float animatedCanonsPos = 0;
@@ -27,13 +28,12 @@ namespace SpaceLetters
         public Player(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name, Sprite sprite)
             :base(position, rotation, hp, radius, velocity, team, name,sprite)
         {
+            const uint DEFAULT_WEAPON_NÙMBER = 3;
             Texture cannonTexture = new Texture("Content/InGame/cannon.png");
-            weapons.Add(new Cannon(new Vec2f(position.X, position.Y), 0, 10, new Sprite(cannonTexture)));
-            weapons.Add(new Cannon(new Vec2f(position.X, position.Y), 0, 10, new Sprite(cannonTexture)));
-            weapons.Add(new Cannon(new Vec2f(position.X, position.Y), 0, 10, new Sprite(cannonTexture)));
-            weapons.Add(new Cannon(new Vec2f(position.X, position.Y), 0, 10, new Sprite(cannonTexture)));
-            weapons.Add(new Cannon(new Vec2f(position.X, position.Y), 0, 10, new Sprite(cannonTexture)));
-            weapons.Add(new Cannon(new Vec2f(position.X, position.Y), 0, 10, new Sprite(cannonTexture)));
+            for (int i = 0; i < DEFAULT_WEAPON_NÙMBER; ++i)
+            {
+                weapons.Add(new Cannon(new Vec2f(position.X, position.Y), 0, 10, new Sprite(cannonTexture)));
+            }
 
             foreach(Weapon w in weapons)
             {
@@ -42,7 +42,6 @@ namespace SpaceLetters
         }
         public override void loadContent()
         {
-
             sprite.Origin = new Vec2f(sprite.Texture.Size.X / 2, sprite.Texture.Size.Y/2);
          
             mouseTarget = new Vec2f(0, 0);
@@ -52,10 +51,10 @@ namespace SpaceLetters
 
         public override void update(GameTime gameTime)
         {
+            weaponRotation += (0.05f)*(float)gameTime.ElapsedTime.TotalSeconds * 360.0f;
+
             toSpawnEnemies = new List<Entity>();
             fireWeapon();
-
-            rotation += (float) gameTime.ElapsedTime.TotalMilliseconds/10;
 
             if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.D))
                 position.X++;
@@ -71,11 +70,6 @@ namespace SpaceLetters
                 mouseTarget = Game.mouseInput.getMousePos();
 
             }
-
-
-
-                
-               
         }
 
         private void fireWeapon()
@@ -94,26 +88,18 @@ namespace SpaceLetters
 
         public override void draw(GameTime gameTime, SFML.Graphics.RenderWindow renderWindow)
         {
-
-            sprite.Rotation = rotation;
+            //sprite.Rotation = rotation;
             sprite.Position = position;
             renderWindow.Draw(sprite);
 
             //set weapon Positionsd
-            weaponsPosition = getWeaponPosition(weapons.Count, radius, position, -rotation);
+            const uint weaponRadiusOffset = 30;
+            weaponsPosition = getWeaponPosition(weapons.Count, radius + weaponRadiusOffset, position, -weaponRotation);
             for (int weaponID = 0; weaponID < weapons.Count; weaponID++)
             {
-                weapons.ElementAt(weaponID).Sprite.Rotation = rotation -((float)weaponID / weapons.Count * 360.0f);
-                weapons.ElementAt(weaponID).Position = /*rollWeapon*/(weaponsPosition.ElementAt(weaponID)/*,3*/);
+                weapons.ElementAt(weaponID).Sprite.Rotation = weaponRotation -((float)weaponID / weapons.Count * 360.0f);
+                weapons.ElementAt(weaponID).Position = weaponsPosition.ElementAt(weaponID);
                 weapons.ElementAt(weaponID).draw(gameTime, renderWindow);
-
-
-                //Vec2f weaponOrigin = new Vec2f(0,radius);
-                //weapons.ElementAt(weaponID).Sprite.Origin = weaponOrigin;
-                //weapons.ElementAt(weaponID).Position = position;
-                //weapons.ElementAt(weaponID).Sprite.Rotation = ((float)weaponID / weapons.Count) * 360.0f;// rotation;
-
-
                 weapons.ElementAt(weaponID).draw(gameTime, renderWindow);
             }
 
@@ -130,19 +116,6 @@ namespace SpaceLetters
             return EntityType.Player;
         }
 
-        private Vec2f rollWeapon(Vec2f oldpos, float a)
-        {
-            Vec2f ans = oldpos - position;
-
-            float a0 = (float) Math.Acos(ans.X /(Math.Sqrt(Math.Pow(ans.X,2)+Math.Pow(ans.Y,2))));
-
-            ans.X = (float)Math.Cos(a0 + a);
-            ans.Y = (float)Math.Sin(a0 + a);
-            Console.WriteLine(ans.X + "  " + ans.Y);
-            ans = ((float)(Math.Sqrt(Math.Pow(ans.X, 2) + Math.Pow(ans.Y, 2)))) * ans;
-            return ans + position;
-        }
-
         private List<Vec2f> getWeaponPosition(int numWeapons, float radius, Vec2f pos, float rotation)
         {
 
@@ -152,7 +125,7 @@ namespace SpaceLetters
             List<Vec2f> result = new List<Vec2f>();
             for (int i = 0; i < numWeapons; i++)
             {
-                result.Add(pos - new Vec2f((float)(radius * Math.Sin(i * place + rotation)) + animatedCanonsPos, (float)(radius * Math.Cos(i * place + rotation))));
+                result.Add(pos - new Vec2f((float)(radius * Math.Sin(i * place + rotation)), (float)(radius * Math.Cos(i * place + rotation))));
             }
 
             return result;

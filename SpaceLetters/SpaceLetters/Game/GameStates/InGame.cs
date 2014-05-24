@@ -18,7 +18,6 @@ namespace SpaceLetters
         public override EGameStates update(GameTime gameTime)
         {
             world.update(gameTime);
-
             return EGameStates.InGame;
             
         }
