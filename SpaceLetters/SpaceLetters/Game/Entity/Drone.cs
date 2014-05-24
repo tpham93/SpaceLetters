@@ -16,7 +16,7 @@ namespace SpaceLetters
         private static Random rand;
 
         public Drone(Vec2f position, float rotation, float hp, Vec2f velocity)
-            :base(position, rotation,  8,  hp,  velocity,  Team.Good,  "Drone",  new Sprite(texture))
+            :base(position, rotation,  8,  hp, 2,  velocity,  Team.Good,  "Drone",  new Sprite(texture))
         {
 
             initialize();
@@ -45,7 +45,11 @@ namespace SpaceLetters
 
         public override void draw(GameTime gameTime, RenderWindow renderWindow)
         {
-            //throw new NotImplementedException();
+            sprite.Position = position;
+            renderWindow.Draw(sprite);
+        }
+        private Smaragd searchtarget(){
+            return null;
         }
     }
 }

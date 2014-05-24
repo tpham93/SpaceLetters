@@ -24,9 +24,8 @@ namespace SpaceLetters
         }
 
         public Projectiles(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name, float damage, Entity entity, float lifeTime)
-            :base(position, rotation, hp, radius, velocity, team, name,new Sprite(texture))
+            :base(position, rotation, hp, damage, radius, velocity, team, name,new Sprite(texture))
         {
-            this.damage = damage;
             this.entity = entity;
             this.lifeTime = lifeTime;
             this.startLifeTime = lifeTime;
