@@ -70,5 +70,16 @@ namespace SpaceLetters
         {
             return EntityType.Player;
         }
+
+        private Vec2f rollWeapon(Vec2f oldpos, float a)
+        {
+            Vec2f ans = oldpos - position;
+
+            float a0 = (float) Math.Acos(ans.X /(Math.Sqrt(Math.Pow(ans.X,2)+Math.Pow(ans.Y,2))));
+
+            ans.X = (float)Math.Cos(a0 + a);
+            ans.Y = (float)Math.Sin(a0 + a);
+            return ans;
+        }
     }
 }
