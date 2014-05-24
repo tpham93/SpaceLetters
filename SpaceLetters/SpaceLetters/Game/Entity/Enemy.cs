@@ -5,8 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using SFML.Graphics;
-
 namespace SpaceLetters
 {
     class Enemy : Entity

@@ -15,12 +15,12 @@ namespace SpaceLetters
 
         private Random rand;
         private Player player;
+        private Spawner spawner;
 
         Sprite backgroundSprite;
 
         public World()
         {
-            entities.Add(new Player(new Vec2f(0, 0), 0, 9001, 50, new Vec2f(0, 0), Team.Good, "Player - Horst"));
             rand = new Random();
 
         }
@@ -29,12 +29,13 @@ namespace SpaceLetters
         {
 
 
-
+            
             backgroundSprite = new Sprite(new Texture("Content/InGame/worldBg.png"), new IntRect(0, 0, (int)Game.WINDOWSIZE.X, (int)Game.WINDOWSIZE.Y));
             Texture playerTexture = new Texture("Content/InGame/player.png");
             player = new Player(new Vec2f(0, 0), 0, 100, Math.Max(playerTexture.Size.X, playerTexture.Size.X) / 2, new Vec2f(0, 0), Team.Good, "Player - Horst");
+            spawner = new Spawner(0.01f, player);
             entities.Add(player);
-            entities.Add(new Breeder(new Vec2f(100, 100), 0, new Vec2f(0, 0), SpaceLetters.Team.Evil, "Player", player));
+            entities.Add(new Breeder(new Vec2f(100, 100), 0, new Vec2f(0, 0),"Breeder", player));
 
 
             foreach (Entity ent in entities)
@@ -73,7 +74,7 @@ namespace SpaceLetters
                         if (bre.ReadyToSpawn)
                         {
                             float alpha = (float)rand.NextDouble() * 360;
-                            Breeder bre2 = new Breeder(bre.Position + (new Vec2f((float)(20 * Math.Cos(alpha)), (float)(20 * Math.Sin(alpha)))), 0, new Vec2f(0, 0), SpaceLetters.Team.Evil, "Breeder", player);
+                            Breeder bre2 = new Breeder(bre.Position + (new Vec2f((float)(20 * Math.Cos(alpha)), (float)(20 * Math.Sin(alpha)))), 0, new Vec2f(0, 0), "Breeder", player);
                             tmp.Add(bre2);
                             bre.ReadyToSpawn = false;
                         }
@@ -93,6 +94,12 @@ namespace SpaceLetters
             entities.AddRange(tmp);
 
             entities.AddRange(player.spawnNewEnemy());
+
+            Entity spawnedEntity = spawner.spawn();
+            if(spawnedEntity != null)
+            {
+                entities.Add(spawnedEntity);
+            }
         }
 
         public void draw(GameTime gameTime, SFML.Graphics.RenderWindow window)
