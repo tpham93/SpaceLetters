@@ -42,7 +42,7 @@ namespace SpaceLetters
         public Player(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name)
             : base(position, rotation, hp, float.PositiveInfinity, radius, velocity, team, name, new Sprite(texture))
         {
-            const uint DEFAULT_WEAPON_NUMBER = 3;
+            const uint DEFAULT_WEAPON_NUMBER = 5;
             for (int i = 0; i < DEFAULT_WEAPON_NUMBER; ++i)
             {
                 Weapon newWeapon = new Cannon(position, 0, 10, cannonBaseCoolDown, cannonBaseDamage);
