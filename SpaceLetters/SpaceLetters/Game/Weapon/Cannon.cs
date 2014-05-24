@@ -4,14 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SFML.Audio;
 
 namespace SpaceLetters
 {
     class Cannon : Weapon
     {
-         public Cannon(Vec2f position, float rotation, float radius, Sprite sprite, float coolDown)  : base (position,rotation, radius, sprite, coolDown)
-        {
+        private static Music sound = new Music("Content/Sounds/Laser_Shoot35.wav");
+		private static Texture texture = new Texture("Content/InGame/cannon.png");
 
+        public Cannon(Vec2f position, float rotation, float radius, float coolDown, float projectTileDamage)
+            : base(position, rotation, radius, new Sprite(texture), coolDown, projectTileDamage)
+        {
+            sound.Loop = false;
         }
 
         public override void initialize()
@@ -28,7 +33,7 @@ namespace SpaceLetters
         public override void update(GameTime gameTime)
         {
             if(runCoolDownTime<=coolDown)
-            runCoolDownTime += (float)gameTime.ElapsedTime.TotalMilliseconds;
+                runCoolDownTime += (float)gameTime.ElapsedTime.TotalMilliseconds;
 
            
             //throw new NotImplementedException();
@@ -36,15 +41,16 @@ namespace SpaceLetters
 
         public override void draw(GameTime gameTime, SFML.Graphics.RenderWindow renderWindow)
         {
-            Sprite.Position = Position;
+            Sprite.Position = position;
             renderWindow.Draw(Sprite);
         }
 
         public override Entity fire(Vec2f target, Entity entity, bool left, Vec2f playerPos, Weapon weapon)
         {
-            if (runCoolDownTime > coolDown)
+            if (runCoolDownTime > coolDown * CoolDownFactor)
             {
-
+                Vec2f velocity = (target - position) * 3;
+                sound.Play();
                 Vec2f velocity;
 
                 if (left)

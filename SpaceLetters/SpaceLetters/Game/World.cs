@@ -30,7 +30,7 @@ namespace SpaceLetters
 
         public World()
         {
-            
+
             rand = new Random();
             particleSpawner = new List<PSpawner>();
             spawnTimeSmaragd = 3000;
@@ -41,7 +41,7 @@ namespace SpaceLetters
         {
 
 
-            
+
             backgroundSprite = new Sprite(new Texture("Content/InGame/worldBg.png"), new IntRect(0, 0, (int)Game.WINDOWSIZE.X, (int)Game.WINDOWSIZE.Y));
             Texture playerTexture = new Texture("Content/InGame/player.png");
             player = new Player(new Vec2f(0, 0), 0, 100, Math.Max(playerTexture.Size.X, playerTexture.Size.X) / 2, new Vec2f(0, 0), Team.Good, "Player - Horst");
@@ -103,7 +103,8 @@ namespace SpaceLetters
                                 if (ent.getEntityType() == EntityType.Letter)
                                 {
                                     Smaragd sam = (Smaragd)ent;
-                                    if((smaragd == null ) || (sam.Drone == null && (player.Position-sam.Position).length()<(player.Position-smaragd.Position).length())){
+                                    if ((smaragd == null) || (sam.Drone == null && (player.Position - sam.Position).length() < (player.Position - smaragd.Position).length()))
+                                    {
                                         smaragd = sam;
                                         ent.canExplode = false;
                                     }
@@ -111,7 +112,7 @@ namespace SpaceLetters
                             }
                             drone.setTarget(smaragd);
 
-                            
+
                         }
 
                         break;
@@ -134,7 +135,7 @@ namespace SpaceLetters
 
             runSpawnTimeSmaragd += (float)gameTime.ElapsedTime.TotalMilliseconds;
 
-            if(runSpawnTimeSmaragd> spawnTimeSmaragd)
+            if (runSpawnTimeSmaragd > spawnTimeSmaragd)
             {
                 runSpawnTimeSmaragd = 0;
                 spawnSmaragd();
@@ -142,7 +143,7 @@ namespace SpaceLetters
             }
 
             Entity spawnedEntity = spawner.spawn();
-            if(spawnedEntity != null)
+            if (spawnedEntity != null)
             {
                 entities.Add(spawnedEntity);
             }
@@ -153,34 +154,45 @@ namespace SpaceLetters
                 if (particleSpawner.ElementAt(i).isSpawnerFinish())
                     particleSpawner.RemoveAt(i);
             }
+
+            Keyboard.Key[] upgradeKeys = { Keyboard.Key.Num1, Keyboard.Key.Num2, Keyboard.Key.Num3, Keyboard.Key.Num4, Keyboard.Key.Num5 };
+            UpgradeType[] upgradeTypes = { UpgradeType.AddCannon, UpgradeType.IncreaseDamage, UpgradeType.DecreaseCooldown, UpgradeType.AddDrone, UpgradeType.Heal };
+
+            for (int i = 0; i < upgradeKeys.Length; ++i)
+            {
+                if (Game.keyboardInput.isClicked(upgradeKeys[i]))
+                {
+                    player.upgrade(upgradeTypes[i], entities);
+                }
+            }
         }
 
         private void spawnSmaragd()
         {
-            String name = ((char)('A'+rand.Next(26))).ToString();
+            String name = ((char)('A' + rand.Next(26))).ToString();
             Vec2f velocity;
-            switch(rand.Next(4))
+            switch (rand.Next(4))
             {
-                case 0: 
-                    velocity = new Vec2f((float)rand.Next((int)30,255), (float)rand.Next((int)Game.WINDOWSIZE.Y));
+                case 0:
+                    velocity = new Vec2f((float)rand.Next((int)30, 255), (float)rand.Next((int)Game.WINDOWSIZE.Y));
                     velocity.normalize();
                     velocity *= 60;
-                    entities.Add(new Smaragd(new Vec2f(-30, (float)rand.NextDouble() * Game.WINDOWSIZE.Y), 0, 2, 20, velocity, Team.Neutral, name ));
+                    entities.Add(new Smaragd(new Vec2f(-30, (float)rand.NextDouble() * Game.WINDOWSIZE.Y), 0, 2, 20, velocity, Team.Neutral, name));
                     break;
-                case 1: 
-                    velocity = new Vec2f((float)rand.Next((int)-255,-30), (float)rand.Next((int)Game.WINDOWSIZE.Y));
+                case 1:
+                    velocity = new Vec2f((float)rand.Next((int)-255, -30), (float)rand.Next((int)Game.WINDOWSIZE.Y));
                     velocity.normalize();
                     velocity *= 60;
                     entities.Add(new Smaragd(new Vec2f(Game.WINDOWSIZE.X + 30, (float)rand.NextDouble() * Game.WINDOWSIZE.Y), 0, 2, 20, velocity, Team.Neutral, name));
                     break;
                 case 2:
-                    velocity = new Vec2f((float)(float)rand.Next((int)Game.WINDOWSIZE.Y), (float)rand.Next((int)30,255));
+                    velocity = new Vec2f((float)(float)rand.Next((int)Game.WINDOWSIZE.Y), (float)rand.Next((int)30, 255));
                     velocity.normalize();
                     velocity *= 60;
                     entities.Add(new Smaragd(new Vec2f((float)rand.NextDouble() * Game.WINDOWSIZE.X, -30), 0, 2, 20, velocity, Team.Neutral, name));
                     break;
-                case 3: 
-                    velocity = new Vec2f((float)(float)rand.Next((int)Game.WINDOWSIZE.Y), (float)rand.Next((int)-255,-30));
+                case 3:
+                    velocity = new Vec2f((float)(float)rand.Next((int)Game.WINDOWSIZE.Y), (float)rand.Next((int)-255, -30));
                     velocity.normalize();
                     velocity *= 60;
                     entities.Add(new Smaragd(new Vec2f((float)rand.NextDouble() * Game.WINDOWSIZE.X, Game.WINDOWSIZE.Y + 30), 0, 2, 20, velocity, Team.Neutral, name));
@@ -188,7 +200,7 @@ namespace SpaceLetters
 
 
             }
-           
+
         }
 
         public void draw(GameTime gameTime, SFML.Graphics.RenderWindow window)
