@@ -22,7 +22,7 @@ namespace SpaceLetters
         }
         public override void update(GameTime gameTime)
         {
-            moveTowardsPlayer(target, maxSpeed);
+            moveTowardsEntity(target, maxSpeed);
         }
     }
 }

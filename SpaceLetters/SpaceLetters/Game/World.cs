@@ -13,7 +13,7 @@ namespace SpaceLetters
     {
         List<Entity> entities = new List<Entity>();
 
-        
+        private Random rand;
         private Player player;
 
         Sprite backgroundSprite;
@@ -21,6 +21,7 @@ namespace SpaceLetters
         public World()
         {
             entities.Add(new Player(new Vec2f(0, 0), 0, 9001, 50, new Vec2f(0, 0), Team.Good, "Player - Horst"));
+            rand = new Random();
 
         }
 
@@ -29,35 +30,51 @@ namespace SpaceLetters
 
 
 
-            backgroundSprite  = new Sprite(new Texture("Content/InGame/worldBg.png"),new IntRect(0,0,(int)Game.WINDOWSIZE.X, (int)Game.WINDOWSIZE.Y));
+            backgroundSprite = new Sprite(new Texture("Content/InGame/worldBg.png"), new IntRect(0, 0, (int)Game.WINDOWSIZE.X, (int)Game.WINDOWSIZE.Y));
             Texture playerTexture = new Texture("Content/InGame/player.png");
             player = new Player(new Vec2f(0, 0), 0, 9001, Math.Max(playerTexture.Size.X, playerTexture.Size.X) / 2, new Vec2f(0, 0), Team.Good, "Player - Horst");
             entities.Add(player);
+            entities.Add(new Breeder(new Vec2f(100, 100), 0, 1, new Vec2f(0, 0), SpaceLetters.Team.Evil, "", player));
 
 
             foreach (Entity ent in entities)
                 ent.loadContent();
 
-
         }
 
         public void update(GameTime gameTime)
         {
-            for (int i = entities.Count-1; i>=0; --i)
+            List<Entity> tmp = new List<Entity>();
+            for (int i = entities.Count - 1; i >= 0; --i)
             {
                 entities.ElementAt(i).update(gameTime);
 
+                // Spezialbehandlung für einige klassen
+                EntityType type = entities.ElementAt(i).getEntityType();
+                switch (type)
+                {
+                    case EntityType.EnemyBreeder:
+                        Breeder bre = (Breeder)entities.ElementAt(i);
+                        if (bre.ReadyToSpawn)
+                        {
+                            float alpha = (float)rand.NextDouble() * 360;
+                            Breeder bre2 = new Breeder(bre.Position + (new Vec2f((float)(20 * Math.Cos(alpha)), (float)(20 * Math.Sin(alpha)))), 0, 1, new Vec2f(0, 0), SpaceLetters.Team.Evil, "Breeder", player);
+                            tmp.Add(bre2);
+                            bre.ReadyToSpawn = false;
+                        }
+
+                        break;
+
+                    default:
+                        break;
+                }
+
                 if (entities.ElementAt(i).ToDelete)
                     entities.RemoveAt(i);
-
             }
+            entities.AddRange(tmp);
 
-            if(player.spawnNewEnemy() != null)
-            {
-
-                entities.AddRange(player.spawnNewEnemy());
-            }
-
+            entities.AddRange(player.spawnNewEnemy());
         }
 
         public void draw(GameTime gameTime, SFML.Graphics.RenderWindow window)

@@ -20,10 +20,7 @@ namespace SpaceLetters
 
         float animatedCanonsPos = 0;
 
-        public Vec2f Position
-        {
-            get { return position; }
-        }
+        
 
         List<Weapon> weapons = new List<Weapon>();
 
@@ -107,12 +104,12 @@ namespace SpaceLetters
         public override void draw(GameTime gameTime, SFML.Graphics.RenderWindow renderWindow)
         {
             //sprite.Rotation = rotation;
-            sprite.Position = position;
+            sprite.Position = Position;
             renderWindow.Draw(sprite);
 
             //set weapon Positionsd
             const uint weaponRadiusOffset = 30;
-            weaponsPosition = getWeaponPosition(weapons.Count, radius + weaponRadiusOffset, position, -weaponRotation);
+            weaponsPosition = getWeaponPosition(weapons.Count, radius + weaponRadiusOffset, Position, -weaponRotation);
             for (int weaponID = 0; weaponID < weapons.Count; weaponID++)
             {
                 weapons.ElementAt(weaponID).Sprite.Rotation = weaponRotation -((float)weaponID / weapons.Count * 360.0f);

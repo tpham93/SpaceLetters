@@ -16,6 +16,7 @@ namespace SpaceLetters
         Drone,
         Letter,
         Projectile,
+        EnemyBreeder,
 
         Num
     }
@@ -45,6 +46,11 @@ namespace SpaceLetters
         public bool ToDelete
         {
             get { return toDelete || hp<=0; }
+        }
+
+        public Vec2f Position
+        {
+            get { return position; }
         }
 
         public Entity(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name, Sprite sprite)

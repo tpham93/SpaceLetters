@@ -50,7 +50,7 @@ namespace SpaceLetters
 
         public override void draw(GameTime gameTime, RenderWindow renderWindow)
         {
-            sprite.Position = position;
+            sprite.Position = Position;
             sprite.Rotation = rotation;
             sprite.Scale = new Vec2f((float)Math.Sqrt(lifeTime / startLifeTime),(float)Math.Sqrt(lifeTime / startLifeTime));
             sprite.Color = new Color(sprite.Color.R, sprite.Color.G, sprite.Color.B, (byte)((Math.Sqrt(lifeTime/startLifeTime))*255));
