@@ -24,7 +24,7 @@ namespace SpaceLetters
         {
             this.player = player;
             noTarget = true;
-            maxspeed = 66 * (float)rand.NextDouble();
+            maxspeed = 10;// *(float)rand.NextDouble();
             target = null;
             cooldown = TimeSpan.FromSeconds(0);
             threshold = TimeSpan.FromSeconds(3);
@@ -56,7 +56,13 @@ namespace SpaceLetters
             {
                 moveTowardsEntity(player);
 
-                noTarget = (cooldown >= threshold);
+                //noTarget = (cooldown >= threshold);
+                if (cooldown > threshold)
+                {
+                    noTarget = true;
+
+                    cooldown = TimeSpan.FromSeconds(0);
+                }
 
             }
             else
@@ -88,14 +94,22 @@ namespace SpaceLetters
             sprite.Position = position;
             renderWindow.Draw(sprite);
         }
-        public void setTarget(Smaragd smaragt)
+        public bool setTarget(Smaragd smaragd)
         {
-            target = smaragt;
-            noTarget = target == null;
-            if (!noTarget )
+            
+            noTarget = false;
+            if (smaragd !=null && smaragd.Drone == null)
             {
+                target = smaragd;
                 target.Drone = this;
+
+                return true;
             }
+            else
+            {
+                Console.WriteLine("keine target");
+            }
+            return false;
         }
 
         private void moveTowardsEntity(Entity ent)
