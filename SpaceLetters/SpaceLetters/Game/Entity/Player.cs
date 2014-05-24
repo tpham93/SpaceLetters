@@ -27,6 +27,7 @@ namespace SpaceLetters
         float weaponRotation = 0;
         List<Entity> toSpawnEnemies;
         private Vec2f acceleration;
+        private Lifebar lifebar;
 
         int points;
         int upgradeCosts;
@@ -54,6 +55,8 @@ namespace SpaceLetters
             sprite.Origin = new Vec2f(sprite.Texture.Size.X / 2, sprite.Texture.Size.Y / 2);
 
             mouseTarget = new Vec2f(0, 0);
+
+            lifebar = new Lifebar(this);
         }
         public override void update(GameTime gameTime)
         {
@@ -91,6 +94,7 @@ namespace SpaceLetters
                 fireWeapon();
 
             }
+            lifebar.update(gameTime);
         }
 
         private void fireWeapon()
@@ -130,7 +134,7 @@ namespace SpaceLetters
                 weapons.ElementAt(weaponID).draw(gameTime, renderWindow);
             }
 
-
+            lifebar.draw(gameTime,renderWindow);
         }
 
         public override void initialize()

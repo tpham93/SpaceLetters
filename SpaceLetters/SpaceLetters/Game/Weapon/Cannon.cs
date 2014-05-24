@@ -4,17 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SFML.Audio;
 
 namespace SpaceLetters
 {
     class Cannon : Weapon
     {
-        private static Texture texture = new Texture("Content/InGame/cannon.png");
+        private static Music sound = new Music("Content/Sounds/Laser_Shoot35.wav");
+		private static Texture texture = new Texture("Content/InGame/cannon.png");
 
         public Cannon(Vec2f position, float rotation, float radius, float coolDown, float projectTileDamage)
             : base(position, rotation, radius, new Sprite(texture), coolDown, projectTileDamage)
         {
-
+            sound.Loop = false;
         }
 
         public override void initialize()
@@ -48,6 +50,7 @@ namespace SpaceLetters
             if (runCoolDownTime > coolDown * CoolDownFactor)
             {
                 //throw new NotImplementedException();
+                sound.Play();
                 Vec2f velocity = (target - position) * 3;
 
                 velocity.normalize();

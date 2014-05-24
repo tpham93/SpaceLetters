@@ -29,6 +29,7 @@ namespace SpaceLetters
         {
             SFML.Window.Vector2u middle = sprite.Texture.Size / 2;
             sprite.Origin = new SFML.Window.Vector2f(middle.X, middle.Y);
+            
         }
 
         public override void update(GameTime gameTime)
