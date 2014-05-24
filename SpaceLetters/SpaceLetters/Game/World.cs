@@ -111,19 +111,33 @@ namespace SpaceLetters
 
         private void spawnSmaragd()
         {
-
-            Vec2f velocity = new Vec2f((float)rand.Next((int)Game.WINDOWSIZE.X), (float)rand.Next((int)Game.WINDOWSIZE.Y));
-            velocity.normalize();
-            velocity *= 60;
+            String name = ((char)('A'+rand.Next(26))).ToString();
+            Vec2f velocity;
             switch(rand.Next(4))
             {
-                case 0: entities.Add(new Smaragd(new Vec2f(-30, (float)rand.NextDouble() * Game.WINDOWSIZE.Y), 0, 2, 20, velocity, Team.Neutral, "B"));
+                case 0: 
+                    velocity = new Vec2f((float)rand.Next((int)30,255), (float)rand.Next((int)Game.WINDOWSIZE.Y));
+                    velocity.normalize();
+                    velocity *= 60;
+                    entities.Add(new Smaragd(new Vec2f(-30, (float)rand.NextDouble() * Game.WINDOWSIZE.Y), 0, 2, 20, velocity, Team.Neutral, name ));
                     break;
-                case 1: entities.Add(new Smaragd(new Vec2f(Game.WINDOWSIZE.X + 30, (float)rand.NextDouble() * Game.WINDOWSIZE.Y), 0, 2, 20, velocity, Team.Neutral, "B"));
+                case 1: 
+                    velocity = new Vec2f((float)rand.Next((int)-255,-30), (float)rand.Next((int)Game.WINDOWSIZE.Y));
+                    velocity.normalize();
+                    velocity *= 60;
+                    entities.Add(new Smaragd(new Vec2f(Game.WINDOWSIZE.X + 30, (float)rand.NextDouble() * Game.WINDOWSIZE.Y), 0, 2, 20, velocity, Team.Neutral, name));
                     break;
-                case 2: entities.Add(new Smaragd(new Vec2f((float)rand.NextDouble() * Game.WINDOWSIZE.X, -30), 0, 2, 20, velocity, Team.Neutral, "B"));
+                case 2:
+                    velocity = new Vec2f((float)(float)rand.Next((int)Game.WINDOWSIZE.Y), (float)rand.Next((int)30,255));
+                    velocity.normalize();
+                    velocity *= 60;
+                    entities.Add(new Smaragd(new Vec2f((float)rand.NextDouble() * Game.WINDOWSIZE.X, -30), 0, 2, 20, velocity, Team.Neutral, name));
                     break;
-                case 3: entities.Add(new Smaragd(new Vec2f((float)rand.NextDouble() * Game.WINDOWSIZE.X, Game.WINDOWSIZE.Y + 30), 0, 2, 20, velocity, Team.Neutral, "B"));
+                case 3: 
+                    velocity = new Vec2f((float)(float)rand.Next((int)Game.WINDOWSIZE.Y), (float)rand.Next((int)-255,-30));
+                    velocity.normalize();
+                    velocity *= 60;
+                    entities.Add(new Smaragd(new Vec2f((float)rand.NextDouble() * Game.WINDOWSIZE.X, Game.WINDOWSIZE.Y + 30), 0, 2, 20, velocity, Team.Neutral, name));
                     break;
 
 
