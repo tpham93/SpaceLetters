@@ -27,7 +27,7 @@ namespace SpaceLetters
             
             rand = new Random();
 
-            spawnTimeSmaragd = 3000;
+            spawnTimeSmaragd = 2000;
 
         }
 
@@ -43,7 +43,7 @@ namespace SpaceLetters
             entities.Add(player);
             entities.Add(new Breeder(new Vec2f(100, 100), 0, new Vec2f(0, 0),"Breeder", player));
             entities.Add(new Drone(new Vec2f(0, 0), 0, 10, new Vec2f(0, 0), player));
-            
+            entities.Add(new Drone(new Vec2f(0, 0), 0, 10, new Vec2f(0, 0), player));
 
 
             foreach (Entity ent in entities)
@@ -98,11 +98,13 @@ namespace SpaceLetters
                                 if (ent.getEntityType() == EntityType.Letter)
                                 {
                                     smaragd = (Smaragd)ent;
-                                    
+                                    if(drone.setTarget(smaragd)){
+                                        break;
+                                    }
                                 }
                             }
 
-                            drone.setTarget(smaragd);
+                            
                         }
 
                         break;
