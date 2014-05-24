@@ -33,7 +33,6 @@ namespace SpaceLetters
             {
                 weapons.Add(new Cannon(new Vec2f(position.X, position.Y), 0, 10, new Sprite(cannonTexture)));
             }
-
             foreach(Weapon w in weapons)
             {
                 w.loadContent();
@@ -51,19 +50,22 @@ namespace SpaceLetters
         public override void update(GameTime gameTime)
         {
             weaponRotation += (0.05f)*(float)gameTime.ElapsedTime.TotalSeconds * 360.0f;
+            Vec2f movement = new Vec2f();
+
             if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.D))
-                position.X++;
+                movement.X++;
             if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.A))
-                position.X--;
+                movement.X--;
             if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.W))
-                position.Y--;
+                movement.Y--;
             if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.S))
-                position.Y++;
+                movement.Y++;
+
+            position += 100 * movement * (float)gameTime.ElapsedTime.TotalSeconds ;
 
             if(Game.mouseInput.leftClicked())
             {
                 mouseTarget = Game.mouseInput.getMousePos();
-
             }
         }
 
