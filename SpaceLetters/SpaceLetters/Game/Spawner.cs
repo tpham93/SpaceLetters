@@ -10,28 +10,36 @@ namespace SpaceLetters
     {
         private Random rand;
         private Entity player;
-        private float spawnChancePerFrame;
+        private float spawnVelocity;
+        private float p_breeder,p_kamikaze;
 
         public float SpawnChancePerFrame
         {
-            get { return spawnChancePerFrame; }
-            set { spawnChancePerFrame = value; }
+            get { return spawnVelocity; }
+            set { spawnVelocity = value; }
         }
-        public Spawner(float spawnChancePerFrame, Entity player)
+        public Spawner(float spawnVelocity, Entity player)
         {
             rand = new Random();
-            this.spawnChancePerFrame = spawnChancePerFrame;
+            this.spawnVelocity = spawnVelocity;
             this.player = player;
+
+
+            p_breeder  = 0.3f;
+            p_kamikaze = 0.7f;
         }
-        public Entity spawn()
+        public Entity spawn(GameTime gameTime)
         {
-            if(rand.NextDouble() <= spawnChancePerFrame)
+            if(rand.NextDouble()*0.91f *spawnVelocity *  Math.Max(1,gameTime.TotalTime.Minutes) > 1)
             {
+                Console.WriteLine("Spawn  :"+gameTime.TotalTime.Minutes);
+
                 Entity e = null;
                 float radius  = Math.Max(Game.WINDOWSIZE.X,Game.WINDOWSIZE.Y)/2 + 30;
                 Vec2f ePosition = Game.WINDOWSIZE / 2 + (float)Math.Pow(-1,rand.Next(2))* new Vec2f((float)rand.NextDouble() + 0.001f,(float)rand.NextDouble() + 0.001f).normalized() * radius;
                 Vec2f eVelocity = new Vec2f(0, 0);
-                const int enemyTypeNum = 2;
+                //const int enemyTypeNum = 2;
+                /*
                 int typIndex = rand.Next(enemyTypeNum);
                 switch(typIndex)
                 {
@@ -43,7 +51,18 @@ namespace SpaceLetters
                         break;
                     default:
                         return null;
+                }*/
+                float w = (float) rand.NextDouble();
+                if (p_breeder < w)
+                {
+                    e = new Breeder(ePosition, 0.0f, new Vec2f(), "Breeder", player);
                 }
+                else// wahrscheinlichkeit p_kamikaze
+                {
+                    e = new Kamikaze(ePosition, 0.0f, eVelocity, "Kamikaze", player);
+                }
+
+
                 e.loadContent();
                 return e;
             }
