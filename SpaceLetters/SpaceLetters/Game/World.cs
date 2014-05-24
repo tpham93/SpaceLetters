@@ -34,12 +34,11 @@ namespace SpaceLetters
             Texture playerTexture = new Texture("Content/InGame/player.png");
             player = new Player(new Vec2f(0, 0), 0, 9001, Math.Max(playerTexture.Size.X, playerTexture.Size.X) / 2, new Vec2f(0, 0), Team.Good, "Player - Horst");
             entities.Add(player);
-            entities.Add(new Breeder(new Vec2f(100, 100), 0, 1, new Vec2f(0, 0), SpaceLetters.Team.Evil, ""));
+            entities.Add(new Breeder(new Vec2f(100, 100), 0, 1, new Vec2f(0, 0), SpaceLetters.Team.Evil, "", player));
 
 
             foreach (Entity ent in entities)
                 ent.loadContent();
-
 
         }
 
@@ -59,11 +58,9 @@ namespace SpaceLetters
                         if (bre.ReadyToSpawn)
                         {
                             float alpha = (float)rand.NextDouble() * 360;
-                            Breeder bre2 = new Breeder(bre.Position + (new Vec2f((float)(40 * Math.Cos(alpha)), (float)(40 * Math.Sin(alpha)))), 0, 1, new Vec2f(0, 0), SpaceLetters.Team.Evil, "");
+                            Breeder bre2 = new Breeder(bre.Position + (new Vec2f((float)(20 * Math.Cos(alpha)), (float)(20 * Math.Sin(alpha)))), 0, 1, new Vec2f(0, 0), SpaceLetters.Team.Evil, "Breeder", player);
                             tmp.Add(bre2);
-
                             bre.ReadyToSpawn = false;
-                            Console.WriteLine("blob");
                         }
 
                         break;

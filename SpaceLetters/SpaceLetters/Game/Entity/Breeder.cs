@@ -10,23 +10,25 @@ namespace SpaceLetters
 {
     class Breeder : Enemy
     {
+        // change texture
+        private static Texture texture = new Texture("Content/InGame/breeder.png");
         private TimeSpan cooldown, threshold;
         private bool readyToSpawn;
         private Random rand;
-
+        private Entity target;
         public bool ReadyToSpawn
         {
             get { return readyToSpawn; }
             set { readyToSpawn = value; }
         }
-         public Breeder(Vec2f position, float rotation,  float hp, Vec2f velocity, Team team, String name)
-            : base(position, rotation, 7, hp, velocity, team, name, new Sprite(new Texture("Content/InGame/player.png")))
+         public Breeder(Vec2f position, float rotation,  float hp, Vec2f velocity, Team team, String name, Entity target)
+            : base(position, rotation, 7, hp, velocity, team, name, new Sprite(texture))
         {
 
-
-            cooldown = TimeSpan.FromSeconds(0);
-            threshold = TimeSpan.FromSeconds(12);
-            rand = new Random();
+            this.cooldown = TimeSpan.FromSeconds(0);
+            this.threshold = TimeSpan.FromSeconds(1);
+            this.rand = new Random();
+            this.target = target;
         }
 
         public override EntityType getEntityType()
@@ -45,7 +47,8 @@ namespace SpaceLetters
                 threshold = threshold.Add(threshold);
                 hp = hp * 2;
             }
-
+            moveTowardsEntity((Player)target,1);
+            position += velocity;
         }
 
     }

@@ -47,7 +47,7 @@ namespace SpaceLetters
             //throw new NotImplementedException();
         }
 
-        protected void moveTowardsPlayer(Player player, float distance)
+        protected void moveTowardsEntity(Entity player, float distance)
         {
             Vec2f path = player.Position - Position;
             if (distance < path.length() && distance >0)
