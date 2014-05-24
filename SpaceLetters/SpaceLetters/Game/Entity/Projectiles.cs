@@ -13,15 +13,17 @@ namespace SpaceLetters
         private static Texture texture = new Texture("Content/InGame/projectiles.png");
         private float damage;
 
+        private Entity entity;
+
         public float Damage
         {
             get { return damage; }
         }
-
-        public Projectiles(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name, float damage)
+        public Projectiles(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name, float damage, Entity entity, float damage)
             :base(position, rotation, hp, radius, velocity, team, name,new Sprite(texture))
         {
             this.damage = damage;
+            this.entity = entity;
         }
 
         public override void loadContent()
@@ -37,7 +39,7 @@ namespace SpaceLetters
 
         public override void draw(GameTime gameTime, RenderWindow renderWindow)
         {
-            sprite.Position = Game.mouseInput.getMousePos();
+            sprite.Position = position;
             sprite.Rotation = rotation;
             sprite.Draw(renderWindow, RenderStates.Default);
         }

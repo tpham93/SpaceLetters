@@ -33,7 +33,8 @@ namespace SpaceLetters
 
         public override void draw(GameTime gameTime, SFML.Graphics.RenderWindow renderWindow)
         {
-            
+            sprite.Position = position;
+            renderWindow.Draw(sprite);
         }
 
         public override EntityType getEntityType()
@@ -43,17 +44,27 @@ namespace SpaceLetters
 
         public override void initialize()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         protected void moveTowardsPlayer(Player player, float distance)
         {
             Vec2f path = player.Position - position;
-            if (distance < path.length())
+            if (distance < path.length() && distance >0)
             {
                 path = (distance / path.length()) * path;
             }
             velocity = path;
+        }
+
+        protected void shootAtPlayer(Player player, float distance)
+        {
+            Vec2f path = player.Position - position;
+            if (radius > path.length())
+            {
+                path = (distance / path.length()) * path;
+            }
+            //TODO
         }
 
     }
