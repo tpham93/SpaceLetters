@@ -24,7 +24,7 @@ namespace SpaceLetters
             }
 
             if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.Escape))
-                return EGameStates.Exit;
+                return EGameStates.MainMenu;
 
             return EGameStates.InGame;
             

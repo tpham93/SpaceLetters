@@ -15,19 +15,25 @@ namespace SpaceLetters
         private int button_x, button_y_distance;
         private Sprite sprite_ingame, sprite_exit, sprite_credits, backgroundSprite, sprite_rocket;
 
+        private List<Entity> entities = new List<Entity>();
+
+        private Vec2f playerPos = new Vec2f((float)Game.WINDOWSIZE.X * 0.75f, (float)Game.WINDOWSIZE.Y / 2);
+
         private Player player;
 
 
         public override void initialize()
         {
-            player = new Player(new Vec2f((float)Game.WINDOWSIZE.X * 0.75f, (float)Game.WINDOWSIZE.Y / 2 - 50), 0, 10, 50, new Vec2f(0, 0), Team.Num, "PLayer");
+            player = new Player(playerPos, 0, 100, 50, new Vec2f(0, 0), Team.Num, "PLayer");
+            for (int i = 0; i < 5; i++ )
+                player.upgrade(UpgradeType.AddCannon, null);
         }
 
         public override void loadContent()
         {
             backgroundSprite = new Sprite(new Texture("Content/InGame/worldBg.png"), new IntRect(0, 0, (int)Game.WINDOWSIZE.X, (int)Game.WINDOWSIZE.Y));
 
-            button_x = (int) ((Game.WINDOWSIZE.X-button_width)/2);
+            button_x = (int)((Game.WINDOWSIZE.X - button_width) / 2 - Game.WINDOWSIZE.X/3);
             button_y_distance = (int)((Game.WINDOWSIZE.Y - 150) / 4);
             
             toIngame = new Vec2f(button_x,button_y_distance);
@@ -74,7 +80,28 @@ namespace SpaceLetters
                 }
             }
 
-            
+            player.update(gameTime);
+            player.Position = playerPos;
+            entities.AddRange(player.spawnNewEnemy());
+
+            for (int i = entities.Count - 1; i >= 0; --i)
+            {
+                entities[i].update(gameTime);
+
+                if (entities.ElementAt(i).ToDelete)
+                {
+
+                    entities[i].onDeath();
+                    entities.RemoveAt(i);
+                }
+            }
+
+
+
+
+
+            if (Game.keyboardInput.isClicked(SFML.Window.Keyboard.Key.Escape))
+                return EGameStates.Exit;
 
             return EGameStates.MainMenu;
         }
@@ -82,13 +109,19 @@ namespace SpaceLetters
         public override void draw(GameTime gameTime, SFML.Graphics.RenderWindow renderWindow)
         {
 
-            player.draw(gameTime, renderWindow);
 
             renderWindow.Draw(backgroundSprite);
 
+            player.draw(gameTime, renderWindow);
             renderWindow.Draw(sprite_ingame);
             renderWindow.Draw(sprite_credits);
             renderWindow.Draw(sprite_exit);
+
+            foreach(Entity entity in entities)
+            {
+                entity.draw(gameTime, renderWindow);
+
+            }
 
         }
     }
