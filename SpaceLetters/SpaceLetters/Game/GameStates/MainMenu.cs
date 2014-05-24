@@ -13,7 +13,8 @@ namespace SpaceLetters
         private Vec2f toIngame, toCredits, toExit;
         private const int button_width = 200, button_height = 50;
         private int button_x, button_y_distance;
-        private Sprite sprite_ingame, sprite_exit, sprite_credits;
+        private Sprite sprite_ingame, sprite_exit, sprite_credits, backgroundSprite, sprite_rocket;
+
 
         public override void initialize()
         {
@@ -22,6 +23,8 @@ namespace SpaceLetters
 
         public override void loadContent()
         {
+            backgroundSprite = new Sprite(new Texture("Content/InGame/worldBg.png"), new IntRect(0, 0, (int)Game.WINDOWSIZE.X, (int)Game.WINDOWSIZE.Y));
+
             button_x = (int) ((Game.WINDOWSIZE.X-button_width)/2);
             button_y_distance = (int)((Game.WINDOWSIZE.Y - 150) / 4);
             
@@ -36,6 +39,7 @@ namespace SpaceLetters
             sprite_exit.Position = toExit;
             sprite_credits.Position = toCredits;
 
+            
 
             Console.WriteLine("Positionen: " + Game.WINDOWSIZE.X + "+" + button_x + " : " + button_height + "+" + button_y_distance);
         }
@@ -74,6 +78,9 @@ namespace SpaceLetters
 
         public override void draw(GameTime gameTime, SFML.Graphics.RenderWindow renderWindow)
         {
+
+            renderWindow.Draw(backgroundSprite);
+
             renderWindow.Draw(sprite_ingame);
             renderWindow.Draw(sprite_credits);
             renderWindow.Draw(sprite_exit);
