@@ -20,12 +20,15 @@ namespace SpaceLetters
         public bool noTarget, loaded;
 
         public Drone(Vec2f position, float rotation, float hp, Vec2f velocity, Player player)
-            : base(position, rotation, 8, hp, 2, velocity, Team.Good, "Drone", new Sprite(texture))
+            : base(position, rotation, 1, hp, 2, velocity, Team.Good, "Drone", new Sprite(texture))
         {
             this.player = player;
             noTarget = true;
-            maxspeed = 10 * (float)rand.NextDouble();
+            maxspeed = 100 * (float)rand.NextDouble();
             target = null;
+            cooldown = TimeSpan.FromSeconds(0);
+            threshold = TimeSpan.FromSeconds(3);
+
             initialize();
 
         }
@@ -58,12 +61,24 @@ namespace SpaceLetters
             }
             else
             {
-                moveTowardsEntity(player);
+                if (loaded)
+                {
+                    moveTowardsEntity(player);
+                }
+                else
+                {
+                    moveTowardsEntity(target);
+                    if (collide(target))
+                    {
+                        loaded = true;
+                    }
+                }
             }
             position += velocity;
             if (loaded && collide(player))
             {
                 loaded = false;
+                target = null;
                 Console.WriteLine("Fracht abgeliefert");
             }
         }
@@ -80,8 +95,8 @@ namespace SpaceLetters
             if (!noTarget)
             {
                 target.Drone = this;
+                Console.WriteLine("smaragt gesehehn");
             }
-
         }
 
         private void moveTowardsEntity(Entity ent)
