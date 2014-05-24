@@ -18,6 +18,7 @@ namespace SpaceLetters
 
         public override void loadContent()
         {
+            sprite.Origin = new Vec2f(sprite.Texture.Size.X / 2, sprite.Texture.Size.Y / 2);
             //throw new NotImplementedException();
         }
 

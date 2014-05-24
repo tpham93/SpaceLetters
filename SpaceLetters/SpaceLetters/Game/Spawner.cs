@@ -42,10 +42,9 @@ namespace SpaceLetters
                         e = new Breeder(ePosition, 0.0f, new Vec2f(), "Breeder", player);
                         break;
                     default:
-                        Console.WriteLine("missing enemy");
-                        e = null;
-                        break;
+                        return null;
                 }
+                e.loadContent();
                 return e;
             }
 
