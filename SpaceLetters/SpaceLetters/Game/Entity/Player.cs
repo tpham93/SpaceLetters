@@ -44,7 +44,10 @@ namespace SpaceLetters
             const uint DEFAULT_WEAPON_NUMBER = 3;
             for (int i = 0; i < DEFAULT_WEAPON_NUMBER; ++i)
             {
-                weapons.Add(new Cannon(position, 0, 10, cannonBaseCoolDown, cannonBaseDamage));
+                Weapon newWeapon = new Cannon(position, 0, 10, cannonBaseCoolDown, cannonBaseDamage);
+                newWeapon.ProjectileDamageFactor = projectileDamageFactor;
+                newWeapon.CoolDownFactor = coolDownFactor;
+                weapons.Add(newWeapon);
             }
             foreach (Weapon w in weapons)
             {
@@ -200,14 +203,14 @@ namespace SpaceLetters
                         projectileDamageFactor *= 1.5f;
                         foreach (Weapon w in weapons)
                         {
-                            w.ProjectileDamageFactor *= projectileDamageFactor;
+                            w.ProjectileDamageFactor = projectileDamageFactor;
                         }
                         break;
                     case UpgradeType.DecreaseCooldown:
                         coolDownFactor *= 0.8f;
                         foreach (Weapon w in weapons)
                         {
-                            w.CoolDownFactor *= coolDownFactor;
+                            w.CoolDownFactor = coolDownFactor;
                         }
                         break;
                     case UpgradeType.AddDrone:
