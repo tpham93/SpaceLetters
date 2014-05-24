@@ -42,6 +42,8 @@ namespace SpaceLetters
         private Team team;
         private String name;
 
+        public bool canExplode = true;
+
         public String Name
         {
             get { return name; }
