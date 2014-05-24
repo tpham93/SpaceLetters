@@ -155,11 +155,6 @@ namespace SpaceLetters
             char letter = s[0];
             int index = letter - 'A' ;
             ++letters[index];
-
-            for (int i = 0; i < 26 ; ++i)
-            {
-                Console.Write(letters[i] + " | ");
-            }
         }
     }
 }
