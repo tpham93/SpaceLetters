@@ -44,9 +44,6 @@ namespace SpaceLetters
          
             mouseTarget = new Vec2f(0, 0);
         }
-            
-
-
         public override void update(GameTime gameTime)
         {
             weaponRotation += (0.05f)*(float)gameTime.ElapsedTime.TotalSeconds * 360.0f;
@@ -144,6 +141,11 @@ namespace SpaceLetters
             }
 
             return result;
+        }
+
+        public void addLetter(String s)
+        {
+            char letter = s[0];
         }
     }
 }

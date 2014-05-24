@@ -27,7 +27,6 @@ namespace SpaceLetters
         {
             if(rand.NextDouble() <= spawnChancePerFrame)
             {
-                Console.WriteLine("blah");
                 Entity e = null;
                 float radius  = Math.Max(Game.WINDOWSIZE.X,Game.WINDOWSIZE.Y)/2 + 30;
                 Vec2f ePosition = Game.WINDOWSIZE / 2 + (float)Math.Pow(-1,rand.Next(2))* new Vec2f((float)rand.NextDouble() + 0.001f,(float)rand.NextDouble() + 0.001f).normalized() * radius;
