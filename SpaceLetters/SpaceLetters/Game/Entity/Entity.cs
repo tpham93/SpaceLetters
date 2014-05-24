@@ -35,29 +35,44 @@ namespace SpaceLetters
     {
         protected Vec2f position;
         protected float rotation;
-        protected float hp;
+        private float hp;
         protected float radius;
         protected Vec2f velocity;
-        protected Team team;
+        private Team team;
         protected String name;
         protected Sprite sprite;
         protected bool toDelete;
+        private float damage;
 
+        public float Damage
+        {
+            get { return damage; }
+            set { damage = value; }
+        }
+        public float Hp
+        {
+            get { return hp; }
+            set { hp = value; }
+        }
         public bool ToDelete
         {
             get { return toDelete || hp<=0; }
         }
-
         public Vec2f Position
         {
             get { return position; }
         }
+        public Team Team
+        {
+            get { return team; }
+        }
 
-        public Entity(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name, Sprite sprite)
+        public Entity(Vec2f position, float rotation, float hp, float damage, float radius, Vec2f velocity, Team team, String name, Sprite sprite)
         {
             this.position = position;
             this.rotation = rotation;
             this.hp = hp;
+            this.damage = damage;
             this.radius = radius;
             this.velocity = velocity;
             this.team = team;

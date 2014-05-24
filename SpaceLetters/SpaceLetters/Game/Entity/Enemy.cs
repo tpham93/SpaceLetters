@@ -11,8 +11,8 @@ namespace SpaceLetters
 {
     class Enemy : Entity
     {
-        public Enemy(Vec2f position, float rotation, float radius, float hp, Vec2f velocity, Team team, String name, Sprite sprite)
-            :base(position, rotation,  radius,  hp,  velocity,  team,  name,  sprite)
+        public Enemy(Vec2f position, float rotation, float radius, float hp, float damage, Vec2f velocity, Team team, String name, Sprite sprite)
+            :base(position, rotation,  radius,  hp, damage,  velocity,  team,  name,  sprite)
         {
 
             initialize();
@@ -26,9 +26,6 @@ namespace SpaceLetters
         public override void update(GameTime gameTime)
         {
             
-
-
-
         }
 
         public override void draw(GameTime gameTime, SFML.Graphics.RenderWindow renderWindow)

@@ -50,7 +50,7 @@ namespace SpaceLetters
                 velocity.normalize();
                 velocity *= 90;
                 runCoolDownTime = 0;
-                return new Projectiles(position, 0, 9001, 10, velocity, Team.Good, "Projectiles", 9001, null, 10000f);
+                return new Projectiles(position, 0, 1, 10, velocity, Team.Good, "Projectiles", 9001, null, 10000f);
                 
             }
             return null;
