@@ -25,8 +25,8 @@ namespace SpaceLetters
             get { return readyToSpawn; }
             set { readyToSpawn = value; }
         }
-         public Breeder(Vec2f position, float rotation,  float hp, Vec2f velocity, Team team, String name, Entity target)
-            : base(position, rotation, 7, hp, velocity, team, name, new Sprite(texture))
+         public Breeder(Vec2f position, float rotation, Vec2f velocity, Team team, String name, Entity target)
+            : base(position, rotation, 7, 20, 3, velocity, team, name, new Sprite(texture))
         {
 
             this.cooldown = TimeSpan.FromSeconds(0);
@@ -51,7 +51,7 @@ namespace SpaceLetters
                 readyToSpawn = true;
                 cooldown = TimeSpan.FromSeconds(rand.NextDouble()*threshold.TotalSeconds / 2);
                 threshold = threshold.Add(threshold);
-                hp = hp * 2;
+                Hp = Hp + 5;
             }
             moveTowardsEntity((Player)target,1);
             position += velocity;
