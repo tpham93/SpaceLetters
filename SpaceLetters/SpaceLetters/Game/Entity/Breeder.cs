@@ -19,8 +19,7 @@ namespace SpaceLetters
             get { return readyToSpawn; }
             set { readyToSpawn = value; }
         }
-
-        public Breeder(Vec2f position, float rotation,  float hp, Vec2f velocity, Team team, String name)
+         public Breeder(Vec2f position, float rotation,  float hp, Vec2f velocity, Team team, String name)
             : base(position, rotation, 7, hp, velocity, team, name, new Sprite(new Texture("Content/InGame/player.png")))
         {
 

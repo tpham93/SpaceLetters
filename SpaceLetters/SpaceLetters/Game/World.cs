@@ -20,21 +20,21 @@ namespace SpaceLetters
 
         public World()
         {
-
+            entities.Add(new Player(new Vec2f(0, 0), 0, 9001, 50, new Vec2f(0, 0), Team.Good, "Player - Horst"));
             rand = new Random();
-            
+
         }
 
         public void loadContent()
         {
-            
 
 
-            backgroundSprite  = new Sprite(new Texture("Content/InGame/worldBg.png"),new IntRect(0,0,(int)Game.WINDOWSIZE.X, (int)Game.WINDOWSIZE.Y));
+
+            backgroundSprite = new Sprite(new Texture("Content/InGame/worldBg.png"), new IntRect(0, 0, (int)Game.WINDOWSIZE.X, (int)Game.WINDOWSIZE.Y));
             Texture playerTexture = new Texture("Content/InGame/player.png");
-            player = new Player(new Vec2f(0, 0), 0, 9001, Math.Max(playerTexture.Size.X, playerTexture.Size.X) / 2, new Vec2f(0, 0), Team.Good, "Player - Horst", new Sprite(playerTexture));
+            player = new Player(new Vec2f(0, 0), 0, 9001, Math.Max(playerTexture.Size.X, playerTexture.Size.X) / 2, new Vec2f(0, 0), Team.Good, "Player - Horst");
             entities.Add(player);
-            entities.Add(new Breeder(new Vec2f(100,100), 0, 1, new Vec2f(0, 0), SpaceLetters.Team.Evil, ""));
+            entities.Add(new Breeder(new Vec2f(100, 100), 0, 1, new Vec2f(0, 0), SpaceLetters.Team.Evil, ""));
 
 
             foreach (Entity ent in entities)
@@ -46,20 +46,20 @@ namespace SpaceLetters
         public void update(GameTime gameTime)
         {
             List<Entity> tmp = new List<Entity>();
-
-            foreach (Entity ent in entities)
+            for (int i = entities.Count - 1; i >= 0; --i)
             {
-                ent.update(gameTime);
+                entities.ElementAt(i).update(gameTime);
 
                 // Spezialbehandlung für einige klassen
-                EntityType type =ent.getEntityType();
-               switch (type){
+                EntityType type = entities.ElementAt(i).getEntityType();
+                switch (type)
+                {
                     case EntityType.EnemyBreeder:
-                        Breeder bre = (Breeder)ent;
+                        Breeder bre = (Breeder)entities.ElementAt(i);
                         if (bre.ReadyToSpawn)
                         {
-                            float alpha = (float) rand.NextDouble() * 360;
-                            Breeder bre2 = new Breeder(bre.Position + (new Vec2f((float) (40 * Math.Cos(alpha)),(float) (40 *Math.Sin(alpha)))), 0, 1,new Vec2f(0,0),  SpaceLetters.Team.Evil, "");
+                            float alpha = (float)rand.NextDouble() * 360;
+                            Breeder bre2 = new Breeder(bre.Position + (new Vec2f((float)(40 * Math.Cos(alpha)), (float)(40 * Math.Sin(alpha)))), 0, 1, new Vec2f(0, 0), SpaceLetters.Team.Evil, "");
                             tmp.Add(bre2);
 
                             bre.ReadyToSpawn = false;
@@ -68,20 +68,16 @@ namespace SpaceLetters
 
                         break;
 
-                    default :
+                    default:
                         break;
                 }
-                
 
+                if (entities.ElementAt(i).ToDelete)
+                    entities.RemoveAt(i);
             }
-            entities.AddRange(tmp);    
+            entities.AddRange(tmp);
 
-            if(player.spawnNewEnemy() != null)
-            {
-
-                entities.AddRange(player.spawnNewEnemy());
-            }
-
+            entities.AddRange(player.spawnNewEnemy());
         }
 
         public void draw(GameTime gameTime, SFML.Graphics.RenderWindow window)

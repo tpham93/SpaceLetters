@@ -41,6 +41,12 @@ namespace SpaceLetters
         protected Team team;
         protected String name;
         protected Sprite sprite;
+        protected bool toDelete;
+
+        public bool ToDelete
+        {
+            get { return toDelete || hp<=0; }
+        }
 
         public Vec2f Position
         {
@@ -57,6 +63,8 @@ namespace SpaceLetters
             this.team = team;
             this.name = name;
             this.sprite = sprite;
+
+            toDelete = false;
 
             initialize();
             

@@ -10,20 +10,24 @@ namespace SpaceLetters
 {
     class Projectiles : Entity
     {
+        private static Texture texture = new Texture("Content/InGame/projectiles.png");
         private float damage;
 
         private Entity entity;
+
+        private float lifeTime;
 
         public float Damage
         {
             get { return damage; }
         }
 
-        public Projectiles(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name, Sprite sprite, float damage, Entity entity)
-            :base(position, rotation, hp, radius, velocity, team, name,sprite)
+        public Projectiles(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name, float damage, Entity entity, float lifeTime)
+            :base(position, rotation, hp, radius, velocity, team, name,new Sprite(texture))
         {
             this.damage = damage;
             this.entity = entity;
+            this.lifeTime = lifeTime;
         }
 
         public override void loadContent()
@@ -35,6 +39,11 @@ namespace SpaceLetters
         public override void update(GameTime gameTime)
         {
             position += velocity * (float)gameTime.ElapsedTime.TotalSeconds;
+
+            lifeTime -= (float)gameTime.ElapsedTime.TotalMilliseconds;
+
+            if (lifeTime <= 0)
+                toDelete = true;
         }
 
         public override void draw(GameTime gameTime, RenderWindow renderWindow)
