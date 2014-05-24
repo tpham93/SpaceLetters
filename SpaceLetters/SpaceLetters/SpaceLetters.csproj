@@ -59,6 +59,7 @@
     <Compile Include="Game\core\KeyboardInput.cs" />
     <Compile Include="Game\core\MouseInput.cs" />
     <Compile Include="Game\core\Vec2f.cs" />
+    <Compile Include="Game\Entity\Bomb.cs" />
     <Compile Include="Game\Entity\Breeder.cs" />
     <Compile Include="Game\Entity\Drone.cs" />
     <Compile Include="Game\Entity\Enemy.cs" />

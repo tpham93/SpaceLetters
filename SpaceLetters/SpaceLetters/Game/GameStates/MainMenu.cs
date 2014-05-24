@@ -131,6 +131,13 @@ namespace SpaceLetters
 
             renderWindow.Draw(backgroundSprite);
 
+
+            foreach (Entity entity in entities)
+            {
+                entity.draw(gameTime, renderWindow);
+
+            }
+
             player.draw(gameTime, renderWindow);
             if(inGameButton)
                 renderWindow.Draw(sprite_ingame_over);
@@ -149,11 +156,6 @@ namespace SpaceLetters
             else
                 renderWindow.Draw(sprite_highscore_over);
 
-            foreach(Entity entity in entities)
-            {
-                entity.draw(gameTime, renderWindow);
-
-            }
 
         }
     }
