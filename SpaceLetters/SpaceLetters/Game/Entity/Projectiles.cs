@@ -48,7 +48,7 @@ namespace SpaceLetters
 
         public override void draw(GameTime gameTime, RenderWindow renderWindow)
         {
-            sprite.Position = position;
+            sprite.Position = Position;
             sprite.Rotation = rotation;
             sprite.Draw(renderWindow, RenderStates.Default);
         }

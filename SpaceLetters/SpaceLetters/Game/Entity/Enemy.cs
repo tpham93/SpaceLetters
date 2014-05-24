@@ -33,7 +33,7 @@ namespace SpaceLetters
 
         public override void draw(GameTime gameTime, SFML.Graphics.RenderWindow renderWindow)
         {
-            sprite.Position = position;
+            sprite.Position = Position;
             renderWindow.Draw(sprite);
         }
 
@@ -49,7 +49,7 @@ namespace SpaceLetters
 
         protected void moveTowardsPlayer(Player player, float distance)
         {
-            Vec2f path = player.Position - position;
+            Vec2f path = player.Position - Position;
             if (distance < path.length() && distance >0)
             {
                 path = (distance / path.length()) * path;
@@ -59,7 +59,7 @@ namespace SpaceLetters
 
         protected void shootAtPlayer(Player player, float distance)
         {
-            Vec2f path = player.Position - position;
+            Vec2f path = player.Position - Position;
             if (radius > path.length())
             {
                 path = (distance / path.length()) * path;

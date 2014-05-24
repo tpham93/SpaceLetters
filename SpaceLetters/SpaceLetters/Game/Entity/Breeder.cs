@@ -12,40 +12,43 @@ namespace SpaceLetters
     {
         // change texture
         private static Texture texture = new Texture("Content/InGame/breeder.png");
+        private TimeSpan cooldown, threshold;
+        private bool readyToSpawn;
+        private Random rand;
 
-        private int cooldown, threshold;
-        private Vec2f vec2f1;
-        private int p1;
-        private int p2;
-        private Vec2f vec2f2;
-        private EntityType entityType;
-        private string p3;
-        public Breeder(Vec2f position, float rotation,  float hp, Vec2f velocity, Team team, String name)
+        public bool ReadyToSpawn
+        {
+            get { return readyToSpawn; }
+            set { readyToSpawn = value; }
+        }
+         public Breeder(Vec2f position, float rotation,  float hp, Vec2f velocity, Team team, String name)
             : base(position, rotation, 7, hp, velocity, team, name, new Sprite(texture))
         {
 
 
-            cooldown = 0;
-            threshold = 9;
+            cooldown = TimeSpan.FromSeconds(0);
+            threshold = TimeSpan.FromSeconds(12);
+            rand = new Random();
         }
 
+        public override EntityType getEntityType()
+        {
+            return EntityType.EnemyBreeder;
+        }
         
 
         public override void update(GameTime gameTime)
         {
-            cooldown++;
+            cooldown += gameTime.ElapsedTime;
             if (cooldown >= threshold)
             {
-                breed();
-                cooldown = 0;
-                threshold = threshold*2;
+                readyToSpawn = true;
+                cooldown = TimeSpan.FromSeconds(rand.NextDouble()*threshold.TotalSeconds / 2);
+                threshold = threshold.Add(threshold);
+                hp = hp * 2;
             }
 
         }
 
-        private void breed()
-        {
-            //TODO
-        }
     }
 }
