@@ -13,22 +13,31 @@ namespace SpaceLetters
     {
         List<Entity> entities = new List<Entity>();
 
+        
+        private Player player;
+
         Sprite backgroundSprite;
 
         public World()
         {
-            Texture playerTexture = new Texture("Content/InGame/player.png");
-            entities.Add(new Player(new Vec2f(0, 0), 0, 9001, Math.Max(playerTexture.Size.X,playerTexture.Size.X)/2, new Vec2f(0, 0), Team.Good, "Player - Horst", new Sprite(playerTexture)));
+            
+            
             
         }
 
         public void loadContent()
         {
 
+
+
+            backgroundSprite  = new Sprite(new Texture("Content/InGame/worldBg.png"),new IntRect(0,0,(int)Game.WINDOWSIZE.X, (int)Game.WINDOWSIZE.Y));
+            Texture playerTexture = new Texture("Content/InGame/player.png");
+            player = new Player(new Vec2f(0, 0), 0, 9001, Math.Max(playerTexture.Size.X, playerTexture.Size.X) / 2, new Vec2f(0, 0), Team.Good, "Player - Horst", new Sprite(playerTexture));
+            entities.Add(player);
+
+
             foreach (Entity ent in entities)
                 ent.loadContent();
-
-           backgroundSprite  = new Sprite(new Texture("Content/InGame/worldBg.png"),new IntRect(0,0,(int)Game.WINDOWSIZE.X, (int)Game.WINDOWSIZE.Y));
 
 
         }
@@ -37,6 +46,12 @@ namespace SpaceLetters
         {
             foreach (Entity ent in entities)
                 ent.update(gameTime);
+
+            if(player.spawnNewEnemy() != null)
+            {
+
+                entities.AddRange(player.spawnNewEnemy());
+            }
 
         }
 

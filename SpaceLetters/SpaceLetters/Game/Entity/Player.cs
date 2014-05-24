@@ -14,6 +14,9 @@ namespace SpaceLetters
         List<Vec2f> weaponsPosition;
 
         float weaponRotation = 0;
+        List<Entity> toSpawnEnemies;
+
+        float animatedCanonsPos = 0;
 
         public Vec2f Position
         {
@@ -49,6 +52,10 @@ namespace SpaceLetters
         public override void update(GameTime gameTime)
         {
             weaponRotation += (0.05f)*(float)gameTime.ElapsedTime.TotalSeconds * 360.0f;
+
+            toSpawnEnemies = new List<Entity>();
+            fireWeapon();
+
             if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.D))
                 position.X++;
             if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.A))
@@ -65,13 +72,27 @@ namespace SpaceLetters
             }
         }
 
+        private void fireWeapon()
+        {
+
+            foreach (Weapon weapon in weapons)
+                toSpawnEnemies.Add(weapon.fire(position, mouseTarget,null));
+
+        }
+
+        public List<Entity> spawnNewEnemy()
+        {
+            return toSpawnEnemies;
+
+        }
+
         public override void draw(GameTime gameTime, SFML.Graphics.RenderWindow renderWindow)
         {
             //sprite.Rotation = rotation;
             sprite.Position = position;
             renderWindow.Draw(sprite);
 
-            //set weapon Position
+            //set weapon Positionsd
             const uint weaponRadiusOffset = 30;
             weaponsPosition = getWeaponPosition(weapons.Count, radius + weaponRadiusOffset, position, -weaponRotation);
             for (int weaponID = 0; weaponID < weapons.Count; weaponID++)

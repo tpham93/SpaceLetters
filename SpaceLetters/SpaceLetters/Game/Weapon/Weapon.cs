@@ -53,7 +53,7 @@ namespace SpaceLetters
 
         }
 
-        public abstract bool fire(Vec2f target);
+        public abstract Entity fire(Vec2f position , Vec2f target, Entity entity);
 
 
 
