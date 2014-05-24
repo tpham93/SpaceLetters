@@ -49,8 +49,12 @@ namespace SpaceLetters
         protected void moveTowardsPlayer(Player player, float distance)
         {
             Vec2f path = player.Position - position;
-            path = (distance / path.length()) *path;
+            if (distance < path.length())
+            {
+                path = (distance / path.length()) * path;
+            }
             velocity = path;
         }
+
     }
 }

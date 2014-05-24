@@ -61,6 +61,7 @@
     <Compile Include="Game\core\Vec2f.cs" />
     <Compile Include="Game\Entity\Enemy.cs" />
     <Compile Include="Game\Entity\Entity.cs" />
+    <Compile Include="Game\Entity\Kamikaze.cs" />
     <Compile Include="Game\Entity\Player.cs" />
     <Compile Include="Game\Entity\Projectiles.cs" />
     <Compile Include="Game\Game.cs" />
