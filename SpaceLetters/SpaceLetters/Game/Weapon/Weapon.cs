@@ -9,7 +9,7 @@ namespace SpaceLetters
 {
     abstract class Weapon
     {
-        private float coolDown;
+        protected float coolDown;
 
         protected Vec2f position;
         protected float rotation;
@@ -33,12 +33,14 @@ namespace SpaceLetters
 
         protected float runCoolDownTime;
 
-         public Weapon(Vec2f position, float rotation, float radius, Sprite sprite)
+         public Weapon(Vec2f position, float rotation, float radius, Sprite sprite, float coolDown)
         {
             this.position = position;
             this.rotation = rotation;
             this.radius = radius;
             this.sprite = sprite;
+            this.coolDown = coolDown;
+            this.runCoolDownTime = 0;
 
             initialize();
             
@@ -47,11 +49,6 @@ namespace SpaceLetters
 
         
 
-        public bool isCoolDownOver()
-        {
-            return runCoolDownTime >= coolDown;
-
-        }
 
         public abstract Entity fire( Vec2f target, Entity entity);
 
