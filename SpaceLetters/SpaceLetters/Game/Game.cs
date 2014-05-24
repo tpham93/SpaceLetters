@@ -70,7 +70,7 @@ namespace SpaceLetters
             }
         }
 
-        public static Vec2f WINDOWSIZE = new Vec2f(1024, 640);
+        public static Vec2f WINDOWSIZE = new Vec2f(800, 480);
 
         public Game(): base((int)WINDOWSIZE.X, (int)WINDOWSIZE.Y, "Epic Game", Styles.Default)
         {

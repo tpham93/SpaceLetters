@@ -22,6 +22,11 @@ namespace SpaceLetters
 
         Sprite backgroundSprite;
 
+        public bool playerDead
+        {
+            get { return player.ToDelete; }
+        }
+
         public World()
         {
             
