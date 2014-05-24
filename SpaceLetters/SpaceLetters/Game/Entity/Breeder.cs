@@ -12,10 +12,14 @@ namespace SpaceLetters
     {
         // change texture
         private static Texture texture = new Texture("Content/InGame/breeder.png");
+        private static int breeder_count = 0;
+        private int maxcount;
         private TimeSpan cooldown, threshold;
         private bool readyToSpawn;
         private Random rand;
         private Entity target;
+
+
         public bool ReadyToSpawn
         {
             get { return readyToSpawn; }
@@ -29,6 +33,8 @@ namespace SpaceLetters
             this.threshold = TimeSpan.FromSeconds(1);
             this.rand = new Random();
             this.target = target;
+            breeder_count++;
+            maxcount = 333;
         }
 
         public override EntityType getEntityType()
@@ -40,7 +46,7 @@ namespace SpaceLetters
         public override void update(GameTime gameTime)
         {
             cooldown += gameTime.ElapsedTime;
-            if (cooldown >= threshold)
+            if (breeder_count < maxcount && cooldown >= threshold)
             {
                 readyToSpawn = true;
                 cooldown = TimeSpan.FromSeconds(rand.NextDouble()*threshold.TotalSeconds / 2);
