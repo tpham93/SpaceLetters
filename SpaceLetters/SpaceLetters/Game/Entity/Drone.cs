@@ -48,5 +48,8 @@ namespace SpaceLetters
             sprite.Position = position;
             renderWindow.Draw(sprite);
         }
+        private Smaragd searchtarget(){
+            return null;
+        }
     }
 }

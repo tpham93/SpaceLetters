@@ -56,6 +56,10 @@ namespace SpaceLetters
             moveTowardsEntity((Player)target,1);
             position += velocity;
         }
+        public override void onDeath()
+        {
+            breeder_count--;
+        }
 
     }
 }
