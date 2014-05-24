@@ -18,14 +18,14 @@ namespace SpaceLetters
         private bool readyToSpawn;
         private Random rand;
         private Entity target;
-
+        private float shootChance = 0.01f;
 
         public bool ReadyToSpawn
         {
             get { return readyToSpawn; }
             set { readyToSpawn = value; }
         }
-         public Breeder(Vec2f position, float rotation, Vec2f velocity, String name, Entity target)
+        public Breeder(Vec2f position, float rotation, Vec2f velocity, String name, Entity target)
             : base(position, rotation, 10, 20, 3, velocity, Team.Evil, name, new Sprite(texture))
         {
             this.cooldown = TimeSpan.FromSeconds(0);
@@ -40,7 +40,7 @@ namespace SpaceLetters
         {
             return EntityType.EnemyBreeder;
         }
-        
+
 
         public override void update(GameTime gameTime)
         {
@@ -48,16 +48,30 @@ namespace SpaceLetters
             if (breeder_count < maxcount && cooldown >= threshold)
             {
                 readyToSpawn = true;
-                cooldown = TimeSpan.FromSeconds(rand.NextDouble()*threshold.TotalSeconds / 2);
+                cooldown = TimeSpan.FromSeconds(rand.NextDouble() * threshold.TotalSeconds / 2);
                 threshold = threshold.Add(threshold);
                 Hp = Hp + 5;
             }
-            moveTowardsEntity((Player)target,1);
+            moveTowardsEntity((Player)target, 1);
             position += velocity;
         }
         public override void onDeath()
         {
             breeder_count--;
+        }
+
+        public override Projectiles shoot()
+        {
+            Vec2f v = (target.Position - position);
+            v.normalize();
+            v *= 300;
+            if (rand.NextDouble() <= shootChance)
+            {
+                Projectiles p = new Projectiles(position, 0, 1, 2, v, Team.Evil, "Projectiles", 10, null, 10000f);
+                p.loadContent();
+                return p;
+            }
+            return null;
         }
 
     }

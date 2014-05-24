@@ -106,6 +106,10 @@ namespace SpaceLetters
 
         }
 
+        public virtual Projectiles shoot()
+        {
+            return null;
+        }
 
         public bool collide(Entity other)
         {

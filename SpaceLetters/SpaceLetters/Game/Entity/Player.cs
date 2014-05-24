@@ -31,7 +31,7 @@ namespace SpaceLetters
         private Lifebar lifebar;
 
         int points,score;
-        int upgradeCosts;
+        int upgradeCosts = 10;
 
         const float cannonBaseDamage = 1;
         const float cannonBaseCoolDown = 1000;
