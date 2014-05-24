@@ -17,6 +17,7 @@ namespace SpaceLetters
         Letter,
         Projectile,
         EnemyBreeder,
+        Smaragd,
 
         Num
     }
@@ -95,6 +96,7 @@ namespace SpaceLetters
         {
 
         }
+
 
         public bool collide(Entity other)
         {
