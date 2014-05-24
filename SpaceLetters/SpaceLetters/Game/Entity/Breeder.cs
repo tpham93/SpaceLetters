@@ -25,12 +25,11 @@ namespace SpaceLetters
             get { return readyToSpawn; }
             set { readyToSpawn = value; }
         }
-         public Breeder(Vec2f position, float rotation, Vec2f velocity, Team team, String name, Entity target)
-            : base(position, rotation, 7, 20, 3, velocity, team, name, new Sprite(texture))
+         public Breeder(Vec2f position, float rotation, Vec2f velocity, String name, Entity target)
+            : base(position, rotation, 10, 20, 3, velocity, Team.Evil, name, new Sprite(texture))
         {
-
             this.cooldown = TimeSpan.FromSeconds(0);
-            this.threshold = TimeSpan.FromSeconds(1);
+            this.threshold = TimeSpan.FromSeconds(5);
             this.rand = new Random();
             this.target = target;
             breeder_count++;

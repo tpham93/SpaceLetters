@@ -11,7 +11,7 @@ namespace SpaceLetters
     class Drone : Entity
     {
         // change texture
-        private static Texture texture = new Texture("Content/InGame/breeder.png");
+        private static Texture texture = new Texture("Content/InGame/drone.png");
         private static Random rand = new Random();
         private float maxspeed;
         private Smaragd target;
@@ -24,10 +24,10 @@ namespace SpaceLetters
         {
             this.player = player;
             noTarget = true;
-            maxspeed = 100 * (float)rand.NextDouble();
+            maxspeed = 3;
             target = null;
             cooldown = TimeSpan.FromSeconds(0);
-            threshold = TimeSpan.FromSeconds(3);
+            threshold = TimeSpan.FromSeconds(0.5);
 
             initialize();
 
@@ -56,7 +56,13 @@ namespace SpaceLetters
             {
                 moveTowardsEntity(player);
 
-                noTarget = (cooldown >= threshold);
+                //noTarget = (cooldown >= threshold);
+                if (cooldown > threshold)
+                {
+                    noTarget = true;
+
+                    cooldown = TimeSpan.FromSeconds(0);
+                }
 
             }
             else
@@ -88,15 +94,18 @@ namespace SpaceLetters
             sprite.Position = position;
             renderWindow.Draw(sprite);
         }
-        public void setTarget(Smaragd smaragt)
+        public bool setTarget(Smaragd smaragd)
         {
-            target = smaragt;
-            noTarget = target == null;
-            if (!noTarget)
+            
+            noTarget = false;
+            if (smaragd !=null && smaragd.Drone == null)
             {
+                target = smaragd;
                 target.Drone = this;
-                Console.WriteLine("smaragt gesehehn");
+
+                return true;
             }
+            return false;
         }
 
         private void moveTowardsEntity(Entity ent)

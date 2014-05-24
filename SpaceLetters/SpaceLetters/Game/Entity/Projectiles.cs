@@ -11,17 +11,11 @@ namespace SpaceLetters
     class Projectiles : Entity
     {
         private static Texture texture = new Texture("Content/InGame/projectiles.png");
-        private float damage;
 
         private Entity entity;
 
         private float lifeTime;
         private float startLifeTime;
-
-        public float Damage
-        {
-            get { return damage; }
-        }
 
         public Projectiles(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name, float damage, Entity entity, float lifeTime)
             :base(position, rotation, hp, damage, radius, velocity, team, name,new Sprite(texture))

@@ -11,7 +11,7 @@ namespace SpaceLetters
     {
         private static Texture texture = new Texture("Content/InGame/LetterCase/smara.png");
         private Drone drone;
-
+        private TimeSpan lifeTime;
         public Drone Drone
         {
             get { return drone; }
@@ -31,6 +31,7 @@ namespace SpaceLetters
             nameText.Origin = new Vec2f(size.Width - size.Left-3, size.Height - size.Top+15)/2;
             nameText.Color = new Color(0, 0, 0, (byte)165);
             nameText.Scale = new Vec2f(0.5f, 0.5f);
+            lifeTime = TimeSpan.FromSeconds(10.0f);
 
             //fontMove = new Vec2f(5+nameText., 0);
             
@@ -48,8 +49,10 @@ namespace SpaceLetters
 
         public override void update(GameTime gameTime)
         {
+            lifeTime -= gameTime.ElapsedTime;
             velocity.normalize();
             velocity *= 2;
+            toDelete = lifeTime < TimeSpan.Zero;
             this.position += velocity;
         }
 
