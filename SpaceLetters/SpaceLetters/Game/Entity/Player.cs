@@ -195,7 +195,7 @@ namespace SpaceLetters
                         }
                         break;
                     case UpgradeType.AddDrone:
-                        Entity newDrone = new Drone(new Vec2f(0, 0), 0, 10, new Vec2f(0, 0), this);
+                        Entity newDrone = new Drone(position, 0, 10, new Vec2f(0, 0), this);
                         newDrone.loadContent();
                         entityList.Add(newDrone);
                         break;
