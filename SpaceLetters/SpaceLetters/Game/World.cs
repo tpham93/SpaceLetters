@@ -35,6 +35,8 @@ namespace SpaceLetters
             player = new Player(new Vec2f(0, 0), 0, 100, Math.Max(playerTexture.Size.X, playerTexture.Size.X) / 2, new Vec2f(0, 0), Team.Good, "Player - Horst");
             entities.Add(player);
             entities.Add(new Breeder(new Vec2f(100, 100), 0, new Vec2f(0, 0), SpaceLetters.Team.Evil, "Player", player));
+            entities.Add(new Drone(new Vec2f(0, 0), 0, 10, new Vec2f(0, 0), player));
+            
 
 
             foreach (Entity ent in entities)
@@ -89,6 +91,7 @@ namespace SpaceLetters
                                 if (ent.getEntityType() == EntityType.Smaragd)
                                 {
                                     smaragd = (Smaragd)ent;
+                                    
                                 }
                             }
 
