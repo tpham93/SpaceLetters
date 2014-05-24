@@ -17,6 +17,7 @@ namespace SpaceLetters
         Letter,
         Projectile,
         EnemyBreeder,
+        Smaragd,
 
         Num
     }
