@@ -169,6 +169,44 @@ namespace SpaceLetters
             {
                 Console.Write(letters[i] + " | ");
             }
+            else
+            {
+                points -= upgradeCosts;
+                upgradeCosts = (int)(upgradeCosts * 1.8f);
+                switch (upgradeType)
+                {
+                    case UpgradeType.AddCannon:
+                        Weapon newWeapon = new Cannon(position, 0, 10, cannonBaseCoolDown, cannonBaseDamage);
+                        newWeapon.loadContent();
+                        weapons.Add(newWeapon);
+                        break;
+                    case UpgradeType.IncreaseDamage:
+                        foreach (Weapon w in weapons)
+                        {
+                            w.ProjectileDamageFactor *= 1.5f;
+                        }
+                        break;
+                    case UpgradeType.DecreaseCooldown:
+                        foreach (Weapon w in weapons)
+                        {
+                            w.CoolDownFactor *= 0.8f;
+                        }
+                        break;
+                    case UpgradeType.AddDrone:
+                        Entity newDrone = new Drone(position, 0, 10, new Vec2f(0, 0), this);
+                        newDrone.loadContent();
+                        entityList.Add(newDrone);
+                        break;
+                    case UpgradeType.Heal:
+                        Hp = 100;
+                        break;
+                    default:
+                        break;
+                }
+
+                return true;
+
+            }
         }
     }
 }
