@@ -89,7 +89,7 @@ namespace SpaceLetters
                 loaded = false;
                 target = null;
                 player.addLetter(letter);
-                Console.WriteLine("Fracht abgeiefert");
+                Console.WriteLine("Fracht abgeliefert");
             }
         }
 

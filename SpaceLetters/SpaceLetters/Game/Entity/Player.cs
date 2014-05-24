@@ -30,8 +30,8 @@ namespace SpaceLetters
         public Player(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name)
             :base(position, rotation, hp, float.PositiveInfinity, radius, velocity, team, name,new Sprite(texture))
         {
+            const uint DEFAULT_WEAPON_NÙMBER = 20;
             letters = new int[26];
-            const uint DEFAULT_WEAPON_NÙMBER = 8;
             Texture cannonTexture = new Texture("Content/InGame/cannon.png");
             for (int i = 0; i < DEFAULT_WEAPON_NÙMBER; ++i)
             {
@@ -74,7 +74,10 @@ namespace SpaceLetters
             if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.S))
                 movement.Y++;
 
-            position += 100 * movement * (float)gameTime.ElapsedTime.TotalSeconds ;
+            acceleration = acceleration * 0.6f  +  movement;
+            velocity = acceleration * 1 + velocity *0.95f ;
+
+            position += 4 *velocity * (float)gameTime.ElapsedTime.TotalSeconds;//100 * movement * (float)gameTime.ElapsedTime.TotalSeconds + 1/2* acceleration * (float)gameTime.ElapsedTime.TotalSeconds * (float)gameTime.ElapsedTime.TotalSeconds;
 
             if(Game.mouseInput.leftPressed())
             {
