@@ -15,6 +15,7 @@ namespace SpaceLetters
 
         private Random rand;
         private Player player;
+        private Spawner spawner;
 
         private float spawnTimeSmaragd;
         private float runSpawnTimeSmaragd;
@@ -34,12 +35,13 @@ namespace SpaceLetters
         {
 
 
-
+            
             backgroundSprite = new Sprite(new Texture("Content/InGame/worldBg.png"), new IntRect(0, 0, (int)Game.WINDOWSIZE.X, (int)Game.WINDOWSIZE.Y));
             Texture playerTexture = new Texture("Content/InGame/player.png");
             player = new Player(new Vec2f(0, 0), 0, 100, Math.Max(playerTexture.Size.X, playerTexture.Size.X) / 2, new Vec2f(0, 0), Team.Good, "Player - Horst");
+            spawner = new Spawner(0.01f, player);
             entities.Add(player);
-            entities.Add(new Breeder(new Vec2f(100, 100), 0, new Vec2f(0, 0), SpaceLetters.Team.Evil, "Player", player));
+            entities.Add(new Breeder(new Vec2f(100, 100), 0, new Vec2f(0, 0),"Breeder", player));
             entities.Add(new Drone(new Vec2f(0, 0), 0, 10, new Vec2f(0, 0), player));
             entities.Add(new Drone(new Vec2f(0, 0), 0, 10, new Vec2f(0, 0), player));
 
@@ -80,7 +82,7 @@ namespace SpaceLetters
                         if (bre.ReadyToSpawn)
                         {
                             float alpha = (float)rand.NextDouble() * 360;
-                            Breeder bre2 = new Breeder(bre.Position + (new Vec2f((float)(20 * Math.Cos(alpha)), (float)(20 * Math.Sin(alpha)))), 0, new Vec2f(0, 0), SpaceLetters.Team.Evil, "Breeder", player);
+                            Breeder bre2 = new Breeder(bre.Position + (new Vec2f((float)(20 * Math.Cos(alpha)), (float)(20 * Math.Sin(alpha)))), 0, new Vec2f(0, 0), "Breeder", player);
                             tmp.Add(bre2);
                             bre.ReadyToSpawn = false;
                         }
@@ -129,6 +131,12 @@ namespace SpaceLetters
                 runSpawnTimeSmaragd = 0;
                 spawnSmaragd();
 
+            }
+
+            Entity spawnedEntity = spawner.spawn();
+            if(spawnedEntity != null)
+            {
+                entities.Add(spawnedEntity);
             }
         }
 

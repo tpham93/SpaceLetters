@@ -10,19 +10,19 @@ namespace SpaceLetters
 {
     class Kamikaze:Enemy
     {
-        private static Texture texture = new Texture("Content/imgame/kamikaze.png");
+        private static Texture texture = new Texture("Content/InGame/kamikaze.png");
 
-        private Player target;
-        private float maxSpeed = 42;
-        public Kamikaze(Vec2f position, float rotation, float radius, float hp, Vec2f velocity, Team team, String name, Sprite sprite)
-            :base( position,  rotation,  10, 5,  1, new Vec2f(0,0),  SpaceLetters.Team.Evil,  name,  new Sprite(texture))
+        private Entity target;
+        private float maxSpeed = 2;
+        public Kamikaze(Vec2f position, float rotation, Vec2f velocity, String name, Entity target)
+            : base(position, rotation, 10, 5, 1, velocity, SpaceLetters.Team.Evil, name, new Sprite(texture))
         {
-
-            
+            this.target = target;
         }
         public override void update(GameTime gameTime)
         {
             moveTowardsEntity(target, maxSpeed);
+            position += velocity;
         }
     }
 }

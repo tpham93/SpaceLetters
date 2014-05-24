@@ -48,7 +48,7 @@ namespace SpaceLetters
                 Vec2f velocity = (target - position) * 3;
 
                 velocity.normalize();
-                velocity *= 90;
+                velocity *= 300;
                 runCoolDownTime = 0;
                 return new Projectiles(position, 0, 1, 10, velocity, Team.Good, "Projectiles", 9001, null, 10000f);
                 

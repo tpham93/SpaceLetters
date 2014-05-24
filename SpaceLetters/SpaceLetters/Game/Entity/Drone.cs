@@ -11,7 +11,7 @@ namespace SpaceLetters
     class Drone : Entity
     {
         // change texture
-        private static Texture texture = new Texture("Content/InGame/breeder.png");
+        private static Texture texture = new Texture("Content/InGame/drone.png");
         private static Random rand = new Random();
         private float maxspeed;
         private Smaragd target;
@@ -24,7 +24,7 @@ namespace SpaceLetters
         {
             this.player = player;
             noTarget = true;
-            maxspeed = 5;// *(float)rand.NextDouble();
+            maxspeed = 3;
             target = null;
             cooldown = TimeSpan.FromSeconds(0);
             threshold = TimeSpan.FromSeconds(0.5);
@@ -104,10 +104,6 @@ namespace SpaceLetters
                 target.Drone = this;
 
                 return true;
-            }
-            else
-            {
-                Console.WriteLine("keine target");
             }
             return false;
         }
