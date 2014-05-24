@@ -106,6 +106,7 @@ namespace SpaceLetters
                 EntityType type = entities.ElementAt(i).getEntityType();
                 switch (type)
                 {
+
                     case EntityType.EnemyBreeder:
                         Breeder bre = (Breeder)entities.ElementAt(i);
                         if (bre.ReadyToSpawn)
@@ -138,6 +139,14 @@ namespace SpaceLetters
 
 
                         }
+
+                        break;
+                    case EntityType.Bomb:
+                        Bomb bomb = (Bomb)entities.ElementAt(i);
+                        entities.AddRange(bomb.getBombFragment());
+
+                        if (bomb.getBombFragment().Count > 1)
+                            bomb.ToDelete = true;
 
                         break;
 

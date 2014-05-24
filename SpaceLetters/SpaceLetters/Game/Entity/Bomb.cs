@@ -17,9 +17,10 @@ namespace SpaceLetters
         Random random;
 
         public Bomb(Vec2f position, float rotation, Vec2f velocity, String name, Entity target, float explosionTime)
-            : base(position, rotation, 10, 20, 3, velocity, Team.Evil, name, new Sprite(texture))
+            : base(position, rotation, 10, 20, 3, velocity, Team.Good, name, new Sprite(texture))
         {
             this.explosionTime = explosionTime;
+            runExplosionTime = explosionTime;
         }
 
         public override EntityType getEntityType()
@@ -44,9 +45,9 @@ namespace SpaceLetters
 
             if(runExplosionTime<0)
             {
-                for (int i = 0; i < random.Next(5, 20); i++)
+                for (int i = 0; i < random.Next(15, 35); i++)
                 {
-                    Projectiles p = new Projectiles(position, 0, 1, 10, velocity, Team.Good, "Projectiles", 1.5f, null, 500f);
+                    Projectiles p = new Projectiles(position, 0, 1, 15, new Vec2f((float)(random.NextDouble() - 0.5f)*190, (float)(random.NextDouble() - 0.5f)*190), Team.Good, "Projectiles", 1.5f, null, 4000f+random.Next(1000));
                     p.loadContent();
                     bombParts.Add(p);
                 }

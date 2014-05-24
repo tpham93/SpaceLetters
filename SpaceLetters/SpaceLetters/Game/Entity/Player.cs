@@ -39,6 +39,8 @@ namespace SpaceLetters
         float projectileDamageFactor = 1.0f;
         float coolDownFactor = 1.0f;
 
+        int bombNum = 5;
+
         public Player(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name)
             : base(position, rotation, hp, float.PositiveInfinity, radius, velocity, team, name, new Sprite(texture))
         {
@@ -104,6 +106,14 @@ namespace SpaceLetters
             {
                 mouseTarget = Game.mouseInput.getMousePos();
                 fireWeapon(false);
+
+            }
+            if (Game.mouseInput.midClicked()&&bombNum>0)
+            {
+                bombNum--;
+                Bomb bomb = new Bomb(position, 0, new Vec2f(0, 0), "Bomb", null, 1000);
+                bomb.loadContent();
+                toSpawnEnemies.Add(bomb);
 
             }
             lifebar.update(gameTime);

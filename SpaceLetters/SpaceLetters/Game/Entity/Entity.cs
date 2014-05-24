@@ -66,6 +66,7 @@ namespace SpaceLetters
         public bool ToDelete
         {
             get { return toDelete || hp<=0; }
+            set { toDelete = value; }
         }
         public Vec2f Position
         {
