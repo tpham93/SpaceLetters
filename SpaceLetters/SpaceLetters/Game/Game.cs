@@ -61,6 +61,12 @@ namespace SpaceLetters
                             currentGameStateObject.initialize();
                             currentGameStateObject.loadContent();
                             break;
+                        case EGameStates.Score :
+                            backedUpGameStateObject = null;
+                            currentGameStateObject = new ScoreGameState();
+                            currentGameStateObject.initialize();
+                            currentGameStateObject.loadContent();
+                            break;
                         case EGameStates.Exit:
                             window.Close();
                             break;

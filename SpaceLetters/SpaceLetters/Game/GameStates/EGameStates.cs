@@ -12,6 +12,7 @@ namespace SpaceLetters
         InGame,
         Pause,
         Credits,
+        Score,
         Exit
     }
 }

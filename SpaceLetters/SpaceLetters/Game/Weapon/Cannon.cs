@@ -17,6 +17,7 @@ namespace SpaceLetters
             : base(position, rotation, radius, new Sprite(texture), coolDown, projectTileDamage)
         {
             sound.Loop = false;
+            sound.Volume = 30f;
         }
 
         public override void initialize()
