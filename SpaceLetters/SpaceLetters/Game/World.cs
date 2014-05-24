@@ -19,7 +19,7 @@ namespace SpaceLetters
         {
             Texture playerTexture = new Texture("Content/InGame/player.png");
             entities.Add(new Player(new Vec2f(0, 0), 0, 9001, Math.Max(playerTexture.Size.X,playerTexture.Size.X)/2, new Vec2f(0, 0), Team.Good, "Player - Horst", new Sprite(playerTexture)));
-
+            
         }
 
         public void loadContent()
@@ -29,6 +29,8 @@ namespace SpaceLetters
                 ent.loadContent();
 
            backgroundSprite  = new Sprite(new Texture("Content/InGame/worldBg.png"),new IntRect(0,0,(int)Game.WINDOWSIZE.X, (int)Game.WINDOWSIZE.Y));
+
+
         }
 
         public void update(GameTime gameTime)

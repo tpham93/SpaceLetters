@@ -73,7 +73,7 @@ namespace SpaceLetters
         public override void draw(GameTime gameTime, SFML.Graphics.RenderWindow renderWindow)
         {
 
-            sprite.Rotation = rotation;
+            //sprite.Rotation = rotation;
             sprite.Position = position;
             renderWindow.Draw(sprite);
 
