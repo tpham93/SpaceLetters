@@ -45,7 +45,8 @@ namespace SpaceLetters
 
         public override void draw(GameTime gameTime, RenderWindow renderWindow)
         {
-            //throw new NotImplementedException();
+            sprite.Position = position;
+            renderWindow.Draw(sprite);
         }
     }
 }

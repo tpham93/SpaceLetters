@@ -55,7 +55,6 @@ namespace SpaceLetters
             }
             moveTowardsEntity((Player)target,1);
             position += velocity;
-            Console.WriteLine(breeder_count);
         }
 
     }
