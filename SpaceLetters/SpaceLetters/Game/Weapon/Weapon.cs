@@ -11,10 +11,16 @@ namespace SpaceLetters
     {
         private float coolDown;
 
-        protected Vec2f position;
+        public Vec2f position;
         protected float rotation;
         protected float radius;
         protected Sprite sprite;
+
+        public Vec2f TextureSize
+        {
+            get { return new Vec2f(sprite.Texture.Size.X, sprite.Texture.Size.Y); }
+ 
+        }
 
         protected float runCoolDownTime;
 
@@ -30,6 +36,7 @@ namespace SpaceLetters
         }
 
 
+        
 
         public bool isCoolDownOver()
         {

@@ -44,5 +44,8 @@ namespace SpaceLetters
             foreach (Entity ent in entities)
                 ent.draw(gameTime, window);
         }
+
+
+
     }
 }

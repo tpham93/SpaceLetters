@@ -41,7 +41,7 @@ namespace SpaceLetters
         protected String name;
         protected Sprite sprite;
 
-        public Entity(Vec2f position, float rotation, float radius, float hp, Vec2f velocity, Team team, String name, Sprite sprite)
+        public Entity(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name, Sprite sprite)
         {
             this.position = position;
             this.rotation = rotation;
