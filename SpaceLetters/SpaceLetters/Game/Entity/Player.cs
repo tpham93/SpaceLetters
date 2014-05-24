@@ -20,6 +20,8 @@ namespace SpaceLetters
 
         float animatedCanonsPos = 0;
 
+        int[] letters;
+
         
 
         List<Weapon> weapons = new List<Weapon>();
@@ -27,6 +29,7 @@ namespace SpaceLetters
         public Player(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name)
             :base(position, rotation, hp, float.PositiveInfinity, radius, velocity, team, name,new Sprite(texture))
         {
+            letters = new int[26];
             const uint DEFAULT_WEAPON_NÙMBER = 8;
             Texture cannonTexture = new Texture("Content/InGame/cannon.png");
             for (int i = 0; i < DEFAULT_WEAPON_NÙMBER; ++i)
@@ -46,6 +49,7 @@ namespace SpaceLetters
         }
         public override void update(GameTime gameTime)
         {
+            rotation += (0.025f) * (float)gameTime.ElapsedTime.TotalSeconds * 360.0f; 
             weaponRotation += (0.05f)*(float)gameTime.ElapsedTime.TotalSeconds * 360.0f;
 
             toSpawnEnemies = new List<Entity>();
@@ -101,7 +105,8 @@ namespace SpaceLetters
         public override void draw(GameTime gameTime, SFML.Graphics.RenderWindow renderWindow)
         {
             //sprite.Rotation = rotation;
-            sprite.Position = Position;
+            sprite.Position = position;
+            sprite.Rotation = rotation;
             renderWindow.Draw(sprite);
 
             //set weapon Positionsd
@@ -146,6 +151,13 @@ namespace SpaceLetters
         public void addLetter(String s)
         {
             char letter = s[0];
+            int index = letter - 'a' ;
+            ++letters[index];
+
+            for (int i = 0; i < 26 ; ++i)
+            {
+                Console.Write(letters[i] + " | ");
+            }
         }
     }
 }

@@ -18,6 +18,11 @@ namespace SpaceLetters
         public override EGameStates update(GameTime gameTime)
         {
             world.update(gameTime);
+            if (world.playerDead)
+            {
+                return EGameStates.MainMenu;
+            }
+
             return EGameStates.InGame;
             
         }
