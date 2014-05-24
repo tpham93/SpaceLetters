@@ -17,6 +17,7 @@ namespace SpaceLetters
         private Smaragd target;
         private TimeSpan cooldown, threshold;
         private Player player;
+        private String letter;
         public bool noTarget, loaded;
 
         public Drone(Vec2f position, float rotation, float hp, Vec2f velocity, Player player)
@@ -77,6 +78,7 @@ namespace SpaceLetters
                     if (collide(target))
                     {
                         loaded = true;
+                        letter = target.Name;
                     }
                 }
             }
@@ -85,7 +87,8 @@ namespace SpaceLetters
             {
                 loaded = false;
                 target = null;
-                Console.WriteLine("Fracht abgeliefert");
+                player.addLetter(letter);
+                Console.WriteLine("Fracht abgeiefert");
             }
         }
 

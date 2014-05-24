@@ -40,7 +40,12 @@ namespace SpaceLetters
         protected float radius;
         protected Vec2f velocity;
         private Team team;
-        protected String name;
+        private String name;
+
+        public String Name
+        {
+            get { return name; }
+        }
         protected Sprite sprite;
         protected bool toDelete;
         private float damage;
