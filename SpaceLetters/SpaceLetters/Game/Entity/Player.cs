@@ -74,7 +74,10 @@ namespace SpaceLetters
             if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.S))
                 movement.Y++;
 
-            position += 100 * movement * (float)gameTime.ElapsedTime.TotalSeconds ;
+            acceleration = acceleration * 0.6f  +  movement;
+            velocity = acceleration * 1 + velocity *0.95f ;
+
+            position += 4 *velocity * (float)gameTime.ElapsedTime.TotalSeconds;//100 * movement * (float)gameTime.ElapsedTime.TotalSeconds + 1/2* acceleration * (float)gameTime.ElapsedTime.TotalSeconds * (float)gameTime.ElapsedTime.TotalSeconds;
 
             if(Game.mouseInput.leftPressed())
             {
