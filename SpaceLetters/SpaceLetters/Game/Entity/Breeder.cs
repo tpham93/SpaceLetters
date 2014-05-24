@@ -29,7 +29,7 @@ namespace SpaceLetters
             : base(position, rotation, 10, 20, 3, velocity, Team.Evil, name, new Sprite(texture))
         {
             this.cooldown = TimeSpan.FromSeconds(0);
-            this.threshold = TimeSpan.FromSeconds(1);
+            this.threshold = TimeSpan.FromSeconds(5);
             this.rand = new Random();
             this.target = target;
             breeder_count++;

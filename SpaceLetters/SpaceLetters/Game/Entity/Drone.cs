@@ -11,7 +11,7 @@ namespace SpaceLetters
     class Drone : Entity
     {
         // change texture
-        private static Texture texture = new Texture("Content/InGame/breeder.png");
+        private static Texture texture = new Texture("Content/InGame/drone.png");
         private static Random rand = new Random();
         private float maxspeed;
         private Smaragd target;
