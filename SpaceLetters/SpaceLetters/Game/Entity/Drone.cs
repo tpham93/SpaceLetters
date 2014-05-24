@@ -23,6 +23,7 @@ namespace SpaceLetters
         public Drone(Vec2f position, float rotation, float hp, Vec2f velocity, Player player)
             : base(position, rotation, 1, hp, 2, velocity, Team.Good, "Drone", new Sprite(texture))
         {
+            sprite.Origin = new Vec2f(sprite.Texture.Size.X, sprite.Texture.Size.Y) / 2;
             this.player = player;
             noTarget = true;
             maxspeed = 3;

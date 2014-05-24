@@ -7,6 +7,15 @@ using System.Threading.Tasks;
 
 namespace SpaceLetters
 {
+    enum UpgradeType
+    {
+        AddCannon,
+        IncreaseDamage,
+        DecreaseCooldown,
+        AddDrone,
+        Heal,
+    }
+
     class Player : Entity
     {
         private static Texture texture = new Texture("Content/InGame/player.png");
@@ -17,28 +26,25 @@ namespace SpaceLetters
 
         float weaponRotation = 0;
         List<Entity> toSpawnEnemies;
-
-        float animatedCanonsPos = 0;
         private Vec2f acceleration;
         private Lifebar lifebar;
 
-        int[] letters;
+        int points;
+        int upgradeCosts;
 
-        
-
+        const float cannonBaseDamage = 10;
+        const float cannonBaseCoolDown = 1000;
         List<Weapon> weapons = new List<Weapon>();
 
         public Player(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name)
-            :base(position, rotation, hp, float.PositiveInfinity, radius, velocity, team, name,new Sprite(texture))
+            : base(position, rotation, hp, float.PositiveInfinity, radius, velocity, team, name, new Sprite(texture))
         {
-            const uint DEFAULT_WEAPON_NÙMBER = 20;
-            letters = new int[26];
-            Texture cannonTexture = new Texture("Content/InGame/cannon.png");
-            for (int i = 0; i < DEFAULT_WEAPON_NÙMBER; ++i)
+            const uint DEFAULT_WEAPON_NUMBER = 40;
+            for (int i = 0; i < DEFAULT_WEAPON_NUMBER; ++i)
             {
-                weapons.Add(new Cannon(new Vec2f(position.X, position.Y), 0, 10, new Sprite(cannonTexture),300));
+                weapons.Add(new Cannon(position, 0, 10, cannonBaseCoolDown, cannonBaseDamage));
             }
-            foreach(Weapon w in weapons)
+            foreach (Weapon w in weapons)
             {
                 w.loadContent();
             }
@@ -46,21 +52,21 @@ namespace SpaceLetters
         }
         public override void loadContent()
         {
-            sprite.Origin = new Vec2f(sprite.Texture.Size.X / 2, sprite.Texture.Size.Y/2);
-         
+            sprite.Origin = new Vec2f(sprite.Texture.Size.X / 2, sprite.Texture.Size.Y / 2);
+
             mouseTarget = new Vec2f(0, 0);
 
             lifebar = new Lifebar(this);
         }
         public override void update(GameTime gameTime)
         {
-            rotation += (0.025f) * (float)gameTime.ElapsedTime.TotalSeconds * 360.0f; 
-            weaponRotation += (0.05f)*(float)gameTime.ElapsedTime.TotalSeconds * 360.0f;
+            rotation += (0.025f) * (float)gameTime.ElapsedTime.TotalSeconds * 360.0f;
+            weaponRotation += (0.05f) * (float)gameTime.ElapsedTime.TotalSeconds * 360.0f;
 
             toSpawnEnemies = new List<Entity>();
-            
 
-            foreach(Weapon weapon in weapons)
+
+            foreach (Weapon weapon in weapons)
             {
                 weapon.update(gameTime);
 
@@ -77,12 +83,12 @@ namespace SpaceLetters
             if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.S))
                 movement.Y++;
 
-            acceleration = acceleration * 0.6f  +  movement;
-            velocity = acceleration * 1 + velocity *0.95f ;
+            acceleration = acceleration * 0.6f + movement;
+            velocity = acceleration * 1 + velocity * 0.95f;
 
-            position += 4 *velocity * (float)gameTime.ElapsedTime.TotalSeconds;//100 * movement * (float)gameTime.ElapsedTime.TotalSeconds + 1/2* acceleration * (float)gameTime.ElapsedTime.TotalSeconds * (float)gameTime.ElapsedTime.TotalSeconds;
+            position += 4 * velocity * (float)gameTime.ElapsedTime.TotalSeconds;//100 * movement * (float)gameTime.ElapsedTime.TotalSeconds + 1/2* acceleration * (float)gameTime.ElapsedTime.TotalSeconds * (float)gameTime.ElapsedTime.TotalSeconds;
 
-            if(Game.mouseInput.leftPressed())
+            if (Game.mouseInput.leftPressed())
             {
                 mouseTarget = Game.mouseInput.getMousePos();
                 fireWeapon();
@@ -96,10 +102,10 @@ namespace SpaceLetters
 
             foreach (Weapon weapon in weapons)
             {
-                Entity entity = weapon.fire( mouseTarget,null);
+                Entity entity = weapon.fire(mouseTarget, null);
 
-                if(entity!=null)
-                toSpawnEnemies.Add(entity);
+                if (entity != null)
+                    toSpawnEnemies.Add(entity);
 
             }
 
@@ -123,9 +129,8 @@ namespace SpaceLetters
             weaponsPosition = getWeaponPosition(weapons.Count, radius + weaponRadiusOffset, Position, -weaponRotation);
             for (int weaponID = 0; weaponID < weapons.Count; weaponID++)
             {
-                weapons.ElementAt(weaponID).Sprite.Rotation = weaponRotation -((float)weaponID / weapons.Count * 360.0f);
+                weapons.ElementAt(weaponID).Sprite.Rotation = weaponRotation - ((float)weaponID / weapons.Count * 360.0f);
                 weapons.ElementAt(weaponID).Position = weaponsPosition.ElementAt(weaponID);
-                weapons.ElementAt(weaponID).draw(gameTime, renderWindow);
                 weapons.ElementAt(weaponID).draw(gameTime, renderWindow);
             }
 
@@ -134,7 +139,7 @@ namespace SpaceLetters
 
         public override void initialize()
         {
-           // throw new NotImplementedException();
+            // throw new NotImplementedException();
         }
 
         public override EntityType getEntityType()
@@ -160,12 +165,53 @@ namespace SpaceLetters
         public void addLetter(String s)
         {
             char letter = s[0];
-            int index = letter - 'A' ;
-            ++letters[index];
+            points += letter - 'A';
+            Console.WriteLine(points);
+        }
 
-            for (int i = 0; i < 26 ; ++i)
+        public bool upgrade(UpgradeType upgradeType, List<Entity> entityList)
+        {
+            if (points < upgradeCosts)
             {
-                Console.Write(letters[i] + " | ");
+                return false;
+            }
+            else
+            {
+                points -= upgradeCosts;
+                upgradeCosts = (int)(upgradeCosts * 1.8f);
+                switch (upgradeType)
+                {
+                    case UpgradeType.AddCannon:
+                        Weapon newWeapon = new Cannon(position, 0, 10, cannonBaseCoolDown, cannonBaseDamage);
+                        newWeapon.loadContent();
+                        weapons.Add(newWeapon);
+                        break;
+                    case UpgradeType.IncreaseDamage:
+                        foreach (Weapon w in weapons)
+                        {
+                            w.ProjectileDamageFactor *= 1.5f;
+                        }
+                        break;
+                    case UpgradeType.DecreaseCooldown:
+                        foreach (Weapon w in weapons)
+                        {
+                            w.CoolDownFactor *= 0.8f;
+                        }
+                        break;
+                    case UpgradeType.AddDrone:
+                        Entity newDrone = new Drone(new Vec2f(0, 0), 0, 10, new Vec2f(0, 0), this);
+                        newDrone.loadContent();
+                        entityList.Add(newDrone);
+                        break;
+                    case UpgradeType.Heal:
+                        Hp = 100;
+                        break;
+                    default:
+                        break;
+                }
+
+                return true;
+
             }
         }
     }

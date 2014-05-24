@@ -10,16 +10,28 @@ namespace SpaceLetters
     abstract class Weapon
     {
         protected float coolDown;
-
+        protected float projectileDamage;
         protected Vec2f position;
         protected float rotation;
         protected float radius;
         protected Sprite sprite;
+        protected float coolDownFactor;
+        protected float projectileDamageFactor;
 
         public Vec2f Position
         {
             get { return position; }
             set { position = value; }
+        }
+        public float CoolDownFactor
+        {
+            get { return coolDownFactor; }
+            set { coolDownFactor = value; }
+        }
+        public float ProjectileDamageFactor
+        {
+            get { return projectileDamageFactor; }
+            set { projectileDamageFactor = value; }
         }
         public Vec2f TextureSize
         {
@@ -33,15 +45,17 @@ namespace SpaceLetters
 
         protected float runCoolDownTime;
 
-         public Weapon(Vec2f position, float rotation, float radius, Sprite sprite, float coolDown)
+         public Weapon(Vec2f position, float rotation, float radius, Sprite sprite, float coolDown, float projectileDamage)
         {
             this.position = position;
             this.rotation = rotation;
             this.radius = radius;
             this.sprite = sprite;
             this.coolDown = coolDown;
+            this.projectileDamage = projectileDamage;
             this.runCoolDownTime = 0;
-
+            this.coolDownFactor = 1.0f;
+            this.projectileDamageFactor = 1.0f;
             initialize();
             
         }
