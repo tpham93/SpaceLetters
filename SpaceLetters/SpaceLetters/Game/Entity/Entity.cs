@@ -66,7 +66,8 @@ namespace SpaceLetters
 
         public bool collide(Entity other)
         {
-            if(Math.Pow(other.position.X - position.X,2) + Math.Pow(other.position.Y -position.Y,2) < Math.Pow(radius+ other.radius,2){
+            if(Math.Pow(other.position.X - position.X,2) + Math.Pow(other.position.Y -position.Y,2) < Math.Pow(radius+ other.radius,2))
+            {
                 return true;
             }
             return false;
