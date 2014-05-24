@@ -10,11 +10,17 @@ namespace SpaceLetters
 {
     class Drone : Entity
     {
-        public Drone(Vec2f position, float rotation, float radius, float hp, Vec2f velocity, Team team, String name, Sprite sprite)
-            :base(position, rotation,  radius,  hp,  velocity,  team,  name,  sprite)
+        // change texture
+        private static Texture texture = new Texture("Content/InGame/breeder.png");
+        private float maxspeed;
+        private static Random rand;
+
+        public Drone(Vec2f position, float rotation, float hp, Vec2f velocity)
+            :base(position, rotation,  8,  hp,  velocity,  Team.Good,  "Drone",  new Sprite(texture))
         {
 
             initialize();
+
         }
 
         public override EntityType getEntityType()
@@ -24,7 +30,7 @@ namespace SpaceLetters
 
         public override void initialize()
         {
-            //throw new NotImplementedException();
+            
         }
 
         public override void loadContent()
