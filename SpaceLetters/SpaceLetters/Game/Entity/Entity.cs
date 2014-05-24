@@ -16,6 +16,7 @@ namespace SpaceLetters
         Drone,
         Letter,
         Projectile,
+        EnemyBreeder,
 
         Num
     }
@@ -40,6 +41,11 @@ namespace SpaceLetters
         protected Team team;
         protected String name;
         protected Sprite sprite;
+
+        public Vec2f Position
+        {
+            get { return position; }
+        }
 
         public Entity(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name, Sprite sprite)
         {
