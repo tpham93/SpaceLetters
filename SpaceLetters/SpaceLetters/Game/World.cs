@@ -35,6 +35,14 @@ namespace SpaceLetters
         {
             get { return player.ToDelete; }
         }
+        public String playerName
+        {
+            get { return player.Name; }
+        }
+        public int playerScore
+        {
+            get { return player.Score; }
+        }
 
         public World()
         {

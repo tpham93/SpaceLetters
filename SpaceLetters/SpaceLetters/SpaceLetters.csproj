@@ -69,6 +69,7 @@
     <Compile Include="Game\Entity\Player.cs" />
     <Compile Include="Game\Entity\Projectiles.cs" />
     <Compile Include="Game\Entity\Smaragd.cs" />
+    <Compile Include="Game\Entry.cs" />
     <Compile Include="Game\Game.cs" />
     <Compile Include="Game\GameStates\AGameState.cs" />
     <Compile Include="Game\GameStates\EGameStates.cs" />
