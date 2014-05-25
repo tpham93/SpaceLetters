@@ -27,11 +27,21 @@ namespace SpaceLetters
         uint connectedJoystick = 0u;
         public JoystickInput()
         {
-
-            oldButton = new bool[(int)JoystickButton.BUTTONNUM];
+            Joystick.Update();
+            for (uint i = 0; i < 10; i++)
+            {
+                if (Joystick.GetAxisPosition(i,Joystick.Axis.U)!=0)
+                {
+                    connectedJoystick = i;
+                    break;
+                }
+            }
+                oldButton = new bool[(int)JoystickButton.BUTTONNUM];
             currentButton = new bool[(int)JoystickButton.BUTTONNUM];
 
             leftStick = new Vec2f();
+
+            
             
         }
 
