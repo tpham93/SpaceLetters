@@ -17,6 +17,9 @@ namespace SpaceLetters
         private Sprite sprite_ingame, sprite_ingame_over, sprite_exit, sprite_exit_over, sprite_highscore, sprite_highscore_over, sprite_credits, sprite_credits_over, backgroundSprite, sprite_rocket;
         private bool inGameButton, creditsButton, exitButton, highscore;
 
+        private Texture logoGame = new Texture("Content/gameTitle.png");
+        private Sprite gameSprite;
+
         private List<Entity> entities = new List<Entity>();
 
         private Vec2f playerPos = new Vec2f((float)Game.WINDOWSIZE.X * 0.75f, (float)Game.WINDOWSIZE.Y / 2);
@@ -35,6 +38,8 @@ namespace SpaceLetters
         public override void loadContent()
         {
             backgroundSprite = new Sprite(new Texture("Content/InGame/worldBg.png"), new IntRect(0, 0, (int)Game.WINDOWSIZE.X, (int)Game.WINDOWSIZE.Y));
+
+            gameSprite = new Sprite(logoGame);
 
             button_x = (int)((Game.WINDOWSIZE.X - button_width) / 2 - Game.WINDOWSIZE.X / 3);
             button_y_distance = (int)((Game.WINDOWSIZE.Y - 200) / 5);
@@ -169,13 +174,17 @@ namespace SpaceLetters
             else
                 renderWindow.Draw(sprite_highscore_over);
 
-            nameBar.Position = new Vector2f(550, 50);
+            nameBar.Position = new Vec2f(450, 3 * button_height + 4 * button_y_distance);
             renderWindow.Draw(nameBar);
             Text playerName = new Text("Name: "+Game.playerName, Game.smaraFont);
             playerName.Scale = new Vector2f(0.5f, 0.5f);
-            playerName.Position = new Vector2f(555, 65);
-            nameBar.Position = new Vector2f(550, 50);
+            playerName.Position = new Vec2f(450+10, 3 * button_height + 4 * button_y_distance +15);
+
+            gameSprite.Position = new Vector2f(300,  20);
+            gameSprite.Scale = new Vec2f(0.7f, 0.7f);
+
             renderWindow.Draw(playerName);
+            renderWindow.Draw(gameSprite);
         }
 
         char keyToChar(Keyboard.Key key, bool shift)

@@ -95,6 +95,7 @@
     <Compile Include="Game\GameStates\InGame.cs" />
     <Compile Include="Game\GameStates\MainMenu.cs" />
     <Compile Include="Game\GameStates\Pause.cs" />
+    <Compile Include="Game\GameStates\Credits.cs" />
     <Compile Include="Game\GameStates\ScoreGameState.cs" />
     <Compile Include="Game\Particle.cs" />
     <Compile Include="Game\PSpawner.cs" />

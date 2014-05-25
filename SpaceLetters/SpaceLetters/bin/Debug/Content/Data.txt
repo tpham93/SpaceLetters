@@ -1,10 +1,4 @@
-Player - Horst,457
-,368
-Player - Horst,219
-,130
-Player - Horst,128
-,103
-,92
-,89
-Player - Horst,85
-Tuan,83
+Gerd,96
+Gerd,92
+claudius,82
+claudius,81

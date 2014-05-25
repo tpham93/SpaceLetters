@@ -64,7 +64,7 @@ namespace SpaceLetters
                             break;
                         case EGameStates.Credits:
                             backedUpGameStateObject = null;
-                            //currentGameStateObject = new Credits();
+                            currentGameStateObject = new Credits();
                             currentGameStateObject.initialize();
                             currentGameStateObject.loadContent();
                             break;
@@ -86,7 +86,7 @@ namespace SpaceLetters
         public static Vec2f WINDOWSIZE = new Vec2f(800, 480);
 
         public Game()
-            : base((int)WINDOWSIZE.X, (int)WINDOWSIZE.Y, "Epic Game", Styles.Default)
+            : base((int)WINDOWSIZE.X, (int)WINDOWSIZE.Y, "galaxy survival", Styles.Default)
         {
             playerName = "";
             currentGameState = EGameStates.MainMenu;
