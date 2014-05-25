@@ -28,23 +28,20 @@ namespace SpaceLetters
         {
 
             StreamReader streamReader = new StreamReader("Content/Data.txt");
-            string tmp = streamReader.ReadToEnd();
+            String tmp = streamReader.ReadToEnd();
             streamReader.Close();
             players = new List<string>();
             scores = new List<string>();
-            int start = 0;
-            int end = 0;
-            while(start < tmp.Length-1)
-            {
-                
-                end = tmp.IndexOf(",", start);
-                players.Add(tmp.Substring(start, end-start));
-                start = end+1;
-                end = tmp.IndexOf("\r\n", start);
-                
-                scores.Add(tmp.Substring(start, end-start ));
-                start =end+2;
 
+            string[] separator = { "\r\n", "\n" };
+            String[] entries = tmp.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+            String[] singleEntry = null;
+
+            for(int i = 0; i< entries.Length;++i)
+            {
+                singleEntry = entries[i].Split(',');
+                players.Add(singleEntry[0]);
+                scores.Add(singleEntry[1]);
             }
         }
 
