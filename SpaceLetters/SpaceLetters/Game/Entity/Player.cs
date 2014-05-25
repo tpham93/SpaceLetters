@@ -14,6 +14,7 @@ namespace SpaceLetters
         DecreaseCooldown,
         AddDrone,
         Heal,
+        Bomb
     }
 
     class Player : Entity
@@ -38,9 +39,18 @@ namespace SpaceLetters
         List<Weapon> weapons = new List<Weapon>();
         float projectileDamageFactor = 1.0f;
         float coolDownFactor = 1.0f;
+        float bombDamageFactor = 1.0f;
+
+        TimeSpan bombAddTime = TimeSpan.FromSeconds(20);
+        TimeSpan bombWaitTime = TimeSpan.FromSeconds(0);
 
         int bombNum = 5;
+        int[] upgrades;
 
+        public int[] Upgrades
+        {
+            get { return upgrades; }
+        }
         public int Score
         {
             get { return score; }
@@ -74,6 +84,11 @@ namespace SpaceLetters
                 w.loadContent();
             }
             acceleration = new Vec2f(0, 0);
+            upgrades = new int[6];
+            for(int i = 0; i< 6; ++i)
+            {
+                upgrades[i] = 0;
+            }
         }
         public override void loadContent()
         {
@@ -85,6 +100,16 @@ namespace SpaceLetters
         }
         public override void update(GameTime gameTime)
         {
+            if(bombWaitTime < bombAddTime)
+            {
+                bombWaitTime += gameTime.ElapsedTime;
+            }
+            else
+            {
+                bombWaitTime = TimeSpan.Zero;
+                ++bombNum;
+            }
+
             rotation += (0.025f) * (float)gameTime.ElapsedTime.TotalSeconds * 360.0f;
             weaponRotation += (0.05f) * (float)gameTime.ElapsedTime.TotalSeconds * 360.0f;
 
@@ -94,7 +119,6 @@ namespace SpaceLetters
             foreach (Weapon weapon in weapons)
             {
                 weapon.update(gameTime);
-
             }
 
             Vec2f movement = new Vec2f();
@@ -129,6 +153,7 @@ namespace SpaceLetters
             {
                 bombNum--;
                 Bomb bomb = new Bomb(position, 0, new Vec2f(0, 0), "Bomb", null, 1000);
+                bomb.ProjectileDamageFactor = bombDamageFactor;
                 bomb.loadContent();
                 toSpawnEnemies.Add(bomb);
 
@@ -205,6 +230,7 @@ namespace SpaceLetters
         {
             char letter = s[0];
             points += letter - 'A';
+            score  += letter - 'A';
             Console.WriteLine(points);
         }
 
@@ -218,6 +244,9 @@ namespace SpaceLetters
             {
                 points -= upgradeCosts;
                 upgradeCosts = (int)(upgradeCosts * 1.8f);
+
+                ++upgrades[(int)upgradeType];
+
                 switch (upgradeType)
                 {
                     case UpgradeType.AddCannon:
@@ -248,6 +277,10 @@ namespace SpaceLetters
                         break;
                     case UpgradeType.Heal:
                         Hp = 100;
+                        break;
+                    case UpgradeType.Bomb:
+                        bombDamageFactor *= 1.5f;
+                        bombAddTime = TimeSpan.FromSeconds(bombAddTime.TotalSeconds * 0.8f);
                         break;
                     default:
                         break;

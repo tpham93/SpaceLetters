@@ -15,7 +15,7 @@ namespace SpaceLetters
         private Entity target;
         private float maxSpeed = 2;
         public Kamikaze(Vec2f position, float rotation, Vec2f velocity, String name, Entity target)
-            : base(position, rotation, 10, 5, 1, velocity, SpaceLetters.Team.Evil, name, new Sprite(texture))
+            : base(position, rotation, 10, 5, 6, velocity, SpaceLetters.Team.Evil, name, new Sprite(texture))
         {
             this.target = target;
         }

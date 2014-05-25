@@ -25,15 +25,27 @@ namespace SpaceLetters
         Sprite backgroundSprite;
 
         Sprite[] upgradeButtons;
+        Sprite[] upgradeIcons;
         Sprite buttonBar;
         Sprite pointBar;
+        Sprite upgradeBar;
 
+        Text points;
+        Text upgradeCosts;
 
         private static Music sound = new Music("Content/Sounds/exp.wav");
 
         public bool playerDead
         {
             get { return player.ToDelete; }
+        }
+        public String playerName
+        {
+            get { return player.Name; }
+        }
+        public int playerScore
+        {
+            get { return player.Score; }
         }
 
         public World()
@@ -48,22 +60,38 @@ namespace SpaceLetters
 
         public void loadContent()
         {
-            upgradeButtons = new Sprite[5];
+            upgradeButtons = new Sprite[6];
             upgradeButtons[0] = new Sprite(new Texture("Content/InGame/Buttons/cannon.png"));
             upgradeButtons[1] = new Sprite(new Texture("Content/InGame/Buttons/atk.png"));
             upgradeButtons[2] = new Sprite(new Texture("Content/InGame/Buttons/cooldown.png"));
             upgradeButtons[3] = new Sprite(new Texture("Content/InGame/Buttons/drone.png"));
             upgradeButtons[4] = new Sprite(new Texture("Content/InGame/Buttons/health.png"));
+            upgradeButtons[5] = new Sprite(new Texture("Content/InGame/Buttons/bomb.png"));
             buttonBar = new Sprite(new Texture("Content/InGame/Buttons/buttonBar.png"));
             buttonBar.Position = new Vec2f(0.0f, Game.WINDOWSIZE.Y - buttonBar.Texture.Size.Y);
             pointBar = new Sprite(buttonBar);
-            pointBar.Position = new Vector2f(Game.WINDOWSIZE.X, Game.WINDOWSIZE.Y) - new Vector2f(pointBar.Texture.Size.X,pointBar.Texture.Size.Y);
+            pointBar.Position = new Vector2f(Game.WINDOWSIZE.X, Game.WINDOWSIZE.Y) - new Vector2f(pointBar.Texture.Size.X, pointBar.Texture.Size.Y);
             pointBar.TextureRect = new IntRect((int)buttonBar.Texture.Size.X, 0, -(int)buttonBar.Texture.Size.X, (int)buttonBar.Texture.Size.Y);
             float buttonSize = upgradeButtons[0].Texture.Size.X;
             Vec2f buttonOffset = new Vec2f(10, -17);
-            for (int i = 0; i < 5; ++i)
+            for (int i = 0; i < upgradeButtons.Length; ++i)
             {
                 upgradeButtons[i].Position = new Vec2f(i * buttonSize, Game.WINDOWSIZE.Y - buttonSize) + buttonOffset;
+            }
+
+            upgradeBar = new Sprite(buttonBar);
+            upgradeBar.Position = new Vector2f(-100, 0);
+            upgradeBar.Scale = new Vector2f(10, 0.5f);
+            upgradeIcons = new Sprite[6];
+            for (int i = 0; i < upgradeButtons.Length; ++i)
+            {
+                upgradeIcons[i] = new Sprite(upgradeButtons[i]);
+            }
+            upgradeIcons[upgradeButtons.Length-1] = new Sprite(new Texture("Content/InGame/Buttons/bomb.png"));
+            for (int i = 0; i < upgradeIcons.Length; ++i)
+            {
+                upgradeIcons[i].Position = new Vector2f(i * 100 + 125, 5);
+                upgradeIcons[i].Scale = new Vector2f(0.5f, 0.5f);
             }
 
             backgroundSprite = new Sprite(new Texture("Content/InGame/worldBg.png"), new IntRect(0, 0, (int)Game.WINDOWSIZE.X, (int)Game.WINDOWSIZE.Y));
@@ -74,6 +102,13 @@ namespace SpaceLetters
             entities.Add(new Drone(player.Position, 0, 10, new Vec2f(0, 0), player));
             entities.Add(new Drone(player.Position, 0, 10, new Vec2f(0, 0), player));
 
+
+            points = new Text("Points: " + player.Points, Game.smaraFont);
+            upgradeCosts = new Text("UpgradeCosts: " + player.UpgradeCosts, Game.smaraFont);
+            points.Scale = new Vector2f(0.7f, 0.7f);
+            points.Position = new Vector2f(Game.WINDOWSIZE.X - pointBar.Texture.Size.X + 55, Game.WINDOWSIZE.Y - pointBar.Texture.Size.Y + 10);
+            upgradeCosts.Scale = new Vector2f(0.7f, 0.7f);
+            upgradeCosts.Position = new Vector2f(Game.WINDOWSIZE.X - pointBar.Texture.Size.X + 55, Game.WINDOWSIZE.Y - pointBar.Texture.Size.Y + 30);
 
             foreach (Entity ent in entities)
                 ent.loadContent();
@@ -101,10 +136,14 @@ namespace SpaceLetters
                         bool collides = entities[i].collide(entities[j]);
                         if (collides)
                         {
+                            if(i==0 && entities[j].getEntityType() == EntityType.EnemyBreeder)
+                            {
+
+                            }
                             entities[i].Hp -= entities[j].Damage;
                             entities[j].Hp -= entities[i].Damage;
 
-                            if(entities[i].getEntityType() == EntityType.Player && entities[j].getEntityType() == EntityType.Letter)
+                            if (entities[i].getEntityType() == EntityType.Player && entities[j].getEntityType() == EntityType.Letter)
                             {
                                 Console.WriteLine("Letter collected");
                                 ((Player)entities[i]).addLetter(entities[j].Name);
@@ -202,8 +241,8 @@ namespace SpaceLetters
                     particleSpawner.RemoveAt(i);
             }
 
-            Keyboard.Key[] upgradeKeys = { Keyboard.Key.Num1, Keyboard.Key.Num2, Keyboard.Key.Num3, Keyboard.Key.Num4, Keyboard.Key.Num5 };
-            UpgradeType[] upgradeTypes = { UpgradeType.AddCannon, UpgradeType.IncreaseDamage, UpgradeType.DecreaseCooldown, UpgradeType.AddDrone, UpgradeType.Heal };
+            Keyboard.Key[] upgradeKeys = { Keyboard.Key.Num1, Keyboard.Key.Num2, Keyboard.Key.Num3, Keyboard.Key.Num4, Keyboard.Key.Num5, Keyboard.Key.Num6 };
+            UpgradeType[] upgradeTypes = { UpgradeType.AddCannon, UpgradeType.IncreaseDamage, UpgradeType.DecreaseCooldown, UpgradeType.AddDrone, UpgradeType.Heal, UpgradeType.Bomb };
 
             for (int i = 0; i < upgradeKeys.Length; ++i)
             {
@@ -257,24 +296,35 @@ namespace SpaceLetters
             foreach (PSpawner spawner in particleSpawner)
                 spawner.draw(gameTime, window);
             window.Draw(buttonBar);
-            for(int i = 0; i<upgradeButtons.Length;++i)
+            window.Draw(pointBar);
+            points.DisplayedString = "Points: " + player.Points;
+            upgradeCosts.DisplayedString = "UpgradeCosts: " + player.UpgradeCosts;
+            window.Draw(points);
+            window.Draw(upgradeCosts);
+            window.Draw(upgradeBar);
+            for (int i = 0; i < upgradeIcons.Length; ++i)
             {
-                window.Draw(upgradeButtons[i]);
-                Text t = new Text(""+(i+1),Game.smaraFont);
+                window.Draw(upgradeIcons[i]);
+                Text t = new Text("" + (i + 1), Game.smaraFont);
                 t.Color = Color.White;
-                t.Position = new Vec2f(upgradeButtons[i].Position) + new Vec2f(21.0f, 45.0f);
+                t.Position = new Vec2f(upgradeIcons[i].Position) + new Vec2f(30.0f, 5.0f);
                 t.Scale = new Vec2f(0.5f, 0.5f);
                 window.Draw(t);
             }
-            window.Draw(pointBar);
-            Text points = new Text("Points: " + player.Points, Game.smaraFont);
-            points.Scale = new Vector2f(0.7f, 0.7f);
-            points.Position = new Vector2f(Game.WINDOWSIZE.X - pointBar.Texture.Size.X + 55, Game.WINDOWSIZE.Y - pointBar.Texture.Size.Y + 10);
-            Text upgradeCosts = new Text("UpgradeCosts: " + player.UpgradeCosts, Game.smaraFont);
-            upgradeCosts.Scale = new Vector2f(0.7f, 0.7f);
-            upgradeCosts.Position = new Vector2f(Game.WINDOWSIZE.X - pointBar.Texture.Size.X + 55, Game.WINDOWSIZE.Y - pointBar.Texture.Size.Y + 30);
-            window.Draw(points);
-            window.Draw(upgradeCosts);
+            int[] upgrades = player.Upgrades;
+            for (int i = 0; i < upgradeButtons.Length; ++i)
+            {
+                window.Draw(upgradeButtons[i]);
+                Text t = new Text(""+upgrades[i], Game.smaraFont);
+                t.Color = Color.White;
+                t.Position = new Vec2f(upgradeButtons[i].Position) + new Vec2f(22.0f, 44.0f);
+                t.Scale = new Vec2f(0.5f, 0.5f);
+                window.Draw(t);
+            }
+            Text bombNum = new Text("Bombs: "  + player.BombNum, Game.smaraFont);
+            bombNum.Position = new Vector2f(700,8);
+            bombNum.Scale = new Vector2f(0.5f, 0.5f);
+            window.Draw(bombNum);
         }
 
 
