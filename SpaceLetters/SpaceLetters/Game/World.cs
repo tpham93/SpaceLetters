@@ -87,10 +87,10 @@ namespace SpaceLetters
             {
                 upgradeIcons[i] = new Sprite(upgradeButtons[i]);
             }
-            upgradeIcons[upgradeButtons.Length-1] = new Sprite(new Texture("Content/InGame/Buttons/bomb.png"));
+            upgradeIcons[upgradeButtons.Length - 1] = new Sprite(new Texture("Content/InGame/Buttons/bomb.png"));
             for (int i = 0; i < upgradeIcons.Length; ++i)
             {
-                upgradeIcons[i].Position = new Vector2f(i * 100 + 125, 5);
+                upgradeIcons[i].Position = new Vector2f(i * 100 + 50, 5);
                 upgradeIcons[i].Scale = new Vector2f(0.5f, 0.5f);
             }
 
@@ -136,7 +136,7 @@ namespace SpaceLetters
                         bool collides = entities[i].collide(entities[j]);
                         if (collides)
                         {
-                            if(i==0 && entities[j].getEntityType() == EntityType.EnemyBreeder)
+                            if (i == 0 && entities[j].getEntityType() == EntityType.EnemyBreeder)
                             {
 
                             }
@@ -145,7 +145,6 @@ namespace SpaceLetters
 
                             if (entities[i].getEntityType() == EntityType.Player && entities[j].getEntityType() == EntityType.Letter)
                             {
-                                Console.WriteLine("Letter collected");
                                 ((Player)entities[i]).addLetter(entities[j].Name);
                                 entities[j].canExplode = false;
                             }
@@ -297,15 +296,16 @@ namespace SpaceLetters
                 spawner.draw(gameTime, window);
             window.Draw(buttonBar);
             window.Draw(pointBar);
-            points.DisplayedString = "Points: " + player.Points;
-            upgradeCosts.DisplayedString = "UpgradeCosts: " + player.UpgradeCosts;
+            points.DisplayedString = "points: " + player.Points;
+            upgradeCosts.DisplayedString = "upgradecosts: " + player.UpgradeCosts;
             window.Draw(points);
             window.Draw(upgradeCosts);
             window.Draw(upgradeBar);
+            string[] s = { "A", "B", "X", "Y", "LB", "RB" };
             for (int i = 0; i < upgradeIcons.Length; ++i)
             {
                 window.Draw(upgradeIcons[i]);
-                Text t = new Text("" + (i + 1), Game.smaraFont);
+                Text t = new Text((i + 1)+" | " + s[i], Game.smaraFont);
                 t.Color = Color.White;
                 t.Position = new Vec2f(upgradeIcons[i].Position) + new Vec2f(30.0f, 5.0f);
                 t.Scale = new Vec2f(0.5f, 0.5f);
@@ -315,14 +315,14 @@ namespace SpaceLetters
             for (int i = 0; i < upgradeButtons.Length; ++i)
             {
                 window.Draw(upgradeButtons[i]);
-                Text t = new Text(""+upgrades[i], Game.smaraFont);
+                Text t = new Text("" + upgrades[i], Game.smaraFont);
                 t.Color = Color.White;
                 t.Position = new Vec2f(upgradeButtons[i].Position) + new Vec2f(22.0f, 44.0f);
                 t.Scale = new Vec2f(0.5f, 0.5f);
                 window.Draw(t);
             }
-            Text bombNum = new Text("Bombs: "  + player.BombNum, Game.smaraFont);
-            bombNum.Position = new Vector2f(700,8);
+            Text bombNum = new Text("bombs: " + player.BombNum, Game.smaraFont);
+            bombNum.Position = new Vector2f(700, 8);
             bombNum.Scale = new Vector2f(0.5f, 0.5f);
             window.Draw(bombNum);
         }

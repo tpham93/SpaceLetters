@@ -10,6 +10,8 @@ public class GameTime
     private Stopwatch watch;
     public TimeSpan TotalTime { get; private set; }
     public TimeSpan ElapsedTime { get; private set; }
+    public TimeSpan tmpTotalTime { get; private set; }
+    public TimeSpan tmpElapsedTime { get; private set; }
 
     public GameTime()
     {
@@ -18,9 +20,15 @@ public class GameTime
         ElapsedTime = TimeSpan.FromSeconds(0);
     }
 
+    public void ReStart()
+    {
+        watch.Restart();
+        TotalTime = tmpTotalTime;
+        ElapsedTime = tmpElapsedTime;
+    }
     public void Start()
     {
-        watch.Start();
+        watch.Restart();
         TotalTime = TimeSpan.FromSeconds(0);
         ElapsedTime = TimeSpan.FromSeconds(0);
     }
@@ -28,13 +36,13 @@ public class GameTime
     public void Stop()
     {
         watch.Reset();
-        TotalTime = TimeSpan.FromSeconds(0);
-        ElapsedTime = TimeSpan.FromSeconds(0);
     }
 
     public void Update()
     {
-        ElapsedTime = watch.Elapsed - TotalTime;
-        TotalTime = watch.Elapsed;
+        ElapsedTime = watch.Elapsed;
+        TotalTime += watch.Elapsed;
+        watch.Reset();
+        watch.Restart();
     }
 }

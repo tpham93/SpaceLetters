@@ -59,15 +59,11 @@ namespace SpaceLetters
             sprite_highscore.Position = sprite_highscore_over.Position = toHighscore;
 
             player.loadContent();
-
-
-            //Console.WriteLine("Positionen: " + Game.WINDOWSIZE.X + "+" + button_x + " : " + button_height + "+" + button_y_distance);
         }
 
         public override EGameStates update(GameTime gameTime)
         {
             Vec2f mousepos = Game.mouseInput.getMousePos();
-            //Console.WriteLine(mousepos.X + "    " + mousepos.Y);
 
             inGameButton = false;
             creditsButton = false;
