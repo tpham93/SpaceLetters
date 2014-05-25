@@ -176,7 +176,7 @@ namespace SpaceLetters
 
             nameBar.Position = new Vec2f(450, 3 * button_height + 4 * button_y_distance);
             renderWindow.Draw(nameBar);
-            Text playerName = new Text("Name: "+Game.playerName, Game.smaraFont);
+            Text playerName = new Text("name: "+Game.playerName, Game.smaraFont);
             playerName.Scale = new Vector2f(0.5f, 0.5f);
             playerName.Position = new Vec2f(450+10, 3 * button_height + 4 * button_y_distance +15);
 

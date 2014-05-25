@@ -112,6 +112,7 @@ namespace SpaceLetters
             }
             usedButtons.Add(Keyboard.Key.Escape);
             usedButtons.Add(Keyboard.Key.Back);
+            usedButtons.Add(Keyboard.Key.Space);
 
             keyboardInput = new KeyboardInput(usedButtons);
             mouseInput = new MouseInput(window);
