@@ -20,7 +20,7 @@ namespace SpaceLetters
             world.update(gameTime);
             if (world.playerDead)
             {
-                return EGameStates.MainMenu;
+                return EGameStates.Score;
             }
 
             if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.Escape))
