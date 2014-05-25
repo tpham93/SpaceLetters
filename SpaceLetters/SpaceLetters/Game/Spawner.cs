@@ -8,6 +8,7 @@ namespace SpaceLetters
 {
     class Spawner
     {
+        private TimeSpan startTime;
         private Random rand;
         private Entity player;
         private float spawnVelocity;
@@ -25,16 +26,25 @@ namespace SpaceLetters
             this.player = player;
 
 
+            
+
             p_breeder  = 0.3f;
             p_kamikaze = 0.7f;
         }
         public Entity spawn(GameTime gameTime)
         {
+            if(startTime == null ){
+                startTime = gameTime.TotalTime;
+            }
+
             //if(rand.NextDouble()*0.91f *spawnVelocity *  Math.Max(1,gameTime.TotalTime.Minutes) > 1)
             //if(rand.NextDouble() < 0.003f)
             //if (rand.NextDouble() < 0.0025f + gameTime.TotalTime.Minutes/1000)
-            if (rand.NextDouble() < 0.0025f + (gameTime.TotalTime.TotalSeconds % 60)/1000)
+            //if (rand.NextDouble() < 0.0025f + (gameTime.TotalTime.TotalSeconds % 60)/1000)
+            if((gameTime.TotalTime - startTime).TotalMilliseconds > 666)
             {
+                
+
                 Console.WriteLine("Spawn  :"+gameTime.TotalTime.Minutes);
 
                 Entity e = null;
