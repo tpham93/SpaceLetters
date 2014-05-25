@@ -94,6 +94,7 @@ namespace SpaceLetters
             usedButtons.Add(Keyboard.Key.Num3);
             usedButtons.Add(Keyboard.Key.Num4);
             usedButtons.Add(Keyboard.Key.Num5);
+            usedButtons.Add(Keyboard.Key.Num6);
             usedButtons.Add(Keyboard.Key.Escape);
 
             keyboardInput = new KeyboardInput(usedButtons);

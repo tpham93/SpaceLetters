@@ -15,6 +15,12 @@ namespace SpaceLetters
         float explosionTime;
         float runExplosionTime;
         Random random;
+        float projectileDamageFactor = 1.0f;
+        public float ProjectileDamageFactor
+        {
+            get { return projectileDamageFactor; }
+            set { projectileDamageFactor = value; }
+        }
 
         public Bomb(Vec2f position, float rotation, Vec2f velocity, String name, Entity target, float explosionTime)
             : base(position, rotation, float.PositiveInfinity, 20, 3, velocity, Team.Good, name, new Sprite(texture))
@@ -47,7 +53,7 @@ namespace SpaceLetters
             {
                 for (int i = 0; i < random.Next(15, 35); i++)
                 {
-                    Projectiles p = new Projectiles(position, 0, 1, 15, new Vec2f((float)(random.NextDouble() - 0.5f)*190, (float)(random.NextDouble() - 0.5f)*190), Team.Good, "Projectiles", 1.5f, null, 4000f+random.Next(1000));
+                    Projectiles p = new Projectiles(position, 0, 1, 15, new Vec2f((float)(random.NextDouble() - 0.5f) * 190, (float)(random.NextDouble() - 0.5f) * 190), Team.Good, "Projectiles", 3.0f * projectileDamageFactor, null, 4000f + random.Next(1000));
                     p.loadContent();
                     bombParts.Add(p);
                 }

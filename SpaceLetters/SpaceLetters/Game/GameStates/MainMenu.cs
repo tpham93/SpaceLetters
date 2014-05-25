@@ -77,7 +77,11 @@ namespace SpaceLetters
                 {
                     inGameButton = true;
                     if (Game.mouseInput.leftClicked())
-                         return EGameStates.InGame;
+                    {
+                        gameTime.Stop();
+                        gameTime.Start();
+                        return EGameStates.InGame;
+                    }
                 }
                 else if (button_y_distance * 2 + button_height <= mousepos.Y && mousepos.Y <= button_y_distance * 2 + button_height * 2)
                 {
