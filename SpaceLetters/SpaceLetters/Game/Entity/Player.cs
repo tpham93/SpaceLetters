@@ -30,7 +30,7 @@ namespace SpaceLetters
         private Vec2f acceleration;
         private Lifebar lifebar;
 
-        int points,score;
+        int points, score;
         int upgradeCosts = 10;
 
         const float cannonBaseDamage = 3;
@@ -40,6 +40,23 @@ namespace SpaceLetters
         float coolDownFactor = 1.0f;
 
         int bombNum = 5;
+
+        public int Score
+        {
+            get { return score; }
+        }
+        public int Points
+        {
+            get { return points; }
+        }
+        public int UpgradeCosts
+        {
+            get { return upgradeCosts; }
+        }
+        public int BombNum
+        {
+            get { return bombNum; }
+        }
 
         public Player(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name)
             : base(position, rotation, hp, float.PositiveInfinity, radius, velocity, team, name, new Sprite(texture))

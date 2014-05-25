@@ -118,6 +118,10 @@ namespace SpaceLetters
         public override void draw(GameTime gameTime, SFML.Graphics.RenderWindow window)
         {
             window.Clear(new Color(100, 149, 237));
+            if(backedUpGameStateObject != null)
+            {
+                backedUpGameStateObject.draw(gameTime, window);
+            }
             currentGameStateObject.draw(gameTime, window);
             //throw new NotImplementedException();
         }
