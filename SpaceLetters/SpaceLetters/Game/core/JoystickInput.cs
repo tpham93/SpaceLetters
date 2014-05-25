@@ -24,6 +24,7 @@ namespace SpaceLetters
         bool[] currentButton;
 
 
+        uint connectedJoystick = 0u;
         public JoystickInput()
         {
 
@@ -42,12 +43,11 @@ namespace SpaceLetters
 
 
             for (int i = 0; i < (int)JoystickButton.BUTTONNUM; i++)
-                currentButton[i] = Joystick.IsButtonPressed((uint)1, (uint)i);
+                currentButton[i] = Joystick.IsButtonPressed(connectedJoystick, (uint)i);
 
-
-            rightStick = new Vec2f(Joystick.GetAxisPosition(1,Joystick.Axis.U), -Joystick.GetAxisPosition(1, Joystick.Axis.R));
-            leftStick = new Vec2f(Joystick.GetAxisPosition(1, Joystick.Axis.X), -Joystick.GetAxisPosition(1, Joystick.Axis.Y));
-            LTRT = Joystick.GetAxisPosition(1, Joystick.Axis.Z);
+            rightStick = new Vec2f(Joystick.GetAxisPosition(connectedJoystick, Joystick.Axis.U), -Joystick.GetAxisPosition(connectedJoystick, Joystick.Axis.R));
+            leftStick = new Vec2f(Joystick.GetAxisPosition(connectedJoystick, Joystick.Axis.X), -Joystick.GetAxisPosition(connectedJoystick, Joystick.Axis.Y));
+            LTRT = Joystick.GetAxisPosition(connectedJoystick, Joystick.Axis.Z);
 
         }
         public Vec2f getLeftStick()
@@ -74,7 +74,7 @@ namespace SpaceLetters
         }
         public bool isReleased(JoystickButton button)
         {
-            return oldButton[(int)button] && !Joystick.IsButtonPressed((uint)1, (uint)button);
+            return oldButton[(int)button] && !Joystick.IsButtonPressed(connectedJoystick, (uint)button);
         }
     }
 }

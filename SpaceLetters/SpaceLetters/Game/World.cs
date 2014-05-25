@@ -96,7 +96,7 @@ namespace SpaceLetters
 
             backgroundSprite = new Sprite(new Texture("Content/InGame/worldBg.png"), new IntRect(0, 0, (int)Game.WINDOWSIZE.X, (int)Game.WINDOWSIZE.Y));
             Texture playerTexture = new Texture("Content/InGame/player.png");
-            player = new Player(new Vec2f(Game.WINDOWSIZE.X / 2, Game.WINDOWSIZE.Y / 2), 0, 100, Math.Max(playerTexture.Size.X, playerTexture.Size.X) / 2, new Vec2f(0, 0), Team.Good, "Player - Horst");
+            player = new Player(new Vec2f(Game.WINDOWSIZE.X / 2, Game.WINDOWSIZE.Y / 2), 0, 100, Math.Max(playerTexture.Size.X, playerTexture.Size.X) / 2, new Vec2f(0, 0), Team.Good, Game.playerName);
             spawner = new Spawner(1.1f, player);
             entities.Add(player);
             entities.Add(new Drone(player.Position, 0, 10, new Vec2f(0, 0), player));

@@ -53,8 +53,8 @@ namespace SpaceLetters
                 return EGameStates.Score;
             }
 
-            if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.Escape) || Game.joystickInput.isClicked(JoystickButton.Select))
-                return EGameStates.MainMenu;
+            if (Game.keyboardInput.isClicked(SFML.Window.Keyboard.Key.Escape) || Game.joystickInput.isClicked(JoystickButton.Select))
+                return EGameStates.Pause;
 
             return EGameStates.InGame;
             

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 public class KeyboardInput
 {
     List<Keyboard.Key> usedKeys;
-    
+
 
     bool[] oldKeys;
     bool[] currentKeys;
@@ -34,7 +34,7 @@ public class KeyboardInput
     /// </summary>
     public void update()
     {
-        foreach(Keyboard.Key key in usedKeys)
+        foreach (Keyboard.Key key in usedKeys)
             oldKeys[(int)key] = currentKeys[(int)key];
 
         //update every Key that is needed:
@@ -51,7 +51,7 @@ public class KeyboardInput
     {
         return currentKeys[(int)key] && !oldKeys[(int)key];
     }
-    
+
     /// <summary>
     /// If the given key is pressed right NOW.
     /// </summary>
@@ -70,6 +70,22 @@ public class KeyboardInput
     public bool isReleased(Keyboard.Key key)
     {
         return oldKeys[(int)key] && !Keyboard.IsKeyPressed(key);
+    }
+
+
+    public List<Keyboard.Key> allClickedKeys()
+    {
+        List<Keyboard.Key> res = new List<Keyboard.Key>();
+
+        for (int i = 0; i < usedKeys.Count; ++i)
+        {
+            if (isClicked(usedKeys[i]))
+            {
+                res.Add(usedKeys[i]);
+            }
+        }
+
+        return res;
     }
 }
 

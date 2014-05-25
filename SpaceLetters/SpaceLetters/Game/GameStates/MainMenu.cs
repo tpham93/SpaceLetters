@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using SFML.Graphics;
+using SFML.Window;
 
 namespace SpaceLetters
 {
@@ -22,11 +23,12 @@ namespace SpaceLetters
 
         private Player player;
 
+        private Sprite nameBar;
 
         public override void initialize()
         {
             player = new Player(playerPos, 0, 100, 50, new Vec2f(0, 0), Team.Num, "PLayer");
-            for (int i = 0; i < 5; i++ )
+            for (int i = 0; i < 5; i++)
                 player.upgrade(UpgradeType.AddCannon, null);
         }
 
@@ -34,10 +36,10 @@ namespace SpaceLetters
         {
             backgroundSprite = new Sprite(new Texture("Content/InGame/worldBg.png"), new IntRect(0, 0, (int)Game.WINDOWSIZE.X, (int)Game.WINDOWSIZE.Y));
 
-            button_x = (int)((Game.WINDOWSIZE.X - button_width) / 2 - Game.WINDOWSIZE.X/3);
+            button_x = (int)((Game.WINDOWSIZE.X - button_width) / 2 - Game.WINDOWSIZE.X / 3);
             button_y_distance = (int)((Game.WINDOWSIZE.Y - 200) / 5);
-            
-            toIngame = new Vec2f(button_x,button_y_distance);
+
+            toIngame = new Vec2f(button_x, button_y_distance);
             toCredits = new Vec2f(button_x, button_height + 2 * button_y_distance);
             toHighscore = new Vec2f(button_x, 2 * button_height + 3 * button_y_distance);
             toExit = new Vec2f(button_x, 3 * button_height + 4 * button_y_distance);
@@ -50,13 +52,14 @@ namespace SpaceLetters
             sprite_credits_over = new Sprite(new Texture("Content/main_menu/main_menu_credits_over.png"));
             sprite_highscore = new Sprite(new Texture("Content/main_menu/main_menu_highscore.png"));
             sprite_highscore_over = new Sprite(new Texture("Content/main_menu/main_menu_highscore_over.png"));
+            nameBar = new Sprite(new Texture("Content/main_menu/main_menu_name_bar.png"));
             sprite_ingame.Position = sprite_ingame_over.Position = toIngame;
-            sprite_exit.Position = sprite_exit_over.Position= toExit;
-            sprite_credits.Position = sprite_credits_over.Position= toCredits;
+            sprite_exit.Position = sprite_exit_over.Position = toExit;
+            sprite_credits.Position = sprite_credits_over.Position = toCredits;
             sprite_highscore.Position = sprite_highscore_over.Position = toHighscore;
 
             player.loadContent();
-            
+
 
             //Console.WriteLine("Positionen: " + Game.WINDOWSIZE.X + "+" + button_x + " : " + button_height + "+" + button_y_distance);
         }
@@ -87,7 +90,7 @@ namespace SpaceLetters
                 {
                     creditsButton = true;
                     if (Game.mouseInput.leftClicked() || Game.joystickInput.isClicked(JoystickButton.A))
-                    return EGameStates.Credits;
+                        return EGameStates.Credits;
                 }
                 else if (button_y_distance * 3 + button_height * 2 <= mousepos.Y && mousepos.Y <= button_y_distance * 3 + button_height * 3)
                 {
@@ -99,7 +102,7 @@ namespace SpaceLetters
                 {
                     exitButton = true;
                     if (Game.mouseInput.leftClicked() || Game.joystickInput.isClicked(JoystickButton.A))
-                    return EGameStates.Exit;
+                        return EGameStates.Exit;
                 }
             }
 
@@ -120,10 +123,20 @@ namespace SpaceLetters
             }
 
 
+            List<Keyboard.Key> pressedKeys = Game.keyboardInput.allClickedKeys();
+            if (pressedKeys.Count != 0)
+            {
+                if (pressedKeys[0] != Keyboard.Key.Escape && pressedKeys[0] != Keyboard.Key.Back)
+                    Game.playerName += keyToChar(pressedKeys[0], Game.keyboardInput.isPressed(Keyboard.Key.RShift) || Game.keyboardInput.isPressed(Keyboard.Key.LShift));
+            }
+            if (Game.keyboardInput.isClicked(Keyboard.Key.Back) && Game.playerName.Length > 0)
+            {
+                Game.playerName = Game.playerName.Substring(0, Game.playerName.Length - 1);
+            }
 
 
 
-            if (Game.keyboardInput.isClicked(SFML.Window.Keyboard.Key.Escape))
+            if (Game.keyboardInput.isClicked(Keyboard.Key.Escape))
                 return EGameStates.Exit;
 
             return EGameStates.MainMenu;
@@ -143,15 +156,15 @@ namespace SpaceLetters
             }
 
             player.draw(gameTime, renderWindow);
-            if(inGameButton)
+            if (inGameButton)
                 renderWindow.Draw(sprite_ingame_over);
             else
                 renderWindow.Draw(sprite_ingame);
-            if(creditsButton)
+            if (creditsButton)
                 renderWindow.Draw(sprite_credits_over);
             else
                 renderWindow.Draw(sprite_credits);
-            if(exitButton)
+            if (exitButton)
                 renderWindow.Draw(sprite_exit_over);
             else
                 renderWindow.Draw(sprite_exit);
@@ -160,7 +173,37 @@ namespace SpaceLetters
             else
                 renderWindow.Draw(sprite_highscore_over);
 
+            nameBar.Position = new Vector2f(550, 50);
+            renderWindow.Draw(nameBar);
+            Text playerName = new Text("Name: "+Game.playerName, Game.smaraFont);
+            playerName.Scale = new Vector2f(0.5f, 0.5f);
+            playerName.Position = new Vector2f(555, 65);
+            nameBar.Position = new Vector2f(550, 50);
+            renderWindow.Draw(playerName);
+        }
 
+        char keyToChar(Keyboard.Key key, bool shift)
+        {
+            int keyCode = (int)key;
+            if (keyCode <= (int)Keyboard.Key.Num9 && keyCode >= (int)Keyboard.Key.Num0)
+            {
+                return (char)('0' + (keyCode - (int)Keyboard.Key.Num0));
+            }
+            if (keyCode <= (int)Keyboard.Key.Numpad9 && keyCode >= (int)Keyboard.Key.Numpad0)
+            {
+                return (char)('0' + (keyCode - (int)Keyboard.Key.Numpad0));
+            }
+            if (keyCode <= (int)Keyboard.Key.Z && keyCode >= (int)Keyboard.Key.A)
+            {
+                char c = (char)('a' + (keyCode - (int)Keyboard.Key.A));
+                if (shift)
+                {
+                    c = (char)(c + ('A' - 'a'));
+                }
+                return c;
+            }
+
+            return '\0';
         }
     }
 }

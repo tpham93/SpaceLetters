@@ -21,6 +21,8 @@ public class GameTime
     public void Start()
     {
         watch.Start();
+        TotalTime = TimeSpan.FromSeconds(0);
+        ElapsedTime = TimeSpan.FromSeconds(0);
     }
 
     public void Stop()

@@ -14,6 +14,7 @@ namespace SpaceLetters
         public static KeyboardInput keyboardInput = null;
         public static JoystickInput joystickInput = null;
         public static MouseInput mouseInput = null;
+        public static string playerName = null;
 
         private AGameState currentGameStateObject;
         private AGameState backedUpGameStateObject;
@@ -24,7 +25,7 @@ namespace SpaceLetters
         public static Font smaraFont;
 
         Vec2f mouseMove = new Vec2f();
-
+        
 
         private EGameStates CurrentGameState
         {
@@ -36,7 +37,7 @@ namespace SpaceLetters
                     switch (value)
                     {
                         case EGameStates.MainMenu:
-                            if(currentGameState == EGameStates.Pause)
+                            if (currentGameState == EGameStates.Pause)
                             {
                                 currentGameStateObject = backedUpGameStateObject;
                                 backedUpGameStateObject = null;
@@ -57,7 +58,7 @@ namespace SpaceLetters
                             break;
                         case EGameStates.Pause:
                             backedUpGameStateObject = currentGameStateObject;
-                            //currentGameStateObject = new Pause();
+                            currentGameStateObject = new Pause();
                             currentGameStateObject.initialize();
                             currentGameStateObject.loadContent();
                             break;
@@ -67,7 +68,7 @@ namespace SpaceLetters
                             currentGameStateObject.initialize();
                             currentGameStateObject.loadContent();
                             break;
-                        case EGameStates.Score :
+                        case EGameStates.Score:
                             backedUpGameStateObject = null;
                             currentGameStateObject = new ScoreGameState();
                             currentGameStateObject.initialize();
@@ -84,8 +85,10 @@ namespace SpaceLetters
 
         public static Vec2f WINDOWSIZE = new Vec2f(800, 480);
 
-        public Game(): base((int)WINDOWSIZE.X, (int)WINDOWSIZE.Y, "Epic Game", Styles.Default)
+        public Game()
+            : base((int)WINDOWSIZE.X, (int)WINDOWSIZE.Y, "Epic Game", Styles.Default)
         {
+            playerName = "";
             currentGameState = EGameStates.MainMenu;
             currentGameStateObject = new MainMenu();
             backedUpGameStateObject = null;
@@ -95,22 +98,30 @@ namespace SpaceLetters
             // keyboard & mouse
             List<Keyboard.Key> usedButtons = new List<Keyboard.Key>();
             // add keys
-            usedButtons.Add(Keyboard.Key.Num1);
-            usedButtons.Add(Keyboard.Key.Num2);
-            usedButtons.Add(Keyboard.Key.Num3);
-            usedButtons.Add(Keyboard.Key.Num4);
-            usedButtons.Add(Keyboard.Key.Num5);
-            usedButtons.Add(Keyboard.Key.Num6);
+            for (int i = (int)Keyboard.Key.Num0; i <= (int)Keyboard.Key.Num9; ++i)
+            {
+                usedButtons.Add((Keyboard.Key)i);
+            }
+            for (int i = (int)Keyboard.Key.Numpad0; i <= (int)Keyboard.Key.Numpad9; ++i)
+            {
+                usedButtons.Add((Keyboard.Key)i);
+            }
+            for (int i = (int)Keyboard.Key.A; i <= (int)Keyboard.Key.Z; ++i)
+            {
+                usedButtons.Add((Keyboard.Key)i);
+            }
             usedButtons.Add(Keyboard.Key.Escape);
+            usedButtons.Add(Keyboard.Key.Back);
 
             keyboardInput = new KeyboardInput(usedButtons);
             mouseInput = new MouseInput(window);
             joystickInput = new JoystickInput();
 
-            smaraFont= new Font("Content/Fonts/Days.otf");
+            smaraFont = new Font("Content/Fonts/Days.otf");
             window.SetMouseCursorVisible(false);
 
             cursor = new Sprite(new Texture("Content/Cursor.png"));
+            cursor.Origin = new Vector2f(cursor.Texture.Size.X, cursor.Texture.Size.Y) / 2;
         }
 
 
@@ -123,42 +134,46 @@ namespace SpaceLetters
             joystickInput.update();
 
 
-            
-            //Console.WriteLine(joystickInput.isPressed(JoystickButton.LT));
-
-
-                //Console.WriteLine();
-
-            // updating gamestate
-            CurrentGameState = currentGameStateObject.update(gameTime);
-            //throw new NotImplementedException();
-        }
-
-        public override void draw(GameTime gameTime, SFML.Graphics.RenderWindow window)
-        {
-
             if (joystickInput.getRightStick().X > 20)
-                mouseMove.X = 4* joystickInput.getRightStick().X * (float)gameTime.ElapsedTime.TotalSeconds;
+                mouseMove.X = 4 * joystickInput.getRightStick().X * (float)gameTime.ElapsedTime.TotalSeconds;
             else if (joystickInput.getRightStick().X < -20)
-                mouseMove.X = 4* joystickInput.getRightStick().X * (float)gameTime.ElapsedTime.TotalSeconds;
+                mouseMove.X = 4 * joystickInput.getRightStick().X * (float)gameTime.ElapsedTime.TotalSeconds;
 
             if (joystickInput.getRightStick().Y > 20)
-                mouseMove.Y = 4* -joystickInput.getRightStick().Y * (float)gameTime.ElapsedTime.TotalSeconds;
+                mouseMove.Y = 4 * -joystickInput.getRightStick().Y * (float)gameTime.ElapsedTime.TotalSeconds;
             else if (joystickInput.getRightStick().Y < -20)
-                mouseMove.Y = 4* -joystickInput.getRightStick().Y * (float)gameTime.ElapsedTime.TotalSeconds;
+                mouseMove.Y = 4 * -joystickInput.getRightStick().Y * (float)gameTime.ElapsedTime.TotalSeconds;
 
             Mouse.SetPosition(new Vector2i((int)(Mouse.GetPosition(window).X + mouseMove.X), (int)(Mouse.GetPosition(window).Y + mouseMove.Y)), window);
 
 
             mouseMove = new Vec2f(0, 0);
 
+
+            //Console.WriteLine(joystickInput.isPressed(JoystickButton.LT));
+
+
+            //Console.WriteLine();
+
+            // updating gamestate
+            CurrentGameState = currentGameStateObject.update(gameTime);
+            //throw new NotImplementedException();
+
+        }
+
+        public override void draw(GameTime gameTime, SFML.Graphics.RenderWindow window)
+        {
             window.Clear(new Color(100, 149, 237));
-            if(backedUpGameStateObject != null)
+            if (backedUpGameStateObject != null)
             {
                 backedUpGameStateObject.draw(gameTime, window);
             }
             currentGameStateObject.draw(gameTime, window);
+            cursor.Position = mouseInput.getMousePos();
+            window.Draw(cursor);
             //throw new NotImplementedException();
         }
+
+
     }
 }
