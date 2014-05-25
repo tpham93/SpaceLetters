@@ -1,4 +1,8 @@
-Gerd,96
-Gerd,92
-claudius,82
-claudius,81
+schorsch,64
+schorsch,64
+schorsch,64
+schorsch,32
+schorsch,16
+schorsch,8
+schorsch,4
+schorsch,2
