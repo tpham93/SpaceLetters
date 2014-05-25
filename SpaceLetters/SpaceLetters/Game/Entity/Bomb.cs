@@ -17,7 +17,7 @@ namespace SpaceLetters
         Random random;
 
         public Bomb(Vec2f position, float rotation, Vec2f velocity, String name, Entity target, float explosionTime)
-            : base(position, rotation, 10, 20, 3, velocity, Team.Good, name, new Sprite(texture))
+            : base(position, rotation, float.PositiveInfinity, 20, 3, velocity, Team.Good, name, new Sprite(texture))
         {
             this.explosionTime = explosionTime;
             runExplosionTime = explosionTime;

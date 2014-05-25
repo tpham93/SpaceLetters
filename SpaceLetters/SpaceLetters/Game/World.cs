@@ -26,6 +26,7 @@ namespace SpaceLetters
 
         Sprite[] upgradeButtons;
         Sprite buttonBar;
+        Sprite pointBar;
 
 
         private static Music sound = new Music("Content/Sounds/exp.wav");
@@ -55,6 +56,9 @@ namespace SpaceLetters
             upgradeButtons[4] = new Sprite(new Texture("Content/InGame/Buttons/health.png"));
             buttonBar = new Sprite(new Texture("Content/InGame/Buttons/buttonBar.png"));
             buttonBar.Position = new Vec2f(0.0f, Game.WINDOWSIZE.Y - buttonBar.Texture.Size.Y);
+            pointBar = new Sprite(buttonBar);
+            pointBar.Position = new Vector2f(Game.WINDOWSIZE.X, Game.WINDOWSIZE.Y) - new Vector2f(pointBar.Texture.Size.X,pointBar.Texture.Size.Y);
+            pointBar.TextureRect = new IntRect((int)buttonBar.Texture.Size.X, 0, -(int)buttonBar.Texture.Size.X, (int)buttonBar.Texture.Size.Y);
             float buttonSize = upgradeButtons[0].Texture.Size.X;
             Vec2f buttonOffset = new Vec2f(10, -17);
             for (int i = 0; i < 5; ++i)
@@ -240,8 +244,6 @@ namespace SpaceLetters
                     velocity *= 60;
                     entities.Add(new Smaragd(new Vec2f((float)rand.NextDouble() * Game.WINDOWSIZE.X, Game.WINDOWSIZE.Y + 30), 0, 2, 20, velocity, Team.Neutral, name));
                     break;
-
-
             }
 
         }
@@ -264,6 +266,15 @@ namespace SpaceLetters
                 t.Scale = new Vec2f(0.5f, 0.5f);
                 window.Draw(t);
             }
+            window.Draw(pointBar);
+            Text points = new Text("Points: " + player.Points, Game.smaraFont);
+            points.Scale = new Vector2f(0.7f, 0.7f);
+            points.Position = new Vector2f(Game.WINDOWSIZE.X - pointBar.Texture.Size.X + 55, Game.WINDOWSIZE.Y - pointBar.Texture.Size.Y + 10);
+            Text upgradeCosts = new Text("UpgradeCosts: " + player.UpgradeCosts, Game.smaraFont);
+            upgradeCosts.Scale = new Vector2f(0.7f, 0.7f);
+            upgradeCosts.Position = new Vector2f(Game.WINDOWSIZE.X - pointBar.Texture.Size.X + 55, Game.WINDOWSIZE.Y - pointBar.Texture.Size.Y + 30);
+            window.Draw(points);
+            window.Draw(upgradeCosts);
         }
 
 
