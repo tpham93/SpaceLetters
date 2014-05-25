@@ -25,6 +25,8 @@ namespace SpaceLetters
             this.player = player;
 
 
+            
+
             p_breeder  = 0.3f;
             p_kamikaze = 0.7f;
         }
@@ -33,8 +35,12 @@ namespace SpaceLetters
             //if(rand.NextDouble()*0.91f *spawnVelocity *  Math.Max(1,gameTime.TotalTime.Minutes) > 1)
             //if(rand.NextDouble() < 0.003f)
             //if (rand.NextDouble() < 0.0025f + gameTime.TotalTime.Minutes/1000)
-            if (rand.NextDouble() < 0.0025f + (gameTime.TotalTime.TotalSeconds % 60)/1000)
+            //if (rand.NextDouble() < 0.0025f + (gameTime.TotalTime.TotalSeconds % 60)/1000)
+            //if(  Math.Pow(gameTime.TotalTime.Minutes,2) * gameTime.TotalTime.Seconds + 0.99f< rand.NextDouble() * Math.Max(gameTime.TotalTime.Minutes,1)    )
+            if(Math.Max(15,gameTime.TotalTime.Seconds) /120.0f  + rand.NextDouble() > 1.15f)
             {
+                
+
                 Console.WriteLine("Spawn  :"+gameTime.TotalTime.Minutes);
 
                 Entity e = null;
