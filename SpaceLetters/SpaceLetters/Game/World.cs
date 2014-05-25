@@ -39,6 +39,14 @@ namespace SpaceLetters
         {
             get { return player.ToDelete; }
         }
+        public String playerName
+        {
+            get { return player.Name; }
+        }
+        public int playerScore
+        {
+            get { return player.Score; }
+        }
 
         public World()
         {
@@ -128,6 +136,10 @@ namespace SpaceLetters
                         bool collides = entities[i].collide(entities[j]);
                         if (collides)
                         {
+                            if(i==0 && entities[j].getEntityType() == EntityType.EnemyBreeder)
+                            {
+
+                            }
                             entities[i].Hp -= entities[j].Damage;
                             entities[j].Hp -= entities[i].Damage;
 
