@@ -45,7 +45,12 @@ namespace SpaceLetters
         TimeSpan bombWaitTime = TimeSpan.FromSeconds(0);
 
         int bombNum = 5;
+        int[] upgrades;
 
+        public int[] Upgrades
+        {
+            get { return upgrades; }
+        }
         public int Score
         {
             get { return score; }
@@ -79,6 +84,11 @@ namespace SpaceLetters
                 w.loadContent();
             }
             acceleration = new Vec2f(0, 0);
+            upgrades = new int[6];
+            for(int i = 0; i< 6; ++i)
+            {
+                upgrades[i] = 0;
+            }
         }
         public override void loadContent()
         {
@@ -113,13 +123,13 @@ namespace SpaceLetters
 
             Vec2f movement = new Vec2f();
 
-            if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.D))
+            if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.D)||Game.joystickInput.getLeftStick().X>50)
                 movement.X++;
-            if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.A))
+            if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.A) || Game.joystickInput.getLeftStick().X < -50)
                 movement.X--;
-            if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.W))
+            if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.W) || Game.joystickInput.getLeftStick().Y > 50)
                 movement.Y--;
-            if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.S))
+            if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.S) || Game.joystickInput.getLeftStick().Y < -50)
                 movement.Y++;
 
             acceleration = acceleration * 0.6f + movement;
@@ -127,13 +137,13 @@ namespace SpaceLetters
 
             position += 4 * velocity * (float)gameTime.ElapsedTime.TotalSeconds;//100 * movement * (float)gameTime.ElapsedTime.TotalSeconds + 1/2* acceleration * (float)gameTime.ElapsedTime.TotalSeconds * (float)gameTime.ElapsedTime.TotalSeconds;
 
-            if (Game.mouseInput.leftPressed())
+            if (Game.mouseInput.leftPressed() || Game.joystickInput.isPressed(JoystickButton.LT))
             {
                 mouseTarget = Game.mouseInput.getMousePos();
                 fireWeapon(true);
 
             }
-            else if (Game.mouseInput.rightPressed())
+            else if (Game.mouseInput.rightPressed() || Game.joystickInput.isPressed(JoystickButton.RT))
             {
                 mouseTarget = Game.mouseInput.getMousePos();
                 fireWeapon(false);
@@ -234,6 +244,9 @@ namespace SpaceLetters
             {
                 points -= upgradeCosts;
                 upgradeCosts = (int)(upgradeCosts * 1.8f);
+
+                ++upgrades[(int)upgradeType];
+
                 switch (upgradeType)
                 {
                     case UpgradeType.AddCannon:

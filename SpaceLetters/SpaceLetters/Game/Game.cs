@@ -12,6 +12,7 @@ namespace SpaceLetters
     class Game : AbstractGame
     {
         public static KeyboardInput keyboardInput = null;
+        public static JoystickInput joystickInput = null;
         public static MouseInput mouseInput = null;
 
         private AGameState currentGameStateObject;
@@ -19,6 +20,9 @@ namespace SpaceLetters
         private EGameStates currentGameState;
 
         public static Font smaraFont;
+
+        Vec2f mouseMove = new Vec2f();
+
 
         private EGameStates CurrentGameState
         {
@@ -99,6 +103,7 @@ namespace SpaceLetters
 
             keyboardInput = new KeyboardInput(usedButtons);
             mouseInput = new MouseInput(window);
+            joystickInput = new JoystickInput();
 
             smaraFont= new Font("Content/Fonts/Days.otf");
         }
@@ -110,6 +115,14 @@ namespace SpaceLetters
             // updating mouse and keyboard
             mouseInput.update();
             keyboardInput.update();
+            joystickInput.update();
+
+
+            
+            //Console.WriteLine(joystickInput.isPressed(JoystickButton.LT));
+
+
+                //Console.WriteLine();
 
             // updating gamestate
             CurrentGameState = currentGameStateObject.update(gameTime);
@@ -118,6 +131,22 @@ namespace SpaceLetters
 
         public override void draw(GameTime gameTime, SFML.Graphics.RenderWindow window)
         {
+
+            if (joystickInput.getRightStick().X > 20)
+                mouseMove.X = 4* joystickInput.getRightStick().X * (float)gameTime.ElapsedTime.TotalSeconds;
+            else if (joystickInput.getRightStick().X < -20)
+                mouseMove.X = 4* joystickInput.getRightStick().X * (float)gameTime.ElapsedTime.TotalSeconds;
+
+            if (joystickInput.getRightStick().Y > 20)
+                mouseMove.Y = 4* -joystickInput.getRightStick().Y * (float)gameTime.ElapsedTime.TotalSeconds;
+            else if (joystickInput.getRightStick().Y < -20)
+                mouseMove.Y = 4* -joystickInput.getRightStick().Y * (float)gameTime.ElapsedTime.TotalSeconds;
+
+            Mouse.SetPosition(new Vector2i((int)(Mouse.GetPosition(window).X + mouseMove.X), (int)(Mouse.GetPosition(window).Y + mouseMove.Y)), window);
+
+
+            mouseMove = new Vec2f(0, 0);
+
             window.Clear(new Color(100, 149, 237));
             if(backedUpGameStateObject != null)
             {
