@@ -19,6 +19,8 @@ namespace SpaceLetters
         private AGameState backedUpGameStateObject;
         private EGameStates currentGameState;
 
+        private Sprite cursor;
+
         public static Font smaraFont;
 
         Vec2f mouseMove = new Vec2f();
@@ -106,6 +108,9 @@ namespace SpaceLetters
             joystickInput = new JoystickInput();
 
             smaraFont= new Font("Content/Fonts/Days.otf");
+            window.SetMouseCursorVisible(false);
+
+            cursor = new Sprite(new Texture("Content/Cursor.png"));
         }
 
 
