@@ -279,6 +279,7 @@ namespace SpaceLetters
                     case UpgradeType.Heal:
                         maxHp *= 1.5f;
                         Hp = maxHp;
+                        lifebar.MaxHP = maxHp;
                         break;
                     case UpgradeType.Bomb:
                         bombDamageFactor *= 1.5f;
