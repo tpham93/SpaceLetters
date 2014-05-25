@@ -90,7 +90,7 @@ namespace SpaceLetters
             upgradeIcons[upgradeButtons.Length-1] = new Sprite(new Texture("Content/InGame/Buttons/bomb.png"));
             for (int i = 0; i < upgradeIcons.Length; ++i)
             {
-                upgradeIcons[i].Position = new Vector2f(i * 100 + 125, 7);
+                upgradeIcons[i].Position = new Vector2f(i * 100 + 125, 5);
                 upgradeIcons[i].Scale = new Vector2f(0.5f, 0.5f);
             }
 
@@ -311,16 +311,20 @@ namespace SpaceLetters
                 t.Scale = new Vec2f(0.5f, 0.5f);
                 window.Draw(t);
             }
-
+            int[] upgrades = player.Upgrades;
             for (int i = 0; i < upgradeButtons.Length; ++i)
             {
                 window.Draw(upgradeButtons[i]);
-                Text t = new Text("" + (i + 1), Game.smaraFont);
+                Text t = new Text(""+upgrades[i], Game.smaraFont);
                 t.Color = Color.White;
-                t.Position = new Vec2f(upgradeIcons[i].Position) + new Vec2f(30.0f, 5.0f);
+                t.Position = new Vec2f(upgradeButtons[i].Position) + new Vec2f(22.0f, 44.0f);
                 t.Scale = new Vec2f(0.5f, 0.5f);
                 window.Draw(t);
             }
+            Text bombNum = new Text("Bombs: "  + player.BombNum, Game.smaraFont);
+            bombNum.Position = new Vector2f(700,8);
+            bombNum.Scale = new Vector2f(0.5f, 0.5f);
+            window.Draw(bombNum);
         }
 
 

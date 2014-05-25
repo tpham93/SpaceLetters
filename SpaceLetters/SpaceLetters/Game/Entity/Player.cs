@@ -45,7 +45,12 @@ namespace SpaceLetters
         TimeSpan bombWaitTime = TimeSpan.FromSeconds(0);
 
         int bombNum = 5;
+        int[] upgrades;
 
+        public int[] Upgrades
+        {
+            get { return upgrades; }
+        }
         public int Score
         {
             get { return score; }
@@ -79,6 +84,11 @@ namespace SpaceLetters
                 w.loadContent();
             }
             acceleration = new Vec2f(0, 0);
+            upgrades = new int[6];
+            for(int i = 0; i< 6; ++i)
+            {
+                upgrades[i] = 0;
+            }
         }
         public override void loadContent()
         {
@@ -234,6 +244,9 @@ namespace SpaceLetters
             {
                 points -= upgradeCosts;
                 upgradeCosts = (int)(upgradeCosts * 1.8f);
+
+                ++upgrades[(int)upgradeType];
+
                 switch (upgradeType)
                 {
                     case UpgradeType.AddCannon:
