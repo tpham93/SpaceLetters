@@ -10,19 +10,37 @@ namespace SpaceLetters
 {
     class Projectiles : Entity
     {
-        private static Texture texture = new Texture("Content/InGame/projectiles.png");
+        private static Texture goodTexture = new Texture("Content/InGame/goodProjectiles.png");
+        private static Texture evilTexture = new Texture("Content/InGame/evilProjectiles.png");
 
         private Entity entity;
 
         private float lifeTime;
+
+        public float LifeTime
+        {
+            get { return lifeTime; }
+        }
         private float startLifeTime;
 
         public Projectiles(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name, float damage, Entity entity, float lifeTime)
-            :base(position, rotation, hp, damage, radius, velocity, team, name,new Sprite(texture))
+            : this(position, rotation, hp, radius, velocity, team, name, damage, entity, lifeTime, Color.White)
+        {
+        }
+        public Projectiles(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name, float damage, Entity entity, float lifeTime, Color color)
+            : base(position, rotation, hp, damage, radius, velocity, team, name, null)
         {
             this.entity = entity;
             this.lifeTime = lifeTime;
             this.startLifeTime = lifeTime;
+            if(team == Team.Good)
+            {
+                sprite = new Sprite(goodTexture);
+            }
+            else
+            {
+                sprite = new Sprite(evilTexture);
+            }
         }
 
         public override void loadContent()
