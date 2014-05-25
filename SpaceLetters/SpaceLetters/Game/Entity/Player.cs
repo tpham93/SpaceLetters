@@ -231,7 +231,6 @@ namespace SpaceLetters
             char letter = s[0];
             points += letter - 'A';
             score  += letter - 'A';
-            Console.WriteLine(points);
         }
 
         public bool upgrade(UpgradeType upgradeType, List<Entity> entityList)

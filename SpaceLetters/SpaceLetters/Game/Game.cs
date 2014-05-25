@@ -25,7 +25,7 @@ namespace SpaceLetters
         public static Font smaraFont;
 
         Vec2f mouseMove = new Vec2f();
-        
+
 
         private EGameStates CurrentGameState
         {
@@ -37,6 +37,12 @@ namespace SpaceLetters
                     switch (value)
                     {
                         case EGameStates.MainMenu:
+                            backedUpGameStateObject = null;
+                            currentGameStateObject = new MainMenu();
+                            currentGameStateObject.initialize();
+                            currentGameStateObject.loadContent();
+                            break;
+                        case EGameStates.InGame:
                             if (currentGameState == EGameStates.Pause)
                             {
                                 currentGameStateObject = backedUpGameStateObject;
@@ -45,16 +51,10 @@ namespace SpaceLetters
                             else
                             {
                                 backedUpGameStateObject = null;
-                                currentGameStateObject = new MainMenu();
+                                currentGameStateObject = new InGame();
                                 currentGameStateObject.initialize();
                                 currentGameStateObject.loadContent();
                             }
-                            break;
-                        case EGameStates.InGame:
-                            backedUpGameStateObject = null;
-                            currentGameStateObject = new InGame();
-                            currentGameStateObject.initialize();
-                            currentGameStateObject.loadContent();
                             break;
                         case EGameStates.Pause:
                             backedUpGameStateObject = currentGameStateObject;
@@ -149,11 +149,6 @@ namespace SpaceLetters
 
             mouseMove = new Vec2f(0, 0);
 
-
-            //Console.WriteLine(joystickInput.isPressed(JoystickButton.LT));
-
-
-            //Console.WriteLine();
 
             // updating gamestate
             CurrentGameState = currentGameStateObject.update(gameTime);

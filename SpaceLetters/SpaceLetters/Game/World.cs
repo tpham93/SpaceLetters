@@ -90,7 +90,7 @@ namespace SpaceLetters
             upgradeIcons[upgradeButtons.Length-1] = new Sprite(new Texture("Content/InGame/Buttons/bomb.png"));
             for (int i = 0; i < upgradeIcons.Length; ++i)
             {
-                upgradeIcons[i].Position = new Vector2f(i * 100 + 125, 5);
+                upgradeIcons[i].Position = new Vector2f(i * 100 + 50, 5);
                 upgradeIcons[i].Scale = new Vector2f(0.5f, 0.5f);
             }
 
@@ -145,7 +145,6 @@ namespace SpaceLetters
 
                             if (entities[i].getEntityType() == EntityType.Player && entities[j].getEntityType() == EntityType.Letter)
                             {
-                                Console.WriteLine("Letter collected");
                                 ((Player)entities[i]).addLetter(entities[j].Name);
                                 entities[j].canExplode = false;
                             }
@@ -297,8 +296,8 @@ namespace SpaceLetters
                 spawner.draw(gameTime, window);
             window.Draw(buttonBar);
             window.Draw(pointBar);
-            points.DisplayedString = "Points: " + player.Points;
-            upgradeCosts.DisplayedString = "UpgradeCosts: " + player.UpgradeCosts;
+            points.DisplayedString = "points: " + player.Points;
+            upgradeCosts.DisplayedString = "upgradecosts: " + player.UpgradeCosts;
             window.Draw(points);
             window.Draw(upgradeCosts);
             window.Draw(upgradeBar);
@@ -321,7 +320,7 @@ namespace SpaceLetters
                 t.Scale = new Vec2f(0.5f, 0.5f);
                 window.Draw(t);
             }
-            Text bombNum = new Text("Bombs: "  + player.BombNum, Game.smaraFont);
+            Text bombNum = new Text("bombs: "  + player.BombNum, Game.smaraFont);
             bombNum.Position = new Vector2f(700,8);
             bombNum.Scale = new Vector2f(0.5f, 0.5f);
             window.Draw(bombNum);

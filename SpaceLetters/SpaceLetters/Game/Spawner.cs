@@ -41,7 +41,6 @@ namespace SpaceLetters
             {
                 
 
-                Console.WriteLine("Spawn  :"+gameTime.TotalTime.Minutes);
 
                 Entity e = null;
                 float radius  = Math.Max(Game.WINDOWSIZE.X,Game.WINDOWSIZE.Y)/2 + 30;
