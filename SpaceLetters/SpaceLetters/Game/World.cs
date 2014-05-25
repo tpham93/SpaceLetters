@@ -99,6 +99,13 @@ namespace SpaceLetters
                         {
                             entities[i].Hp -= entities[j].Damage;
                             entities[j].Hp -= entities[i].Damage;
+
+                            if(entities[i].getEntityType() == EntityType.Player && entities[j].getEntityType() == EntityType.Letter)
+                            {
+                                Console.WriteLine("Letter collected");
+                                ((Player)entities[i]).addLetter(entities[j].Name);
+                                entities[j].canExplode = false;
+                            }
                         }
                     }
                 }
