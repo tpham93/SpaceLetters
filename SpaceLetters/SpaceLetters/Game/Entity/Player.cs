@@ -20,7 +20,7 @@ namespace SpaceLetters
     class Player : Entity
     {
         private static Texture texture = new Texture("Content/InGame/player.png");
-        
+
 
         Vec2f mouseTarget;
 
@@ -33,14 +33,14 @@ namespace SpaceLetters
 
         int points = 10, score = 10;
         int upgradeCosts = 3;
-
+        float maxHp;
         const float cannonBaseDamage = 3;
         const float cannonBaseCoolDown = 1000;
         List<Weapon> weapons = new List<Weapon>();
         float projectileDamageFactor = 1.0f;
         float coolDownFactor = 1.0f;
         float bombDamageFactor = 1.0f;
-
+        float baseDroneHP = 10;
         TimeSpan bombAddTime = TimeSpan.FromSeconds(20);
         TimeSpan bombWaitTime = TimeSpan.FromSeconds(0);
 
@@ -71,6 +71,7 @@ namespace SpaceLetters
         public Player(Vec2f position, float rotation, float hp, float radius, Vec2f velocity, Team team, String name)
             : base(position, rotation, hp, float.PositiveInfinity, radius, velocity, team, name, new Sprite(texture))
         {
+            maxHp = hp;
             const uint DEFAULT_WEAPON_NUMBER = 5;
             for (int i = 0; i < DEFAULT_WEAPON_NUMBER; ++i)
             {
@@ -85,7 +86,7 @@ namespace SpaceLetters
             }
             acceleration = new Vec2f(0, 0);
             upgrades = new int[6];
-            for(int i = 0; i< 6; ++i)
+            for (int i = 0; i < 6; ++i)
             {
                 upgrades[i] = 0;
             }
@@ -100,7 +101,7 @@ namespace SpaceLetters
         }
         public override void update(GameTime gameTime)
         {
-            if(bombWaitTime < bombAddTime)
+            if (bombWaitTime < bombAddTime)
             {
                 bombWaitTime += gameTime.ElapsedTime;
             }
@@ -123,7 +124,7 @@ namespace SpaceLetters
 
             Vec2f movement = new Vec2f();
 
-            if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.D)||Game.joystickInput.getLeftStick().X>50)
+            if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.D) || Game.joystickInput.getLeftStick().X > 50)
                 movement.X++;
             if (Game.keyboardInput.isPressed(SFML.Window.Keyboard.Key.A) || Game.joystickInput.getLeftStick().X < -50)
                 movement.X--;
@@ -149,7 +150,7 @@ namespace SpaceLetters
                 fireWeapon(false);
 
             }
-            if (Game.mouseInput.midClicked()&&bombNum>0)
+            if (Game.mouseInput.midClicked() && bombNum > 0)
             {
                 bombNum--;
                 Bomb bomb = new Bomb(position, 0, new Vec2f(0, 0), "Bomb", null, 1000);
@@ -166,7 +167,7 @@ namespace SpaceLetters
 
             foreach (Weapon weapon in weapons)
             {
-                Entity entity = weapon.fire(mouseTarget, null,left,position,weapon);
+                Entity entity = weapon.fire(mouseTarget, null, left, position, weapon);
 
                 if (entity != null)
                     toSpawnEnemies.Add(entity);
@@ -230,7 +231,7 @@ namespace SpaceLetters
         {
             char letter = s[0];
             points += letter - 'A';
-            score  += letter - 'A';
+            score += letter - 'A';
         }
 
         public bool upgrade(UpgradeType upgradeType, List<Entity> entityList)
@@ -270,12 +271,14 @@ namespace SpaceLetters
                         }
                         break;
                     case UpgradeType.AddDrone:
-                        Entity newDrone = new Drone(new Vec2f(0, 0), 0, 10, new Vec2f(0, 0), this);
+                        baseDroneHP *= 2;
+                        Entity newDrone = new Drone(new Vec2f(0, 0), 0, baseDroneHP, new Vec2f(0, 0), this);
                         newDrone.loadContent();
                         entityList.Add(newDrone);
                         break;
                     case UpgradeType.Heal:
-                        Hp = 100;
+                        maxHp *= 1.5f;
+                        Hp = maxHp;
                         break;
                     case UpgradeType.Bomb:
                         bombDamageFactor *= 1.5f;

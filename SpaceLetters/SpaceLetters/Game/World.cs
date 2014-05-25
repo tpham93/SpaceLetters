@@ -185,8 +185,6 @@ namespace SpaceLetters
                                 }
                             }
                             drone.setTarget(smaragd);
-
-
                         }
 
                         break;
@@ -205,7 +203,7 @@ namespace SpaceLetters
 
                 if (entities.ElementAt(i).ToDelete)
                 {
-                    if (entities[i].canExplode)
+                    if (entities[i].canExplode && (entities[i].getEntityType() != EntityType.Projectile || ((Projectiles)entities[i]).LifeTime >= 0))
                     {
                         particleSpawner.Add(new PSpawner(entities[i].Position, 500));
                         sound.Play();
@@ -220,7 +218,7 @@ namespace SpaceLetters
 
             runSpawnTimeSmaragd += (float)gameTime.ElapsedTime.TotalMilliseconds;
 
-            if (runSpawnTimeSmaragd > spawnTimeSmaragd)
+            if (rand.NextDouble() < 0.01f)//runSpawnTimeSmaragd > spawnTimeSmaragd)
             {
                 runSpawnTimeSmaragd = 0;
                 spawnSmaragd();
