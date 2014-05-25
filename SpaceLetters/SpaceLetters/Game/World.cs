@@ -240,13 +240,13 @@ namespace SpaceLetters
                 if (particleSpawner.ElementAt(i).isSpawnerFinish())
                     particleSpawner.RemoveAt(i);
             }
-
+            JoystickButton[] upgradeButton = { JoystickButton.A, JoystickButton.B, JoystickButton.X, JoystickButton.Y, JoystickButton.LB, JoystickButton.RB };
             Keyboard.Key[] upgradeKeys = { Keyboard.Key.Num1, Keyboard.Key.Num2, Keyboard.Key.Num3, Keyboard.Key.Num4, Keyboard.Key.Num5, Keyboard.Key.Num6 };
             UpgradeType[] upgradeTypes = { UpgradeType.AddCannon, UpgradeType.IncreaseDamage, UpgradeType.DecreaseCooldown, UpgradeType.AddDrone, UpgradeType.Heal, UpgradeType.Bomb };
 
             for (int i = 0; i < upgradeKeys.Length; ++i)
             {
-                if (Game.keyboardInput.isClicked(upgradeKeys[i]))
+                if (Game.keyboardInput.isClicked(upgradeKeys[i]) || Game.joystickInput.isClicked(upgradeButton[i]))
                 {
                     player.upgrade(upgradeTypes[i], entities);
                 }

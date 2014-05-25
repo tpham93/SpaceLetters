@@ -43,10 +43,10 @@ namespace SpaceLetters
 
         public override EGameStates update(GameTime gameTime)
         {
-            
 
 
-            if (Game.keyboardInput.isClicked(SFML.Window.Keyboard.Key.Escape))
+
+            if (Game.keyboardInput.isClicked(SFML.Window.Keyboard.Key.Escape) || Game.joystickInput.isClicked(JoystickButton.Select))
                 return EGameStates.MainMenu;
 
             return EGameStates.Score;

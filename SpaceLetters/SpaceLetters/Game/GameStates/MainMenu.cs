@@ -76,7 +76,7 @@ namespace SpaceLetters
                 if (button_y_distance <= mousepos.Y && mousepos.Y <= button_y_distance + button_height)
                 {
                     inGameButton = true;
-                    if (Game.mouseInput.leftClicked())
+                    if (Game.mouseInput.leftClicked() || Game.joystickInput.isClicked(JoystickButton.A))
                     {
                         gameTime.Stop();
                         gameTime.Start();
@@ -86,19 +86,19 @@ namespace SpaceLetters
                 else if (button_y_distance * 2 + button_height <= mousepos.Y && mousepos.Y <= button_y_distance * 2 + button_height * 2)
                 {
                     creditsButton = true;
-                    if (Game.mouseInput.leftClicked())
+                    if (Game.mouseInput.leftClicked() || Game.joystickInput.isClicked(JoystickButton.A))
                     return EGameStates.Credits;
                 }
                 else if (button_y_distance * 3 + button_height * 2 <= mousepos.Y && mousepos.Y <= button_y_distance * 3 + button_height * 3)
                 {
                     highscore = true;
-                    if (Game.mouseInput.leftClicked())
+                    if (Game.mouseInput.leftClicked() || Game.joystickInput.isClicked(JoystickButton.A))
                         return EGameStates.Score;
                 }
                 else if (button_y_distance * 4 + button_height * 3 <= mousepos.Y && mousepos.Y <= button_y_distance * 4 + button_height * 4)
                 {
                     exitButton = true;
-                    if (Game.mouseInput.leftClicked())
+                    if (Game.mouseInput.leftClicked() || Game.joystickInput.isClicked(JoystickButton.A))
                     return EGameStates.Exit;
                 }
             }
