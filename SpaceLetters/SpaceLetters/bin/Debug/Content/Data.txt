@@ -1,10 +1,10 @@
 Player - Horst,65
+Player - Horst,29
+Player - Horst,27
 Player - Horst,16
 Player - Horst,9
+Player - Horst,7
 Player - Horst,5
 Player - Horst,3
 Player - Horst,3
 Player - Horst,2
-Player - Horst,2
-Player - Horst,1
-Player - Horst,1

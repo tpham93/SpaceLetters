@@ -10,7 +10,7 @@ namespace SpaceLetters
     class Enemy : Entity
     {
         public Enemy(Vec2f position, float rotation, float radius, float hp, float damage, Vec2f velocity, Team team, String name, Sprite sprite)
-            :base(position, rotation,  radius,  hp, damage,  velocity,  team,  name,  sprite)
+            : base(position, rotation, hp, damage, radius, velocity, team, name, sprite)
         {
 
             initialize();
