@@ -51,8 +51,8 @@ namespace SpaceLetters
             upgradeButtons[0] = new Sprite(new Texture("Content/InGame/Buttons/cannon.png"));
             upgradeButtons[1] = new Sprite(new Texture("Content/InGame/Buttons/atk.png"));
             upgradeButtons[2] = new Sprite(new Texture("Content/InGame/Buttons/cooldown.png"));
-            upgradeButtons[3] = new Sprite(new Texture("Content/InGame/Buttons/health.png"));
-            upgradeButtons[4] = new Sprite(new Texture("Content/InGame/Buttons/drone.png"));
+            upgradeButtons[3] = new Sprite(new Texture("Content/InGame/Buttons/drone.png"));
+            upgradeButtons[4] = new Sprite(new Texture("Content/InGame/Buttons/health.png"));
             buttonBar = new Sprite(new Texture("Content/InGame/Buttons/buttonBar.png"));
             buttonBar.Position = new Vec2f(0.0f, Game.WINDOWSIZE.Y - buttonBar.Texture.Size.Y);
             float buttonSize = upgradeButtons[0].Texture.Size.X;
@@ -258,7 +258,7 @@ namespace SpaceLetters
             for(int i = 0; i<upgradeButtons.Length;++i)
             {
                 window.Draw(upgradeButtons[i]);
-                Text t = new Text(""+i,Game.smaraFont);
+                Text t = new Text(""+(i+1),Game.smaraFont);
                 t.Color = Color.White;
                 t.Position = new Vec2f(upgradeButtons[i].Position) + new Vec2f(21.0f, 45.0f);
                 t.Scale = new Vec2f(0.5f, 0.5f);
