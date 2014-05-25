@@ -31,8 +31,8 @@ namespace SpaceLetters
         private Vec2f acceleration;
         private Lifebar lifebar;
 
-        int points, score;
-        int upgradeCosts = 10;
+        int points = 10, score = 10;
+        int upgradeCosts = 3;
 
         const float cannonBaseDamage = 3;
         const float cannonBaseCoolDown = 1000;
@@ -242,7 +242,7 @@ namespace SpaceLetters
             else
             {
                 points -= upgradeCosts;
-                upgradeCosts = (int)(upgradeCosts * 1.8f);
+                upgradeCosts = (int)(upgradeCosts * 1.5f);
 
                 ++upgrades[(int)upgradeType];
 

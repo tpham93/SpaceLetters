@@ -24,7 +24,7 @@ namespace SpaceLetters
 
         public override EGameStates update(GameTime gameTime)
         {
-            if(Game.keyboardInput.isClicked(Keyboard.Key.Escape))
+            if(Game.keyboardInput.isClicked(Keyboard.Key.Escape) || Game.joystickInput.isClicked(JoystickButton.Select))
                 return EGameStates.InGame;
 
             return EGameStates.Pause;

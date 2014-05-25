@@ -1,10 +1,10 @@
 Player - Horst,457
+,368
 Player - Horst,219
+,130
 Player - Horst,128
+,103
 ,92
 ,89
 Player - Horst,85
 Tuan,83
-11111111111111111111111111111,77
-Player - Horst,68
-Player - Horst,65
