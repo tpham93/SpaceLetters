@@ -13,7 +13,14 @@ namespace SpaceLetters
         private Entity ent;
         private Vec2f offset;
         private RectangleShape r1,r2;
+        private float maxHP = 100;
 
+        public float MaxHP
+        {
+            get { return maxHP; }
+            set { maxHP = value; }
+        }
+        
         public Lifebar(Entity ent)//:base(new Vec2f(ent.Position.X,ent.Position.Y + 15),0,1,0,0,new Vec2f(0,0),Team.Neutral,sprite)
         {
             this.ent = ent;
@@ -28,7 +35,7 @@ namespace SpaceLetters
 
         public void update(GameTime gameTime)
         {
-            r2.Size = new Vec2f(120 * ent.Hp / 100, 2);
+            r2.Size = new Vec2f(120 * ent.Hp / maxHP, 2);
         }
         public void draw(GameTime gameTime, RenderWindow renderWindow)
         {
