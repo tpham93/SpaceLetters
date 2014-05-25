@@ -48,9 +48,23 @@ namespace SpaceLetters
         {
             sprite.Position = position;
             sprite.Scale = new Vec2f((float)Math.Sqrt(lifeTime / startLifeTime), (float)Math.Sqrt(lifeTime / startLifeTime));
-            sprite.Color = new Color(sprite.Color.R, sprite.Color.G, sprite.Color.B, (byte)((Math.Sqrt(lifeTime / startLifeTime)) * 255));
+            
+            sprite.Color = new Color(sprite.Color.R, sprite.Color.G, sprite.Color.B, (byte)((Math.Sqrt(lifeTime / startLifeTime))* 255));
+
+            sprite.Color = Lerp(new Color(218, 165, 0), new Color(255, 0, 0), ((float)Math.Pow(1-lifeTime / startLifeTime,2)));
+
             window.Draw(sprite);
 
         }
+
+        public static Color Lerp(Color first, Color second, float amount)
+        {
+            var r = (byte)(((second.R - first.R) * amount)+first.R);
+            var g = (byte)(((second.G - first.G) * amount) + first.G);
+            var b = (byte)(((second.B - first.B) * amount) + first.B);
+            var a = (byte)(((second.A - first.A) * amount) + first.A);
+            return new Color(r, g, b, a);
+        }
+
     }
 }

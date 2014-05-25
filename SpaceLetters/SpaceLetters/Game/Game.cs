@@ -136,14 +136,14 @@ namespace SpaceLetters
 
 
             if (joystickInput.getRightStick().X > 20)
-                mouseMove.X = 4 * joystickInput.getRightStick().X * (float)gameTime.ElapsedTime.TotalSeconds;
+                mouseMove.X = 5 * joystickInput.getRightStick().X * (float)gameTime.ElapsedTime.TotalSeconds;
             else if (joystickInput.getRightStick().X < -20)
-                mouseMove.X = 4 * joystickInput.getRightStick().X * (float)gameTime.ElapsedTime.TotalSeconds;
+                mouseMove.X = 5 * joystickInput.getRightStick().X * (float)gameTime.ElapsedTime.TotalSeconds;
 
             if (joystickInput.getRightStick().Y > 20)
-                mouseMove.Y = 4 * -joystickInput.getRightStick().Y * (float)gameTime.ElapsedTime.TotalSeconds;
+                mouseMove.Y = 5 * -joystickInput.getRightStick().Y * (float)gameTime.ElapsedTime.TotalSeconds;
             else if (joystickInput.getRightStick().Y < -20)
-                mouseMove.Y = 4 * -joystickInput.getRightStick().Y * (float)gameTime.ElapsedTime.TotalSeconds;
+                mouseMove.Y = 5 * -joystickInput.getRightStick().Y * (float)gameTime.ElapsedTime.TotalSeconds;
 
             Mouse.SetPosition(new Vector2i((int)(Mouse.GetPosition(window).X + mouseMove.X), (int)(Mouse.GetPosition(window).Y + mouseMove.Y)), window);
 
